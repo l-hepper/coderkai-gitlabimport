@@ -11,21 +11,21 @@ def welcome_page(request):
     })
 
 
-def user_profile(request):
-    return render(request, "./main_app/user_profile.html", {
-        "page_title": "UserProfile"
+def get_started(request):
+    return render(request, "./main_app/getStarted.html", {
+        "page_title": "getStarted"
     })
 
 
-def posts(request):
-    return render(request, "./main_app/posts.html", {
-        "page_title": "Posts"
+def recent_posts(request):
+    return render(request, "./main_app/recentPosts.html", {
+        "page_title": "recentPosts"
     })
 
 
 def about(request):
     return render(request, "./main_app/about.html", {
-        "page_title": "About"
+        "page_title": "about"
     })
 
 

@@ -1,0 +1,73 @@
+/* * {
+    border: 1px dashed black;
+} */
+
+
+html {
+    background-color: #111927;
+}
+
+body {
+    background-color: #111927;
+    margin-left: 12rem;
+    margin-right: 12rem;
+    height: 100rem;
+}
+
+#banner {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+}
+
+#logo {
+    font-size: 3.5rem;
+    color: black;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: right;
+    margin-top: 0.8rem;
+    margin-left: 3rem;
+}
+
+
+#navigation>li {
+    display: inline-block;
+    font-size: 1.3rem;
+    font-family: neue-haas-unica, sans-serif;
+    margin-top: 6.9rem;
+    margin-left: 3.4rem;
+}
+
+#user-options {
+    margin-left: 20rem;
+}
+
+#user-options>li {
+    display: inline-block;
+    font-family: 'Courier New', Courier, monospace;
+    color: goldenrod;
+    font-size: 1.2rem;
+    margin-top: 5.9rem;
+    margin-left: 2.3rem;
+}
+
+a {
+    color: aqua;
+    text-decoration: none;
+}
+
+#logo>a {
+    color: goldenrod;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#page-content {
+    color: white;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    margin-top: 5rem;
+}

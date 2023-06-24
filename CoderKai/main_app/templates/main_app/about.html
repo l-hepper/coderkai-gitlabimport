@@ -1,12 +1,28 @@
 <!DOCTYPE html>
 {% load static %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CoderKai - {{ page_title }}</title>
+    <link rel="stylesheet" href="{% static "main_app/style.css" %}">
 </head>
 <body>
-    <h1>CODERKAI</h1>
+    <div id="banner">
+        <p id="logo"><a href="{% url "welcome-page" %}">CODER:<br />I I I I KAI<a/></p>
+        <div id="navigation">
+            <li><a href="{% url "getStarted" %}">getStarted</a></li>
+            <li><a href="{% url "recentPosts" %}">recentPosts</a></li>
+            <li><a href="{% url "about" %}">about</a></li>
+        </div>
+        <div id="user-options">
+            <li>logIn</li>
+            <li>signUp<li>
+        </div>
+    </div>
+    <div id="page-content">
+        <h2>About coderkai and the mission</h2>
+    </div>
 </body>
 </html>
