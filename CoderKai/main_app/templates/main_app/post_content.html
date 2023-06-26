@@ -7,13 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CoderKai - {{ page_title }}</title>
     <link rel="stylesheet" href="{% static "main_app/style.css" %}">
+    <script src="https://kit.fontawesome.com/c858dcbd43.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="banner">
-        <p id="logo"><a href="{% url "welcome-page" %}">CODER:<br />I I I I KAI<a/></p>
+        <p id="logo"><a href="{% url "welcome_page" %}">CODER:<br />I I I I KAI<a/></p>
         <div id="navigation">
-            <li><a href="{% url "getStarted" %}">getStarted</a></li>
-            <li><a href="{% url "recentPosts" %}">allPosts</a></li>
+            <li><a href="{% url "get_started" %}">getStarted</a></li>
+            <li><a href="{% url "posts" %}">allPosts</a></li>
             <li><a href="{% url "about" %}">about</a></li>
         </div>
         <div id="user-options">
@@ -22,7 +23,7 @@
         </div>
     </div>
     <div id="page-content">
-        <h2>Guidance for using the site</h2>
+        <h2>The individual post content will go here.</h2>
     </div>
 </body>
 </html>
