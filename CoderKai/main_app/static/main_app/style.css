@@ -2,6 +2,10 @@
     border: 1px dashed black;
 } */
 
+#sort-posts {
+    border: 1px dashed gray;
+}
+
 
 html {
     background-color: #111927;
@@ -23,7 +27,7 @@ body {
 #logo {
     font-size: 3.5rem;
     color: black;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-align: right;
     margin-top: 0.8rem;
     margin-left: 3rem;
@@ -51,9 +55,53 @@ body {
     margin-left: 2.3rem;
 }
 
+
+.post-item {
+    list-style: none;
+    text-align: left;
+    margin-right: 10rem;
+    margin-left: 10rem;
+}
+
+.post-title {
+    font-family: neue-haas-unica, sans-serif;
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
+}
+
+.post-preview {
+    font-family: neue-haas-unica, sans-serif;
+    color: white;
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+}
+
+.post-info {
+    display: inline;
+    text-align: right;
+    color: #414967;
+    font-size: 0.8rem;
+}
+
+.post-info>p {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+    display: inline-block;
+}
+
+.post-replies {
+    display: inline-block;
+    margin-left: 0rem;
+    margin-right: 45rem;
+}
+
 a {
     color: aqua;
     text-decoration: none;
+}
+
+.username > a {
+    color: goldenrod !important;
 }
 
 #logo>a {
@@ -65,9 +113,21 @@ a:hover {
     text-decoration: underline;
 }
 
+.post-item-link:hover {
+    text-decoration: none;
+}
+
+.post-item-link>.post-title:hover {
+    text-decoration: underline;
+}
+
 #page-content {
     color: white;
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
     margin-top: 5rem;
+}
+
+hr {
+    opacity: 10%;
 }

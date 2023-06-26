@@ -13,7 +13,7 @@
         <p id="logo"><a href="{% url "welcome-page" %}">CODER:<br />I I I I KAI<a/></p>
         <div id="navigation">
             <li><a href="{% url "getStarted" %}">getStarted</a></li>
-            <li><a href="{% url "recentPosts" %}">recentPosts</a></li>
+            <li><a href="{% url "recentPosts" %}">allPosts</a></li>
             <li><a href="{% url "about" %}">about</a></li>
         </div>
         <div id="user-options">
@@ -22,7 +22,27 @@
         </div>
     </div>
     <div id="page-content">
-        <h2>Most recent posts will go here.</h2>
+        <h2>All Posts</h2>
+        <div id="sort-posts">
+            <h4>TODO: Navigation to sort posts goes here</h4>
+        </div>
+
+        <ul>
+            <li class="post-item">
+                <article>
+                    <a class="post-item-link" href="">
+                        <h3 class="post-title">Post Title</h3>
+                    </a>
+                    <p class="post-preview">The post preview goes here, this will display the first couple of lines of the text of the question body</p>
+                    <div class="post-info">
+                        <p class="post-replies">Replies: 0</p>
+                        <p class="post-author">Posted by: <span class="username"><a href="">SuperCoder77</a> on 26/06/2023 13:27</span></p>
+                    </div>
+                </article>
+            <hr class="post-divider">
+            </li>
+        </ul>
+
     </div>
 </body>
 </html>
