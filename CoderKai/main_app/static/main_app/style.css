@@ -80,7 +80,7 @@ body {
     font-family: neue-haas-unica, sans-serif;
     color: white;
     font-size: 0.9rem;
-    margin-top: 0.3rem;
+    margin-top: 0.5rem;
 }
 
 .post-info {
@@ -99,7 +99,11 @@ body {
 .post-replies {
     display: inline-block;
     margin-left: 0rem;
-    margin-right: 45rem;
+    margin-right: 43rem;
+}
+
+.post-author {
+    float: right;
 }
 
 a {
