@@ -106,8 +106,9 @@ def posts(request):
 
 
 def post_content(request, slug):
+    clicked_post = post_dictionary[slug]
     return render(request, "./main_app/post_content.html", {
-        "page_title": "Post Content",
+        "post_content": clicked_post,
     })
 
 def about(request):
