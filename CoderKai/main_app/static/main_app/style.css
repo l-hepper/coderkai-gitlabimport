@@ -142,3 +142,10 @@ a:hover {
 hr {
     opacity: 10%;
 }
+
+pre code {
+    background-color:#414967;
+    text-align: left;
+    border: 1px solid black;
+    display: inline-block;
+  }

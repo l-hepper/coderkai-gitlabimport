@@ -28,6 +28,16 @@
             Post Time: {{ post_content.post_time }}
         </p>
 
+        <pre>
+            <code>
+                def post_content(request, slug):
+                    clicked_post = post_dictionary[slug]
+                    return render(request, "./main_app/post_content.html", {
+                        "post_content": clicked_post,
+                    })
+            </code>
+        </pre>
+
     </div>
 </body>
 </html>

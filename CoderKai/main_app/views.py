@@ -101,6 +101,7 @@ def get_started(request):
 
 def posts(request):
     return render(request, "./main_app/posts.html", {
+        "page_title": "All Posts",
         "posts" : post_dictionary
     })
 
@@ -108,6 +109,7 @@ def posts(request):
 def post_content(request, slug):
     clicked_post = post_dictionary[slug]
     return render(request, "./main_app/post_content.html", {
+        "page_title": slug,
         "post_content": clicked_post,
     })
 
