@@ -1,25 +1,39 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block css-stylesheet %}
+    <link rel="stylesheet" href={% static "main_app/posts.css" %}>
+{% endblock %}
 
 {% block mainbody %}
     <div id="sort-posts">
         <h4>TODO: Navigation to sort posts goes here</h4>
     </div>
 
-    <ul>
-        {% for key, value in posts.items %}
-            <li class="post-item">
-                <article>
-                    <a class="post-item-link" href="{% url "post_content" key %}">
-                        <h3 class="post-title">{{ value.post_title }}</h3>
-                    </a>
-                    <p class="post-preview">{{ value.post_preview }}</p>
-                    <div id="post-info">
-                        <p class="post-replies">Replies: {{ value.post_replies }}</p>
-                        <p class="post-author">Posted by <span class="username"><a href="">{{ value.post_author }}</a> on {{ value.post_time }}</span></p>
-                    </div>
-                </article>
-                <hr class="post-divider">
-            </li>
-        {% endfor %}
-    </ul>
+    <div id="post-list">
+        <ul>
+            {% for key, value in posts.items %}
+                <li class="post-item">
+                        <article>
+                            <a class="post-item-link" href="{% url "post_content" key %}">
+                                <h3 class="post-title">{{ value.post_title }}</h3>
+                            </a>
+                            <p class="post-preview">{{ value.post_preview }}</p>
+                            <div class="post-info">
+                                <p class="post-replies">Replies: {{ value.post_replies }}</p>
+                                <p>
+                                  <ul class="tag-list">Tags:
+                                    <li class="tag">tag1</li>
+                                    <li class="tag">tag2</li>
+                                    <li class="tag">tag3</li>
+                                  </ul>
+                                </p>
+                                <p class="post-author">Posted by <span class="username"><a href="">{{ value.post_author }}</a> on {{ value.post_time }}</span></p>
+                            </div>
+                        </article>
+                    <hr class="post-divider">
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
