@@ -1,14 +1,76 @@
 {% extends "base.html" %}
+{%load static %}
+
+
+{% block css-stylesheet %}
+    <link rel="stylesheet" href={% static "main_app/welcome_page.css" %}>
+{% endblock %}
+
 
 {% block mainbody %}
-  <div class="px-4 py-5 my-5 text-center">
-    <img class="d-block mx-auto mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+  <div class="px-4 py-5 my-5 text-center welcome-message">
     <h1 class="display-5 fw-bold text-white">Welcome to Coder Kai!</h1>
     <div class="col-lg-6 mx-auto">
       <p class="lead mb-4 text-white">A place for coders to gather, practice, and learn.</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
         <button type="button" class="btn btn-outline-secondary btn-lg px-4">Log In</button>
         <button type="button" class="btn btn-outline-secondary btn-lg px-4">Sign Up</button>
+      </div>
+    </div>
+  </div>
+
+  <h2>Why Choose Coder Kai?</h2>
+  <div class="features">
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row g-0">
+        <div class="col-md-6">
+          <img src={% static "main_app/images/coding.jpg" %} class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-6">
+          <div class="card-body">
+            <h5 class="card-title text-white">Code Review</h5>
+            <p class="card-text text-white">Get feedback on your code from learners just like you. And provide feedback to others to hone your diagnosis skills.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row g-0">
+        <div class="col-md-6">
+          <img src={% static "main_app/images/group-working.jpg" %} class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-6">
+          <div class="card-body">
+            <h5 class="card-title text-white">Join Groups</h5>
+            <p class="card-text text-white">Gather with other coders who share the same learning goals and hone your skills together.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row g-0">
+        <div class="col-md-6">
+          <img src={% static "main_app/images/thumbs-up.jpg" %} class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-6">
+          <div class="card-body">
+            <h5 class="card-title text-white">Positive Community</h5>
+            <p class="card-text text-white">Coder Kai is a motivational and aspirational platform to support you in your coding goals.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-last mb-3" style="max-width: 540px;">
+      <div class="row g-0">
+        <div class="col-md-6">
+          <img src={% static "main_app/images/frustrated.jpg" %} class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-6">
+          <div class="card-body">
+            <h5 class="card-title text-white">Question and Answer</h5>
+            <p class="card-text text-white">Get assistance with your coding challenges from other learners and contribute to the discussion to earn Coder Kai Points!</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

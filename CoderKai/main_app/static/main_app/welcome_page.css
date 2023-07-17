@@ -1,0 +1,54 @@
+.welcome-message {
+    border-radius: 5px;
+    background-color: #22526B;
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 10%;
+}
+
+.navbar {
+    margin-bottom: 8%;
+}
+
+
+.features {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    border: goldenrod solid 1px;
+    border-radius: 5px;
+    margin-top: 1rem;
+    margin-left: 10%;
+    width: 80%;
+    padding: 1rem;
+}
+
+
+.card {
+    border: none;
+    background-color: #003049;
+}
+
+.card img {
+    height: 10rem;
+    width: 16rem;
+}
+
+h2 {
+    margin-top: 10%;
+    text-align: center;
+    color: white;
+}
+
+@media (max-width: 575px) {
+
+    .card {
+        text-align: center;
+        border-bottom: gray solid 1px;
+        border-radius: 0;
+    }
+
+    .card-last {
+        border-bottom: none;
+    }
+}
