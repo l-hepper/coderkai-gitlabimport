@@ -6,12 +6,12 @@ from datetime import datetime
 # Create your views here.
 
 post_dictionary = {
-     "post-01": {
+    "post-01": {
         "post_title": "How do I convert a DataFrame to a dictionary using pandas?",
         "post_preview": "Bro ipsum dolor sit amet bowl brain bucket T-Bar...",
         "post_replies": "5",
         "post_author": "SuperCoder77",
-        "post_time" : datetime.now()
+        "post_time": datetime.now()
     },
     "post-02": {
         "post_title": "CODE REVIEW: Please review my code for improvements and better design.",
@@ -25,7 +25,7 @@ post_dictionary = {
         "post_preview": "Hey guys, I'm looking for recommendations on resources for learning Python...",
         "post_replies": "7",
         "post_author": "DataEnthusiast21",
-        "post_time" : datetime.now()
+        "post_time": datetime.now()
     },
     "post-04": {
         "post_title": "Need help with a SQL query",
@@ -86,7 +86,6 @@ post_dictionary = {
 }
 
 
-
 def welcome_page(request):
     return render(request, "./main_app/welcome_page.html", {
         "page_title": "Welcome!"
@@ -102,7 +101,7 @@ def get_started(request):
 def posts(request):
     return render(request, "./main_app/posts.html", {
         "page_title": "All Posts",
-        "posts" : post_dictionary
+        "posts": post_dictionary
     })
 
 
@@ -110,8 +109,9 @@ def post_content(request, slug):
     clicked_post = post_dictionary[slug]
     return render(request, "./main_app/post_content.html", {
         "page_title": slug,
-        "post_content": clicked_post,
+        "post_content": clicked_post
     })
+
 
 def about(request):
     return render(request, "./main_app/about.html", {
@@ -121,3 +121,5 @@ def about(request):
 
 def raise_404_error(request, attemptedURL):
     raise Http404(f"This page does not exist on CoderKai")
+
+

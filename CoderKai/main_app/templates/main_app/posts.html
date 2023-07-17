@@ -1,49 +1,25 @@
-<!DOCTYPE html>
-{% load static %}
+{% extends "base.html" %}
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoderKai - {{ page_title }}</title>
-    <link rel="stylesheet" href="{% static "main_app/style.css" %}">
-</head>
-<body>
-    <div id="banner">
-        <p id="logo"><a href="{% url "welcome_page" %}">CODER:<br />I I I I KAI<a/></p>
-        <div id="navigation">
-            <li><a href="{% url "get_started" %}">getStarted</a></li>
-            <li><a href="{% url "posts" %}">allPosts</a></li>
-            <li><a href="{% url "about" %}">about</a></li>
-        </div>
-        <div id="user-options">
-            <li>logIn</li>
-            <li>signUp<li>
-        </div>
+{% block mainbody %}
+    <div id="sort-posts">
+        <h4>TODO: Navigation to sort posts goes here</h4>
     </div>
-    <div id="page-content">
-        <h2>All Posts</h2>
-        <div id="sort-posts">
-            <h4>TODO: Navigation to sort posts goes here</h4>
-        </div>
 
-        <ul>
-            {% for key, value in posts.items %}
-                <li class="post-item">
-                    <article>
-                        <a class="post-item-link" href="{% url "post_content" key %}">
-                            <h3 class="post-title">{{ value.post_title }}</h3>
-                        </a>
-                        <p class="post-preview">{{ value.post_preview }}</p>
-                        <div class="post-info">
-                            <p class="post-replies">Replies: {{ value.post_replies }}</p>
-                            <p class="post-author">Posted by <span class="username"><a href="">{{ value.post_author }}</a> on {{ value.post_time }}</span></p>
-                        </div>
-                    </article>
-                    <hr class="post-divider">
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-</body>
-</html>
+    <ul>
+        {% for key, value in posts.items %}
+            <li class="post-item">
+                <article>
+                    <a class="post-item-link" href="{% url "post_content" key %}">
+                        <h3 class="post-title">{{ value.post_title }}</h3>
+                    </a>
+                    <p class="post-preview">{{ value.post_preview }}</p>
+                    <div id="post-info">
+                        <p class="post-replies">Replies: {{ value.post_replies }}</p>
+                        <p class="post-author">Posted by <span class="username"><a href="">{{ value.post_author }}</a> on {{ value.post_time }}</span></p>
+                    </div>
+                </article>
+                <hr class="post-divider">
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

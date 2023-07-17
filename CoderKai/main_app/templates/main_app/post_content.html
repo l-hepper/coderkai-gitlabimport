@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CoderKai - {{ page_title }}</title>
-    <link rel="stylesheet" href="{% static "main_app/style.css" %}">
+    <link rel="stylesheet" href="{% static "main_app/post_content.css" %}">
     <script src="https://kit.fontawesome.com/c858dcbd43.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -18,26 +18,37 @@
             <li><a href="{% url "about" %}">about</a></li>
         </div>
         <div id="user-options">
-            <li>logIn</li>
-            <li>signUp<li>
+            <li><a href="" id="login-button">logIn</a></li>
+            <li><a href="" id="signup-button">signUp</a></li>
         </div>
     </div>
     <div id="page-content">
-        <h2>Post Title: {{ post_content.post_title }}</h2>
-        <p>Post Author: {{ post_content.post_author }}<br/>
-            Post Time: {{ post_content.post_time }}
-        </p>
+        <h2 id="post-title">{{ post_content.post_title }}</h2>
+        <hr />
+        <div id="post-body">
+            <div id="post-info">
+                <p class="post-author">Posted by <span class="username"><a href="">{{ post_content.post_author }}</a> on {{ post_content.post_time }}</span></p>
+            </div>
+            <p>
+                Right now, when I use polars to read a pandas dataframe, I lose the name of the field. 
+                Is there a way to not lose the field name?
 
-        <pre>
-            <code>
-                def post_content(request, slug):
-                    clicked_post = post_dictionary[slug]
-                    return render(request, "./main_app/post_content.html", {
-                        "post_content": clicked_post,
-                    })
-            </code>
-        </pre>
+                I tried first reading the pandas df in the following way:
+            </p>
+        </div>
 
+            {% comment %} <pre>
+                <code>
+                    def post_content(request, slug):
+                        clicked_post = post_dictionary[slug]
+                        return render(request, "./main_app/post_content.html", {
+                            "post_content": clicked_post,
+                        })
+                </code>
+            </pre> {% endcomment %}
+        
+
+        
     </div>
 </body>
 </html>
