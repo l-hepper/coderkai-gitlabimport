@@ -13,7 +13,7 @@
   <div class="container text-center text-white">
     <div class="row">
       <div class="col-lg-5">
-        <div class="col-lg-12">
+        <div class="col-lg-12 user-card">
             <img class="profile-picture rounded-circle" width="220" height="200" src={% static "main_app/images/cat.jpg" %}>
         </div>
         <div class="col-lg-12">
@@ -23,41 +23,108 @@
         </div>
       </div>
       <div class="col-lg-6 profile-info-box">
+        <div class="row">
+            <div class="col">
+                <h3 id="profile-header">Profile</h3>
+            </div>
+        </div>
         <div class="row profile-row">
-            <div class="col-3 profile-item bg">
+            <div class="col-4 profile-item bg">
                 <span class="profile-info-label">Location:</span>
             </div>
-            <div class="col-9 profile-info-answer">
+            <div class="col-8 profile-info-answer">
                 <span>United Kingdom</span>
             </div>
         </div>
         <div class="row profile-row">
-            <div class="col-3 profile-item">
+            <div class="col-4 profile-item">
                 <span class="profile-info-label">Motivations:</span>
             </div>
-            <div class="col-9 profile-info-answer">
+            <div class="col-8 profile-info-answer">
                 <span>Entrepreneurship, Personal Projects</span>
             </div>
         </div>
         <div class="row profile-row">
-            <div class="col-3 profile-item">
+            <div class="col-4 profile-item">
                 <span class="profile-info-label">Interests:</span>
             </div>
-            <div class="col-9 profile-info-answer">
+            <div class="col-8 profile-info-answer">
                 <span>Python, SQL, Django, Web Apps</span>
             </div>
         </div>
         <div class="row profile-row">
-            <div class="col-3 profile-item">
+            <div class="col-4 profile-item">
                 <span class="profile-info-label">Affiliations:</span>
             </div>
-            <div class="col-9 profile-info-answer">
+            <div class="col-8 profile-info-answer">
                 <span>None</span>
             </div>
         </div>
       </div>
       <div class="col-lg-1">
       </div>
+    </div>
+
+
+    <div class="container profile-stats">
+        <div class="row">
+            <div class="col">
+                <h3 id="stats-header">Stats</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="row stat-row">
+                    <div class="col stat-info-item">
+                        Date Joined:
+                    </div>
+                    <div class="col">
+                        1 March 2023, 17:12
+                    </div>
+                </div>
+                <div class="row stat-row">
+                    <div class="col stat-info-item">
+                        Last Login:
+                    </div>
+                    <div class="col">
+                        23 July 2023, 10:14
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row stat-row">
+                    <div class="col stat-info-item">
+                        Questions Asked:
+                    </div>
+                    <div class="col">
+                        14
+                    </div>
+                </div>
+                <div class="row stat-row">
+                    <div class="col stat-info-item">
+                        Answers Posted:
+                    </div>
+                    <div class="col">
+                        127
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+    <div class="container highest-scoring-posts">
+        <div class="row">
+            <div class="col">
+                <h3 id="highest-scoring-posts-header">Highest Scoring Answers</h3>
+            </div>
+        </div>
+
+
     </div>
   </div>
 {% endblock %}

@@ -15,24 +15,58 @@
     display: flex;
 }
 
+#profile-header {
+    color: goldenrod;
+    background-color: #0D304A;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+}
+
 .profile-item {
     text-align: left;
-    margin-top: 1.2rem;
-    margin-bottom: 1.2rem;
 }
 
 .profile-info-label {
     color: goldenrod;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     text-align: left;
 
 }
 
 .profile-info-answer {
-    font-size: 1.5rem;
-    margin-top: 1.2rem;
-    margin-bottom: 1.2rem;
+    font-size: 1.4rem;
     text-align: left;
+}
+
+.profile-info-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#stats-header {
+    color: goldenrod;
+    background-color: #0D304A;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+}
+
+.stat-info-item {
+    color: goldenrod;
+    text-align: left;
+}
+
+.stat-row {
+    font-size: 1.4rem;
+    padding-top: .5rem;
+    padding-bottom: 0.5rem;
+}
+
+#highest-scoring-posts-header {
+    color: goldenrod;
+    background-color: #0D304A;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
 }
 
 @media (max-width: 575px) {
@@ -46,6 +80,11 @@
         width: 100%;
     }
 
+    .profile-item {
+        padding-top: 0.7rem;
+        padding-bottom: 0.7rem;
+    }
+
     .profile-info-label {
         color: goldenrod;
         font-size: 1rem;
@@ -56,7 +95,25 @@
     }
 
     .profile-info-answer {
+        padding-top: 0.7rem;
+        padding-bottom: 0.7rem;
         text-align: center;
         font-size: 1rem;
+    }
+
+    .profile-stats * {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .stat-row {
+        display: inline-flex;
+        flex-direction: row;
+        font-size: 1rem;
+    }
+
+    .stat-info-item {
+        color: goldenrod;
+        text-align: left;
     }
 }

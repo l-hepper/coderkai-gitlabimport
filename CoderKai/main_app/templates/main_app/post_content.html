@@ -1,54 +1,93 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 {% load static %}
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoderKai - {{ page_title }}</title>
-    <link rel="stylesheet" href="{% static "main_app/post_content.css" %}">
-    <script src="https://kit.fontawesome.com/c858dcbd43.js" crossorigin="anonymous"></script>
-</head>
-<body>
-    <div id="banner">
-        <p id="logo"><a href="{% url "welcome_page" %}">CODER:<br />I I I I KAI<a/></p>
-        <div id="navigation">
-            <li><a href="{% url "get_started" %}">getStarted</a></li>
-            <li><a href="{% url "posts" %}">allPosts</a></li>
-            <li><a href="{% url "about" %}">about</a></li>
-        </div>
-        <div id="user-options">
-            <li><a href="" id="login-button">logIn</a></li>
-            <li><a href="" id="signup-button">signUp</a></li>
-        </div>
-    </div>
-    <div id="page-content">
-        <h2 id="post-title">{{ post_content.post_title }}</h2>
-        <hr />
-        <div id="post-body">
-            <div id="post-info">
-                <p class="post-author">Posted by <span class="username"><a href="">{{ post_content.post_author }}</a> on {{ post_content.post_time }}</span></p>
+{% block page-title %}
+  Coder Kai - {{ post_content.post_title }}
+{% endblock %}
+
+{% block css-stylesheet %}
+    <link rel="stylesheet" href={% static "main_app/post_content.css" %}>
+{% endblock %}
+
+
+{% block mainbody %}
+    <div class="container op-post">
+        <div class="row">
+            <div class="col">
+                <h2 id="post-title">{{ post_content.post_title }}</h2>
+                <hr />
             </div>
-            <p>
-                Right now, when I use polars to read a pandas dataframe, I lose the name of the field. 
-                Is there a way to not lose the field name?
-
-                I tried first reading the pandas df in the following way:
-            </p>
         </div>
+        <div class="row">
+            <div class="col-2 op-info">
+                <div class="row">
+                    <div class="col profile-pic">
+                        <img class="profile-picture rounded-circle" width="160" height="145" src={% static "main_app/images/cat.jpg" %}>
+                        <div class="row">
+                            <div class="col profile-info">
+                                <p id="username">CatCoder5000</p>
+                                <p>Rank:<span id="rank"> Code Master</span></p>
+                                <p id="coder-kai-points">Coder Kai Points: 7723</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8 post-body">
+                <p>
+Right now, when I use polars to read a pandas dataframe, I lose the name of the field. 
+Is there a way to not lose the field name?
 
-            {% comment %} <pre>
-                <code>
-                    def post_content(request, slug):
-                        clicked_post = post_dictionary[slug]
-                        return render(request, "./main_app/post_content.html", {
-                            "post_content": clicked_post,
-                        })
-                </code>
-            </pre> {% endcomment %}
-        
+<pre>
+import os
+import sys
 
-        
+
+def main():
+    """Run administrative tasks."""
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'CoderKai.settings')
+    try:
+        from django.core.management import execute_from_command_line
+    except ImportError as exc:
+        raise ImportError(
+            "Couldn't import Django. Are you sure it's installed and "
+            "available on your PYTHONPATH environment variable? Did you "
+            "forget to activate a virtual environment?"
+        ) from exc
+    execute_from_command_line(sys.argv)
+
+
+if __name__ == '__main__':
+    main()
+</pre>
+
+I tried first reading the pandas df in the following way:
+"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis 
+praesentium 
+voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi 
+sint occaecati 
+cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia 
+animi, id 
+est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita 
+distinctio. Nam 
+libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod 
+maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. 
+Temporibus 
+autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et 
+voluptates 
+repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente 
+delectus, 
+t aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus 
+asperiores r
+epellat."
+                </p>
+            </div>
+            <div class="post-options">
+                <button type="button" class="btn btn-outline-secondary btn-lg px-4" onclick="location.href='{% url "log_in" %}'">Answer Post</button>
+                <button type="button" class="btn btn-outline-secondary btn-lg px-4" onclick="location.href='{% url "log_in" %}'">Track Post</button>
+            </div>
+            <div class="col-2">
+            </div>
+        </div>
     </div>
-</body>
-</html>
+{% endblock%}
