@@ -119,6 +119,18 @@ def about(request):
     })
 
 
+def profile(request):
+    return render(request, "./main_app/profile.html", {
+        
+    })
+
+
+def log_in(request):
+    return render(request, "./main_app/log_in.html", {
+        "page_title": "Log-in"
+    })
+
+
 def raise_404_error(request, attemptedURL):
     raise Http404(f"This page does not exist on CoderKai")
 

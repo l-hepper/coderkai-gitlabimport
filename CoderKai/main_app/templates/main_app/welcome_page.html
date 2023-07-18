@@ -1,6 +1,9 @@
 {% extends "base.html" %}
-{%load static %}
+{% load static %}
 
+{% block page-title%}
+  Coder Kai - Welcome!
+{% endblock %}
 
 {% block css-stylesheet %}
     <link rel="stylesheet" href={% static "main_app/welcome_page.css" %}>
@@ -13,7 +16,7 @@
     <div class="col-lg-6 mx-auto">
       <p class="lead mb-4 text-white">A place for coders to gather, practice, and learn.</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <button type="button" class="btn btn-outline-secondary btn-lg px-4">Log In</button>
+        <button type="button" class="btn btn-outline-secondary btn-lg px-4" onclick="location.href='{% url "log_in" %}'">Log In</button>
         <button type="button" class="btn btn-outline-secondary btn-lg px-4">Sign Up</button>
       </div>
     </div>

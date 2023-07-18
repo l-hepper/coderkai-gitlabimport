@@ -1,0 +1,62 @@
+.container {
+    padding-top: 8%;
+}
+
+.profile-picture {
+    border: #11415A solid 5px;
+}
+
+#username {
+    color: goldenrod;
+    padding-top: 3%;
+}
+
+.row {
+    display: flex;
+}
+
+.profile-item {
+    text-align: left;
+    margin-top: 1.2rem;
+    margin-bottom: 1.2rem;
+}
+
+.profile-info-label {
+    color: goldenrod;
+    font-size: 1.5rem;
+    text-align: left;
+
+}
+
+.profile-info-answer {
+    font-size: 1.5rem;
+    margin-top: 1.2rem;
+    margin-bottom: 1.2rem;
+    text-align: left;
+}
+
+@media (max-width: 575px) {
+
+    .container {
+        padding-top: 15%;
+    }
+
+    .profile-info-box {
+        margin-top: 10%;
+        width: 100%;
+    }
+
+    .profile-info-label {
+        color: goldenrod;
+        font-size: 1rem;
+    }
+
+    .profile-info-label {
+        text-align: left;
+    }
+
+    .profile-info-answer {
+        text-align: center;
+        font-size: 1rem;
+    }
+}

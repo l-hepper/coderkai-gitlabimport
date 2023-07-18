@@ -27,7 +27,7 @@ a {
 }
 
 .post-item {
-    background-color: #11415A;
+    background-color: #0D304A;
     border-radius: 3px;
     color: white;
     list-style: none;
@@ -127,7 +127,7 @@ a {
         justify-content: space-between;
         font-size: 0.7rem;
         color: #44748D;
-        margin-left: 0.1rem;    
+        margin-left: 0.3rem;    
         max-height: 1.2rem;
     }
 
