@@ -1,3 +1,8 @@
+a {
+    text-decoration: none;
+    color: #7797BF;
+}
+
 #sort-posts {
     border: dashed white 1px;
     width: 80%;
@@ -22,42 +27,72 @@
 }
 
 .post-item {
+    background-color: #11415A;
+    border-radius: 3px;
     color: white;
     list-style: none;
-    margin-top: 0.3rem;
+    margin-bottom: 0.6rem;
+    padding: 0.2rem;
+    padding-bottom: 0;
+}
+
+.post-item:hover {
+    background-color: #23536B;
 }
 
 .post-title {
     color: goldenrod;
-    font-size: 1.5rem;
-    margin-bottom: 0rem;
+    font-size: 1.4rem;
+    margin-top: 0.2rem;
+    margin-left: 0.3rem;
 }
 
-.post-title:hover {
-    color: #FCC742;
+.post-preview {
+    color: white;
+    text-decoration: none;
+    margin-left: 0.3rem;
+    padding-bottom: 0rem;
 }
 
 .post-info {
     display: flex;
     justify-content: space-between;
-    color: #44748D;
-}
-
-.tag-list {
-    display: flex;
-    list-style: none;
-}
-
-.tag {
-    margin-left: 0.5rem;
-}
-
-.post-item-link {
+    color: #7797BF;
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
     text-decoration: none;
 }
 
-.post-divider {
-    margin: 0rem;
+.post-replies {
+    display: inline-flex;
+    margin-right: 8rem;
+    color: #7797BF;
+}
+
+.tag-list {
+    display: inline-flex;
+    color: #7797BF;
+}
+
+.tag {
+    margin-left: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.post-author {
+    text-decoration: none;
+    display: inline-flex;
+    color: #7797BF !important;
+}
+
+.username {
+    color: goldenrod;
+}
+
+.username:hover {
+    color: #FCC742;
 }
 
 @media (max-width: 575px) {
@@ -92,7 +127,12 @@
         justify-content: space-between;
         font-size: 0.7rem;
         color: #44748D;
-        margin-bottom: -0.5rem;
+        margin-left: 0.1rem;    
+        max-height: 1.2rem;
+    }
+
+    .post-replies {
+        margin-right: 0.3rem;
     }
 
     .tag-list {

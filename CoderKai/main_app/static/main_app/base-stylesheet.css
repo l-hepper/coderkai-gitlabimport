@@ -3,23 +3,23 @@
 } */
 
 html {
-    background-color: #003049;
+    background-color: #111927;
 }
 
 body {
     margin-left: 10%;
     margin-right: 10%;
-    background-color: #003049;
+    background-color: #111927;
 }
 
 .navbar {
     --bs-navbar-padding-y: 0rem;
     border-bottom: goldenrod solid 1px;
-    background-color: #003049;
+    background-color: #111927;
 }
 
 .container-fluid {
-    background-color: #003049;
+    background-color: #111927;
 }
 
 .collapse {
@@ -47,7 +47,7 @@ body {
     padding-right: 1rem;
     border-right: goldenrod solid 1px;
     color: goldenrod;
-    background-color: #003049;
+    background-color: #111927;
 }
 
 .navbar-brand:hover {
