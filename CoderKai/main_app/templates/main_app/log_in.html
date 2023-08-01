@@ -1,7 +1,30 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block page-title %} Coder Kai - Log In {% endblock %}
+{% block page-title %} 
+    Coder Kai - Log In 
+{% endblock %}
+
+{% block css-stylesheet %}
+    <link rel="stylesheet" href={% static "main_app/registration/login.css" %}>
+{% endblock %}
 
 {% block mainbody %}
-    <h1 style="color: white; text-align: center;">Log-In Page</h1>
+    <div class="text-center login-form">
+    <h2>Login</h2>
+        <form method="post" id="login-form">
+            {% csrf_token %}
+            {{ form }}
+            <div id="reset-password">
+                <button type="button"> Reset Password </button>
+            </div>
+            <div id="form-buttons">
+                <div class="row">
+                    <div class="col">
+                        <button type="submit" class="btn btn-outline-secondary btn-lg px-4 login-button">Log In</button>
+                    </div>
+                </row>
+            </div>
+        </form>
+    </div>
 {% endblock %}

@@ -1,6 +1,7 @@
 from django.http import Http404
 from django.shortcuts import render
 from datetime import datetime
+from django.views.generic import TemplateView
 
 
 # Create your views here.
@@ -86,10 +87,11 @@ post_dictionary = {
 }
 
 
-def welcome_page(request):
-    return render(request, "./main_app/welcome_page.html", {
-        "page_title": "Welcome!"
-    })
+class HomepageView(TemplateView):
+    template_name = "./main_app/welcome_page.html"
+    # return render(request, "./main_app/welcome_page.html", {
+    #     "page_title": "Welcome!"
+    # })
 
 
 def get_started(request):

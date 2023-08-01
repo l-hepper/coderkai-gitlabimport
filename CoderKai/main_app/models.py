@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -6,6 +7,5 @@ from django.db import models
 
 class User(models.Model):
     username = models.CharField(max_length=16)
-    email = models.CharField(max_length=50)
-    code = models.IntegerField()
+    email = models.EmailField(max_length=60)
     
