@@ -7,10 +7,11 @@ urlpatterns = [
     path("getstarted", views.get_started, name="get_started"),
     path("posts", views.posts, name="posts"),
     path("about", views.about, name="about"),
-    path("profile", views.profile, name="profile"),
+    path("profile", views.ProfileView.as_view(), name="profile"),
+    path("edit-profile", views.EditProfileView.as_view(), name="edit_profile"),
     path("posts/<slug:slug>", views.post_content, name="post_content"),
     path("signup", views.SignUpView.as_view(), name="signup"),
-    # path('login', auth_views.LoginView.as_view(template_name='main_app/login.html'), name="login"),
+    path("logout", views.logout_view, name="logout"),
     path("<str:attemptedURL>", views.raise_404_error, name="404Error")
 ]
 

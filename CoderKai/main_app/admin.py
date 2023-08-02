@@ -4,5 +4,6 @@ from main_app.models import Interest, Motivation
 
 # Register your models here.
 
-admin.site.register(Motivation)
+
 admin.site.register(Interest)
+admin.site.register(Motivation)

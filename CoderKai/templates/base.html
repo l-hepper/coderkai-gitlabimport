@@ -34,9 +34,11 @@
           <li class="nav-item">
             <a class="nav-link" href={% url "posts" %}>Community Posts</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url "profile" %}">Your Profile</a>
-          </li>
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url "profile" %}">Your Profile</a>
+            </li>
+          {% endif %}
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search all posts" aria-label="Search">

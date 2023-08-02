@@ -1,8 +1,12 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from datetime import datetime
+from django.views import View
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
+from django.contrib.auth.models import User
+from django.contrib.auth import logout
+
 
 from main_app.forms import SignUpForm
 
@@ -121,16 +125,18 @@ def about(request):
     })
 
 
-def profile(request):
-    return render(request, "./main_app/profile.html", {
-        
-    })
+class ProfileView(View):
+    template_name = "./main_app/profile.html"
+
+    def get(self, request):
+        user = User.objects.get(id=request.user.id)
+        print(f"logged in as {user.username}") # for debugging
+        return render(request, self.template_name, {'user': user})
 
 
-# def log_in(request):
-#     return render(request, "./main_app/log_in.html", {
-#         "page_title": "Log-in"
-#     })
+class EditProfileView(View):
+    template_name = "./main_app/edit-profile.html"
+
 
 class SignUpView(FormView):
     template_name = "registration/signup.html"
@@ -142,8 +148,11 @@ class SignUpView(FormView):
         return super().form_valid(form)
 
 
-
 def raise_404_error(request, attemptedURL):
     raise Http404(f"This page does not exist on CoderKai")
 
 
+def logout_view(request):
+    print(f"logging out of {request.user}") # for debugging
+    logout(request)
+    return render(request, "main_app/welcome_page.html")
