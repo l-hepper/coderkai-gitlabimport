@@ -9,7 +9,8 @@ urlpatterns = [
     path("about", views.about, name="about"),
     path("profile", views.profile, name="profile"),
     path("posts/<slug:slug>", views.post_content, name="post_content"),
-    path('login', auth_views.LoginView.as_view(template_name='main_app/log_in.html'), name='log_in'),
+    path("signup", views.SignUpView.as_view(), name="signup"),
+    # path('login', auth_views.LoginView.as_view(template_name='main_app/login.html'), name="login"),
     path("<str:attemptedURL>", views.raise_404_error, name="404Error")
 ]
 

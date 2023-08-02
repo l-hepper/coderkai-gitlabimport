@@ -2,6 +2,9 @@ from django.http import Http404
 from django.shortcuts import render
 from datetime import datetime
 from django.views.generic import TemplateView
+from django.views.generic.edit import FormView
+
+from main_app.forms import SignUpForm
 
 
 # Create your views here.
@@ -89,9 +92,6 @@ post_dictionary = {
 
 class HomepageView(TemplateView):
     template_name = "./main_app/welcome_page.html"
-    # return render(request, "./main_app/welcome_page.html", {
-    #     "page_title": "Welcome!"
-    # })
 
 
 def get_started(request):
@@ -127,10 +127,20 @@ def profile(request):
     })
 
 
-def log_in(request):
-    return render(request, "./main_app/log_in.html", {
-        "page_title": "Log-in"
-    })
+# def log_in(request):
+#     return render(request, "./main_app/log_in.html", {
+#         "page_title": "Log-in"
+#     })
+
+class SignUpView(FormView):
+    template_name = "registration/signup.html"
+    form_class = SignUpForm
+    success_url = "profile"
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
 
 
 def raise_404_error(request, attemptedURL):

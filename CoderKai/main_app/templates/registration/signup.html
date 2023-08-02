@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page-title %} 
+    Coder Kai - Sign Up
+{% endblock %}
+
+{% block css-stylesheet %}
+    <link rel="stylesheet" href={% static "main_app/registration/signup.css" %}>
+{% endblock %}
+
+{% block mainbody %}
+    <div>
+    <h2>Sign Up</h2>
+        <form method="post" id="login-form">
+            {% csrf_token %}
+            {{ form }}
+            <div>
+                <div class="row">
+                    <div class="col" id="form-buttons">
+                        <button type="submit" class="btn btn-outline-secondary btn-lg px-4 submit-button">Submit</button>
+                        <p id="login-prompt">Already have an account? <a href={% url "login" %}>Log In</a></p>
+                    </div>
+                </row>
+            </div>
+        </form>
+    </div>
+{% endblock %}

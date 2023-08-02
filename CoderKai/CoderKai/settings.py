@@ -76,14 +76,28 @@ WSGI_APPLICATION = 'CoderKai.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# LOCAL DATABASE CONFIGURATION
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'coderkaipro',
+#         'USER': 'postgres',
+#         'PASSWORD': 'whatever123',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
+
+
+# HEROKU POSTGRES DATABASE CONFIGURATION
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'coderkaipro',
-        'USER': 'postgres',
-        'PASSWORD': 'whatever123',
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME': 'd4v987uk7hpm8',
+        'USER': 'mnfldmbuejptse',
+        'PASSWORD': '787c0ab1bde14e779187c4dffd75745afdccf6021cff4525492c89928e015acb',
+        'HOST': 'ec2-18-202-8-133.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -132,3 +146,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = "profile"
+LOGOUT_REDIRECT_URL = "login"
