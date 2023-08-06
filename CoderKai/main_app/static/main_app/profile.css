@@ -94,6 +94,29 @@
     padding: 0.3rem;
 }
 
+.button-options {
+    margin-top: 1rem;
+    background-color: #0D304A;
+}
+
+.dropdown-menu {
+    background-color: #0D304A;
+    color: goldenrod;
+}
+
+.dropdown-item {
+    color: white;
+}
+
+.dropdown-item:hover {
+    background-color: #0D304A;
+    color: goldenrod;
+}
+
+h4 {
+    font-size: 1.3rem;
+}
+
 @media (max-width: 575px) {
 
     .container {
@@ -102,12 +125,16 @@
 
     .profile-info-box {
         margin-top: 10%;
-        width: 100%;
     }
 
     .profile-item {
         padding-top: 0.7rem;
         padding-bottom: 0.7rem;
+    }
+
+    .profile-card {
+        width: 90%;
+        margin-left: 5%;
     }
 
     .profile-info-label {
