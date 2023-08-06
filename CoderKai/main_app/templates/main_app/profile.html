@@ -22,7 +22,7 @@
           <h4 id="coder-kai-points">Coder Kai Points: {{ user.coderkaipoints.points }}</h4>
           <div class="row justify-content-around profile-options">
             <div class="col-auto">
-              <button type="button" class="btn btn-outline-secondary btn-lg px-4" onclick="location.href='{% url "login" %}'">Edit</button>
+              <button type="button" class="btn btn-outline-secondary btn-lg px-4" onclick="location.href='{% url "edit_profile" pk=user.profileinfo.pk %}'">Edit</button>
             </div>
             <div class="col-auto">
               <button type="button" class="btn btn-outline-secondary btn-lg px-4" onclick="location.href='{% url "login" %}'">Delete</button>
@@ -41,10 +41,10 @@
         </div>
         <div class="row profile-row">
             <div class="col-4 profile-item bg">
-                <span class="profile-info-label">Location:</span>
+                <p style="display: block;" class="profile-info-label">About:</p>
             </div>
             <div class="col-8 profile-info-answer">
-                <span>{{ user.profileinfo.location }}</span>
+                <p>{{ user.profileinfo.about_me }}</p>
             </div>
         </div>
         <div class="row profile-row">

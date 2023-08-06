@@ -1,15 +1,18 @@
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from datetime import datetime
+from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 from django.contrib.auth.models import User
 from django.contrib.auth import logout, login
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-from main_app.forms import EditProfileForm, ProfileInfoForm, SignUpForm
-from main_app.models import CoderKaiPoints
+from django.views.generic.edit import UpdateView
+from main_app.forms import ProfileInfoForm, SignUpForm
+from main_app.models import CoderKaiPoints, ProfileInfo
 
 
 # Create your views here.
@@ -135,7 +138,8 @@ class ProfileView(View):
         return render(request, self.template_name, {'user': user})
 
 
-class CompleteProfileView(FormView):
+class CompleteProfileView(LoginRequiredMixin, FormView):
+    login_url = "login"
     template_name = "./main_app/complete_profile.html"
     form_class = ProfileInfoForm
     success_url = "profile"
@@ -143,7 +147,6 @@ class CompleteProfileView(FormView):
     def form_valid(self, form):
         profileinfo = form.save(commit=False)
         profileinfo.user = self.request.user
-
         profileinfo.save()
 
         interests = self.request.POST.getlist('interests')
@@ -158,6 +161,13 @@ class CompleteProfileView(FormView):
         return super().form_valid(form)
 
 
+class EditProfileView(UpdateView):
+    model = ProfileInfo
+    form_class = ProfileInfoForm
+    template_name = "./main_app/edit_profile.html"
+    success_url = reverse_lazy('profile')  # Assuming 'profile' is the name of the desired URL pattern
+
+
 class SignUpView(FormView):
     template_name = "registration/signup.html"
     form_class = SignUpForm
@@ -166,7 +176,8 @@ class SignUpView(FormView):
     def form_valid(self, form):
         user = form.save()  # `form.save()` should return the user object
         login(self.request, user)  # Log the user in
-        CoderKaiPoints.objects.create(user=self.request.user, points=0) # create an instance of points for the user, starting at 0
+        # create an instance of points for the user, starting at 0
+        CoderKaiPoints.objects.create(user=self.request.user, points=0)
         return super().form_valid(form)
 
 

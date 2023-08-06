@@ -6,6 +6,5 @@ from main_app.models import Interest, Motivation, ProfileInfo
 
 
 admin.site.register(ProfileInfo)
-
 admin.site.register(Interest)
 admin.site.register(Motivation)

@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from main_app.models import Interest, Motivation, ProfileInfo
 
 
+
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
 
@@ -27,7 +28,11 @@ class ProfileInfoForm(forms.ModelForm):
     class Meta:
         model = ProfileInfo
         exclude = ["user"]
-
+    
+    def __init__(self, *args, **kwargs):
+        super(ProfileInfoForm, self).__init__(*args, **kwargs)
+        self.fields['interests'].help_text = 'Choose your areas of study and focus!'
+        self.fields['motivations'].help_text = 'Select why you are learning to code!'
 
 class EditProfileForm(forms.ModelForm):
     class Meta:

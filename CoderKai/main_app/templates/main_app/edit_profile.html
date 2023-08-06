@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block page-title %} 
-    Coder Kai - Complete Profile
+    Coder Kai - Edit Profile
 {% endblock %}
 
 {% block css-stylesheet %}
@@ -11,7 +11,7 @@
 
 {% block mainbody %}
     <div class="text-center login-form">
-    <h2>Complete Your Profile</h2>
+    <h2>Edit Your Profile</h2>
     <h3 id="coderkai-profile-instruction">Coder Kai will dynamically create recommended groups and community posts based on your profile.</h3>
         <form method="post" id="login-form">
             {% csrf_token %}
@@ -19,7 +19,7 @@
             <div id="form-buttons">
                 <div class="row">
                     <div class="col">
-                        <button type="submit" class="btn btn-outline-secondary btn-lg px-4 login-button">Complete Profile</button>
+                        <button type="submit" value="Update" class="btn btn-outline-secondary btn-lg px-4 login-button">Finish Editing</button>
                     </div>
                 </row>
             </div>

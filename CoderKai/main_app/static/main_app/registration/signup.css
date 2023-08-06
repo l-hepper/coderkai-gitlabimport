@@ -41,6 +41,10 @@ label {
     margin-top: -1.2rem;
 }
 
+#id_about_me {
+    height: 5rem;
+}
+
 #id_email,#id_password1,#id_password2,#id_username {
     padding-left: 0.5rem;
     font-size: 1.3rem;
@@ -65,6 +69,12 @@ label {
 #login-prompt {
     margin-top: 1.5rem;
     color: #7797BF;
+}
+
+#coderkai-profile-instruction {
+    color: goldenrod;
+    font-size: 1rem;
+    margin: 2rem 1rem;
 }
 
 @media (max-width: 575px) {

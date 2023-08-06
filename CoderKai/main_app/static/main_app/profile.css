@@ -48,8 +48,13 @@
 }
 
 .profile-info-answer {
+    display: block;
     font-size: 1.4rem;
     text-align: left;
+}
+
+.profile-info-answer > p {
+    word-wrap: break-word;
 }
 
 .profile-info-box {
