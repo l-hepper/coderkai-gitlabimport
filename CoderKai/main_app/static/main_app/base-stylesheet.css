@@ -23,7 +23,7 @@ body {
 }
 
 .collapse {
-    margin-top: 4.5rem;
+    margin-top: 2.5rem;
     margin-bottom: -2.3rem;
 }
 
@@ -75,13 +75,22 @@ body {
 }
 
 .nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     font-size: 1.3rem;
     color: white;
     margin-right: 3rem;
+    fill: #0E426C;
 }
 
 .nav-link:hover {
-    color: #FCC742;
+    color: goldenrod;
+}
+
+.navbar-icon {
+    height: 3rem;
+    width: 3rem;
 }
 
 .active {
@@ -115,6 +124,14 @@ footer {
 
     .nav-link {
         font-size: 1rem;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .navbar-icon {
+        margin-right: 0.5rem;
+        width: 1.3rem;
+        height: 1.3rem;
     }
 
     .collapse {
