@@ -5,10 +5,11 @@ from django.views import View
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 from django.contrib.auth.models import User
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login
 
 
-from main_app.forms import SignUpForm
+from main_app.forms import EditProfileForm, ProfileInfoForm, SignUpForm
+from main_app.models import CoderKaiPoints
 
 
 # Create your views here.
@@ -130,21 +131,42 @@ class ProfileView(View):
 
     def get(self, request):
         user = User.objects.get(id=request.user.id)
-        print(f"logged in as {user.username}") # for debugging
+        print(f"logged in as {user.username}")  # for debugging
         return render(request, self.template_name, {'user': user})
 
 
-class EditProfileView(View):
-    template_name = "./main_app/edit-profile.html"
+class CompleteProfileView(FormView):
+    template_name = "./main_app/complete_profile.html"
+    form_class = ProfileInfoForm
+    success_url = "profile"
+
+    def form_valid(self, form):
+        profileinfo = form.save(commit=False)
+        profileinfo.user = self.request.user
+
+        profileinfo.save()
+
+        interests = self.request.POST.getlist('interests')
+        motivations = self.request.POST.getlist('motivations')
+
+        for interest in interests:
+            profileinfo.interests.add(interest)
+
+        for motivation in motivations:
+            profileinfo.motivations.add(motivation)
+
+        return super().form_valid(form)
 
 
 class SignUpView(FormView):
     template_name = "registration/signup.html"
     form_class = SignUpForm
-    success_url = "profile"
+    success_url = "complete-profile"
 
     def form_valid(self, form):
-        form.save()
+        user = form.save()  # `form.save()` should return the user object
+        login(self.request, user)  # Log the user in
+        CoderKaiPoints.objects.create(user=self.request.user, points=0) # create an instance of points for the user, starting at 0
         return super().form_valid(form)
 
 
@@ -153,6 +175,6 @@ def raise_404_error(request, attemptedURL):
 
 
 def logout_view(request):
-    print(f"logging out of {request.user}") # for debugging
+    print(f"logging out of {request.user}")  # for debugging
     logout(request)
     return render(request, "main_app/welcome_page.html")

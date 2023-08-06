@@ -83,6 +83,12 @@
     padding-bottom: 0.2rem;
 }
 
+.interest-tag, .motivation-tag {
+    background-color: crimson;
+    border-radius: 8px;
+    padding: 0.3rem;
+}
+
 @media (max-width: 575px) {
 
     .container {

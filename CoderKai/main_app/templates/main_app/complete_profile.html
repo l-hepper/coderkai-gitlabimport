@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page-title %} 
+    Coder Kai - Edit Profile
+{% endblock %}
+
+{% block css-stylesheet %}
+    <link rel="stylesheet" href={% static "main_app/registration/login.css" %}>
+{% endblock %}
+
+{% block mainbody %}
+    <div class="text-center login-form">
+    <h2>Complete Your Profile</h2>
+    <h3>Coder Kai will use your location, movations, and focus areas to recommend groups and discussions!</h3>
+        <form method="post" id="login-form">
+            {% csrf_token %}
+            {{ form }}
+            <div id="form-buttons">
+                <div class="row">
+                    <div class="col">
+                        <button type="submit" class="btn btn-outline-secondary btn-lg px-4 login-button">Complete Profile</button>
+                        <p id="signup-prompt">No account? <a href={% url "signup" %}>Sign Up</a> for Coder Kai</p>
+                    </div>
+                </row>
+            </div>
+        </form>
+    </div>
+{% endblock %}
