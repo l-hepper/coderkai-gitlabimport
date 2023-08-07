@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block page-title %}
-  Coder Kai - {{ post_content.post_title }}
+  Coder Kai - {{ post.title }}
 {% endblock %}
 
 {% block css-stylesheet %}
@@ -14,7 +14,7 @@
     <div class="container op-post">
         <div class="row">
             <div class="col">
-                <h2 id="post-title">{{ post_content.post_title }}</h2>
+                <h2 id="post-title">{{ post.title }}</h2>
                 <hr />
             </div>
         </div>
@@ -22,65 +22,19 @@
             <div class="col-2 op-info">
                 <div class="row">
                     <div class="col profile-pic">
-                        <img class="profile-picture rounded-circle" width="160" height="145" src={% static "main_app/images/cat.jpg" %}>
+                        <img class="profile-picture rounded-circle" width="140" height="125" src={% static "main_app/images/cat.jpg" %}>
                         <div class="row">
                             <div class="col profile-info">
-                                <p id="username">CatCoder5000</p>
+                                <p id="username">{{ post.author }}</p>
                                 <p>Rank:<span id="rank"> Code Master</span></p>
-                                <p id="coder-kai-points">Coder Kai Points: 7723</p>
+                                <p id="coder-kai-points">Coder Kai Points: 9999</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-10 post-body">
-                <p class="post-text">
-Right now, when I use polars to read a pandas dataframe, I lose the name of the field. 
-Is there a way to not lose the field name?
-
-<pre>
-import os
-import sys
-
-
-def main():
-    """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'CoderKai.settings')
-    try:
-        from django.core.management import execute_from_command_line
-    except ImportError as exc:
-        raise ImportError(
-            "Couldn't import Django. Are you sure it's installed and "
-            "available on your PYTHONPATH environment variable? Did you "
-            "forget to activate a virtual environment?"
-        ) from exc
-    execute_from_command_line(sys.argv)
-
-
-if __name__ == '__main__':
-    main()
-</pre>
-
-I tried first reading the pandas df in the following way:
-"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis 
-praesentium 
-voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi 
-sint occaecati 
-cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia 
-animi, id 
-est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita 
-distinctio. Nam 
-libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod 
-maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. 
-Temporibus 
-autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et 
-voluptates 
-repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente 
-delectus, 
-t aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus 
-asperiores r
-epellat."
-                </p>
+                <p class="post-text">{{ post.body }}</p>
                 <div class="post-options">
                     <button type="button" class="btn btn-outline-secondary btn-lg px-1" onclick="location.href='{% url "login" %}'">
                         Track Post

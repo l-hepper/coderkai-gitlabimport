@@ -44,12 +44,19 @@ class PostsView(View):
         return render(request, self.template_name, {'posts': posts})
 
 
-def post_content(request, slug):
-    clicked_post = post_dictionary[slug]
-    return render(request, "./main_app/post_content.html", {
-        "page_title": slug,
-        "post_content": clicked_post
-    })
+# def post_content(request, slug):
+#     clicked_post = post_dictionary[slug]
+#     return render(request, "./main_app/post_content.html", {
+#         "page_title": slug,
+#         "post_content": clicked_post
+#     })
+
+class PostContent(View):
+    template_name = "./main_app/post_content.html"
+
+    def get(self, request, **kwargs):
+        post = Post.objects.get(slug=kwargs['slug'])
+        return render(request, self.template_name, {'post': post})
 
 
 def about(request):
