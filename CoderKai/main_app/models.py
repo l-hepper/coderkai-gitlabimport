@@ -33,6 +33,32 @@ class ProfileInfo(models.Model):
     motivations = models.ManyToManyField(Motivation)
     about_me = models.TextField(max_length=64)
 
+
+class Post(models.Model):
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    title = models.CharField(max_length=64)
+    body = models.TextField(max_length=2048)
+    preview = models.CharField(max_length=512)
+    slug = models.SlugField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    coderkaipoints = models.IntegerField(default=1)
+
+
+# class Response(models.Model):
+#     post = models.ForeignKey(Post, on_delete=models.CASCADE)
+#     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+#     body = models.TextField(max_length=2048)
+#     timestamp = models.DateTimeField(auto_now_add=True)
+
+
+# class Reply(models.Model):
+#     response = models.ForeignKey(Response, on_delete=models.CASCADE)
+#     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+#     body = models.TextField(max_length=512)
+#     timestamp = models.DateTimeField(auto_now_add=True)
+
+
+
 # TODO - associated a range of points with a RANK to be displayed on the profile page
 # class CoderKaiRank(models.Model):
 #     coderkai_rank = models.CharField(default="Code Cadet")

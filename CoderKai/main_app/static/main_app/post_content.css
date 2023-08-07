@@ -9,7 +9,7 @@ pre {
 }
 
 .post-body {
-    background-color: #0D304A;
+    background-color: #0E426C;
     padding: 1rem;
     color: white;
     border-radius: 3px;
@@ -47,13 +47,35 @@ hr {
 
 .post-options {
     width: 60%;
-    margin-left:30%;
+    margin-left:50%;
     display:flex;
-    justify-content: space-around;
+    justify-content: center;
+}
+
+.post-options > button {
+    display: flex;
+    flex-direction: row;
+    margin-right: 1rem;
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+    font-size: 1.1rem;
 }
 
 .btn {
     margin-top: 2%;
+}
+
+.response-text {
+    display: inline;
+}
+
+.post-body {
+    display: inline;
+}
+
+.reply {
+    width: 70%;
+    margin-left: 30%;
 }
 
 

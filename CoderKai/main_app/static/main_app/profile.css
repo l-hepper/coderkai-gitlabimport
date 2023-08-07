@@ -7,7 +7,7 @@
     padding: 1rem 0rem;
     margin-left: 2.5rem;
     margin-top: 1.6rem;
-    background-color: #0D304A;
+    background-color: #0E426C;
 }
 
 .profile-picture {
@@ -31,7 +31,7 @@
 
 #profile-header {
     color: goldenrod;
-    background-color: #0D304A;
+    background-color: #0E426C;
     padding-top: 0.2rem;
     padding-bottom: 0.2rem;
 }
@@ -65,7 +65,7 @@
 
 #stats-header {
     color: goldenrod;
-    background-color: #0D304A;
+    background-color: #0E426C;
     padding-top: 0.2rem;
     padding-bottom: 0.2rem;
 }
@@ -83,7 +83,7 @@
 
 #highest-scoring-posts-header {
     color: goldenrod;
-    background-color: #0D304A;
+    background-color: #0E426C;
     padding-top: 0.2rem;
     padding-bottom: 0.2rem;
 }
@@ -94,9 +94,14 @@
     padding: 0.3rem;
 }
 
+.button-options button {
+    margin-top: 2rem;
+    background-color: #0E426C;
+}
+
 .button-options {
-    margin-top: 1rem;
-    background-color: #0D304A;
+    margin-top: 1.5rem;
+    background-color: #0E426C;
 }
 
 .dropdown-menu {

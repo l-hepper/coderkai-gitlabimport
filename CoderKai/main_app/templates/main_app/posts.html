@@ -16,25 +16,25 @@
 
     <div id="post-list">
         <ul>
-            {% for key, value in posts.items %}
-            <a href="{% url "post_content" key %}">
+            {% for post in posts %}
+            <a href="{% url "post_content" post.slug %}">
                 <li class="post-item">
                     <article>
-                        <h3 class="post-title">{{ value.post_title }}</h3>
-                        <p class="post-preview">{{ value.post_preview }}</p>
+                        <h3 class="post-title">{{ post.title }}</h3>
+                        <pre style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;" class="post-preview">{{ post.preview }}</pre>
                         <div class="post-info">
                             <div class="post-replies">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-text" viewBox="0 0 16 16">
-                                <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
-                                </svg>&nbsp{{ value.post_replies }} 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-right-text" viewBox="0 0 16 16">
+                                    <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1H2zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"/>
+                                    <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                                  </svg>&nbsp&nbsp 99 
                             </div>
                             <div class="tag-list">Tags:
-                                <li class="tag">tag1</li>
-                                <li class="tag">tag2</li>
-                                <li class="tag">tag3</li>
+                                <li class="tag">Python</li>
+                                <li class="tag">Django</li>
+                                <li class="tag">Web Application</li>
                             </div>
-                            <div class="post-author">Posted by &nbsp<span><a class="username" href="#">{{ value.post_author }} </a></span>&nbsp on {{ value.post_time }}</span></div>
+                            <div class="post-author">Posted by &nbsp<span><a class="username" href="#">{{ post.author }} </a></span>&nbsp on {{ post.timestamp }}</span></div>
                         </div>
                     </article>
                 </li>

@@ -8,94 +8,15 @@ from django.views.generic.edit import FormView
 from django.contrib.auth.models import User
 from django.contrib.auth import logout, login
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.text import slugify
 
 
 from django.views.generic.edit import UpdateView
-from main_app.forms import ProfileInfoForm, SignUpForm
-from main_app.models import CoderKaiPoints, ProfileInfo
+from main_app.forms import NewPostForm, ProfileInfoForm, SignUpForm
+from main_app.models import CoderKaiPoints, Post, ProfileInfo
 
 
 # Create your views here.
-
-post_dictionary = {
-    "post-01": {
-        "post_title": "How do I convert a DataFrame to a dictionary using pandas?",
-        "post_preview": "Bro ipsum dolor sit amet bowl brain bucket T-Bar...",
-        "post_replies": "5",
-        "post_author": "SuperCoder77",
-        "post_time": datetime.now()
-    },
-    "post-02": {
-        "post_title": "CODE REVIEW: Please review my code for improvements and better design.",
-        "post_preview": "Please see my code below and tell me if there are improvements to be made",
-        "post_replies": "1",
-        "post_author": "TotalNoob99",
-        "post_time": datetime.now()
-    },
-    "post-03": {
-        "post_title": "What's the best way to learn Python for data science?",
-        "post_preview": "Hey guys, I'm looking for recommendations on resources for learning Python...",
-        "post_replies": "7",
-        "post_author": "DataEnthusiast21",
-        "post_time": datetime.now()
-    },
-    "post-04": {
-        "post_title": "Need help with a SQL query",
-        "post_preview": "I have a complex SQL query that I'm struggling with. Can anyone help...",
-        "post_replies": "3",
-        "post_author": "DBMaster",
-        "post_time": datetime.now()
-    },
-    "post-05": {
-        "post_title": "Looking for advice on web app security",
-        "post_preview": "Developing a web app and want to ensure it's secure. What practices should I follow...",
-        "post_replies": "6",
-        "post_author": "SecuritySam",
-        "post_time": datetime.now()
-    },
-    "post-06": {
-        "post_title": "Challenges in Machine Learning",
-        "post_preview": "Discussing the current challenges in machine learning and possible solutions...",
-        "post_replies": "4",
-        "post_author": "MLGuru",
-        "post_time": datetime.now()
-    },
-    "post-07": {
-        "post_title": "Can anyone explain REST APIs in simple terms?",
-        "post_preview": "I'm a beginner and struggling to understand REST APIs. Could use a simple explanation...",
-        "post_replies": "8",
-        "post_author": "Newbie101",
-        "post_time": datetime.now()
-    },
-    "post-08": {
-        "post_title": "How to optimize JavaScript performance in large scale applications",
-        "post_preview": "Share tips and tricks to boost JavaScript performance in large scale applications...",
-        "post_replies": "2",
-        "post_author": "JavaScriptJedi",
-        "post_time": datetime.now()
-    },
-    "post-09": {
-        "post_title": "Guide to effective logging in applications",
-        "post_preview": "Explore how to do effective logging in your applications to help with debugging and traceability...",
-        "post_replies": "3",
-        "post_author": "DevOpsDude",
-        "post_time": datetime.now()
-    },
-    "post-10": {
-        "post_title": "Debugging multithreaded applications in C++",
-        "post_preview": "Looking for strategies and tips for debugging multithreaded C++ applications...",
-        "post_replies": "5",
-        "post_author": "CppConqueror",
-        "post_time": datetime.now()
-    },
-    "post-11": {
-        "post_title": "Exploring functional programming in JavaScript",
-        "post_preview": "Discussion about how to leverage functional programming paradigms in JavaScript...",
-        "post_replies": "7",
-        "post_author": "FuncJS",
-        "post_time": datetime.now()
-    }
-}
 
 
 class HomepageView(TemplateView):
@@ -108,11 +29,19 @@ def get_started(request):
     })
 
 
-def posts(request):
-    return render(request, "./main_app/posts.html", {
-        "page_title": "All Posts",
-        "posts": post_dictionary
-    })
+# def posts(request):
+#     return render(request, "./main_app/posts.html", {
+#         "page_title": "All Posts",
+#         "posts": post_dictionary
+#     })
+
+
+class PostsView(View):
+    template_name = "./main_app/posts.html"
+
+    def get(self, request):
+        posts = Post.objects.all().order_by('-timestamp')
+        return render(request, self.template_name, {'posts': posts})
 
 
 def post_content(request, slug):
@@ -129,7 +58,8 @@ def about(request):
     })
 
 
-class ProfileView(View):
+class ProfileView(LoginRequiredMixin, View):
+    login_url = "login"
     template_name = "./main_app/profile.html"
 
     def get(self, request):
@@ -165,7 +95,8 @@ class EditProfileView(UpdateView):
     model = ProfileInfo
     form_class = ProfileInfoForm
     template_name = "./main_app/edit_profile.html"
-    success_url = reverse_lazy('profile')  # Assuming 'profile' is the name of the desired URL pattern
+    # Assuming 'profile' is the name of the desired URL pattern
+    success_url = reverse_lazy('profile')
 
 
 class SignUpView(FormView):
@@ -178,6 +109,22 @@ class SignUpView(FormView):
         login(self.request, user)  # Log the user in
         # create an instance of points for the user, starting at 0
         CoderKaiPoints.objects.create(user=self.request.user, points=0)
+        return super().form_valid(form)
+
+
+class NewPostView(LoginRequiredMixin, FormView):
+    login_url = "login"
+    template_name = './main_app/new_post.html'
+    form_class = NewPostForm
+    success_url = "posts"  # TODO-will be changed to the actual post view
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.author = self.request.user
+        post.coderkaipoints = 1  # or calculate this value somehow
+        post.slug = slugify(post.title)  # you will need to import slugify
+        post.preview = post.body[0:512] + "..."
+        post.save()
         return super().form_valid(form)
 
 
