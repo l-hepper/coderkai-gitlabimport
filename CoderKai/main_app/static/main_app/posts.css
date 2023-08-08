@@ -3,14 +3,18 @@ a {
     color: #7797BF;
 }
 
+hr {
+    margin: 0.5rem 0rem;
+}
+
 #sort-posts {
-    border: dashed white 1px;
     width: 80%;
     margin-left: 10%;
-    margin-top: 3%;
+    margin-top: 1rem;
     margin-bottom: 1rem;
     text-align: center;
     color: white;
+    background-color: #0E426C;
 }
 
 #sort-posts > h4 {
@@ -31,14 +35,14 @@ a {
     list-style: none;
 }
 
-.post-item:hover {
-    background-color: #23536B;
-}
-
 .post-title {
     color: goldenrod;
     font-size: 1.4rem;
     margin-left: 0.3rem;
+}
+
+.post-title:hover {
+    color: #FCC742;
 }
 
 .post-preview {
@@ -48,19 +52,20 @@ a {
 
 .post-info {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
     color: #7797BF;
     margin-left: 0.3rem;
-    margin-right: 0.3rem;
+    justify-content: flex-start;
+    padding-right: 0;
 }
 
 .post-replies {
-    display: inline-flex;
-    margin-right: 7.5rem;
     color: #7797BF;
+    margin-right: 8rem;
 }
 
 .tag-list {
+    margin-left: 8rem;
     display: inline-flex;
     color: #7797BF;
 }
@@ -74,10 +79,6 @@ a {
     border-radius: 12px;
     background-color: crimson;
     font-size: 0.9rem;
-}
-
-.post-author {
-    display: inline-flex;
 }
 
 .username {
@@ -116,16 +117,16 @@ a {
     }
 
     .post-info {
-        display: flex;
         justify-content: space-between;
         font-size: 0.7rem;
-        color: #44748D;
-        margin-left: 0.3rem;    
-        max-height: 1.2rem;
+    }
+
+    .post-info > .tag-list {
+        display: none;
     }
 
     .post-replies {
-        margin-right: 0.3rem;
+        margin-right: 0;
     }
 
     .tag-list {

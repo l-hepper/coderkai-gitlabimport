@@ -127,11 +127,18 @@ class NewPostView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         post = form.save(commit=False)
+
         post.author = self.request.user
         post.coderkaipoints = 1  # or calculate this value somehow
         post.slug = slugify(post.title)  # you will need to import slugify
-        post.preview = post.body[0:512] + "..."
+        post.preview = post.body[0:500] + "..."
+
         post.save()
+        
+        tags = self.request.POST.getlist('tags')
+        for tag in tags:
+            post.tags.add(tag)
+
         return super().form_valid(form)
 
 

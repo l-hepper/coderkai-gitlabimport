@@ -41,6 +41,10 @@ class EditProfileForm(forms.ModelForm):
 
 
 class NewPostForm(forms.ModelForm):
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Interest.objects.all(), widget=forms.CheckboxSelectMultiple)
+
+
     class Meta:
         model = Post
-        fields = ['title', 'body']
+        fields = ['title', 'body', 'tags']

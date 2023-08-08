@@ -89,12 +89,9 @@ body {
 }
 
 .navbar-icon {
+    fill: goldenrod;
     height: 3rem;
     width: 3rem;
-}
-
-.active {
-    text-decoration: underline;
 }
 
 footer {
