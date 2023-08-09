@@ -26,23 +26,35 @@ pre {
 }
 
 .post-body {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #0E426C;
-    padding: 1rem;
+    padding-left: 1rem;
     color: white;
-    border-radius: 3px;
+    background-color: #0D304A;
 }
 
 .op-info {
-    padding-left: 2%;
+    padding-top: 1rem;
     text-align: center;
+    background-color:#0D304A;
+}
+
+.profile-picture {
+    border: goldenrod 2px solid;
 }
 
 #username {
     padding-top: 1rem;
     color: goldenrod;
+}
+
+.coderkaipoint-operation {
+    margin-top: 1rem;
+    color: goldenrod;
+    padding: 1rem;
 }
 
 hr {
@@ -51,10 +63,6 @@ hr {
 
 #post-title {
     color: goldenrod;
-}
-
-.profile-picture {
-    border: goldenrod solid 5px;
 }
 
 .profile-info > p {
@@ -75,9 +83,9 @@ hr {
 }
 
 .response-count {
-    margin-left: 22%;
+    margin-left: 8%;
     display:inline-flex;
-    font-size: 2.5rem;
+    font-size: 2.1rem;
     color: goldenrod;
 }
 
@@ -102,28 +110,80 @@ hr {
     margin-left: 0.5rem;
 }
 
+.response {
+    padding-left: 0rem;
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+    margin-left: 7.75%;
+    width: 91%;
+    border-top: goldenrod solid 2px;
+}
+
+.op-info-response {
+    padding-left: 0.1rem;
+    font-size: 1rem;
+    text-align: center;
+    background-color: #0D304A;
+}
+
 .post-body-response {
-    background-color:#0E426C;
+    background-color: #0D304A;
+    padding-bottom: 0.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 1rem;
     color: white;
-    border-radius: 3px;
+}
+
+.profile-pic-response {
+    padding:0;
+    padding-top: 0.5rem;
 }
 
 .profile-info-response {
     color: goldenrod;
 }
 
+.profile-info-response > #username {
+    padding-top: 0.1rem;
+    font-size: 1rem;
+}
+
+.profile-info-response * {
+    font-size: 0.9rem;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 0;
+    padding-bottom: 0.3rem;
+}
+
+.reply {
+    margin-top: -1rem;  
+    display: inline-flex;
+    margin-left: 15%;
+    width: 86%;
+}
+
+.reply > .op-info {
+    background-color:#2F536C;
+    padding: 0;
+    padding-top: 0.3rem;
+}
+
 .reply .post-body {
-    background-color:#2F648E;
-    width: 55%;
-    margin-left: 37.25%;
+    background-color:#2F536C;
+    padding-right: 1rem;
+    padding-top: 1.3rem;
+    width: 91%;
+}
+
+#username-reply {
+    font-size: 1.2rem;
+    margin-top: 0.2rem;
 }
 
 .reply .post-author {
-    font-size: 0.8rem;
+    display: none;
     color:#7797BF;
 }
 
@@ -134,6 +194,11 @@ hr {
 
 .reply .post-author .username:hover {
     color: #FCC742;
+}
+
+.reply-op-info {
+    padding-bottom: 0.1rem;
+    margin-bottom: 0.1rem;
 }
 
 .post-author-op {
@@ -151,9 +216,26 @@ hr {
     color: #FCC742;
 }
 
+.response-author {
+    display: none;
+    font-size: 0.8rem;
+    color:#7797BF;
+    margin-bottom: 0.5rem;
+}
+
+.response-author .username {
+    color: goldenrod;
+    text-decoration: none;
+}
+
+.response-author .username:hover {
+    color: #FCC742;
+}
+
+
 @media (max-width: 575px) {
 
-    .op-info {
+    .op-info-response {
         display: none;
     }
 
@@ -178,15 +260,53 @@ hr {
     .response-count {
         font-size: 2rem;
         margin-left: 1rem;
-        width: 100%;
+        width: 90%;
     }
 
     .response {
+        border-top: goldenrod solid 2px;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
         width: 95%;
-        margin: 2.5%;
+        margin-left: 2.5%;
+        margin-bottom: 1rem;
     }
 
     .post-body-response {
-        width: 100%
+        margin-top: 0;
+        margin-bottom: 0;
+        width: 95%;
+        margin-left: 4%;
     }
+
+    .op-info {
+        display: none;
+    }
+
+    .reply {
+        margin-top: -0.2rem;
+        margin-left: 10%;
+        width: 98.5%;
+    }
+
+    .reply .post-author {
+        display: block;
+    }
+
+    .reply .post-body {
+        background-color:#2F648E;
+    }
+
+    .reply-break {
+        display: none;
+    }
+
+    .response-author {
+        display: block;
+    }
+
+    #reply-button {
+        font-size: 1rem;
+    };
+
 }

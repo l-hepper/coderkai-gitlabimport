@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page-title %} 
+    Coder Kai - New Reply
+{% endblock %}
+
+{% block css-stylesheet %}
+    <link rel="stylesheet" href={% static "main_app/registration/signup.css" %}>
+{% endblock %}
+
+
+<div class="row">
+    <div class="col-2 op-info-response">
+            <div class="col profile-pic-response">
+                <img class="profile-picture" width="80" height="80" src={% static "main_app/images/cat.jpg" %}>
+                <div class="row">
+                    <div class="col profile-info-response">
+                        <p id="username">{{ response.author }}</p>
+                        <p>Rank:<span id="rank"> Code Master</span></p>
+                        <p id="coder-kai-points">Coder Kai Points: 7723</p>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="col-10 post-body-response">
+    <div class="response-text">
+        <p style="white-space: pre-line">
+        {{ response.body }}
+        </p>
+    </div>
+    <div class="response-author">Answered by&nbsp<span><a class="username" href="#">{{ response.author }}</a></span>&nbspon {{ response.timestamp }}</span></div>
+    <div class="post-options">
+        <button id="reply-button" type="button" class="btn btn-outline-secondary btn-lg px-1" onclick="location.href='{% url "new_reply" response.id %}'">Reply</button>
+    </div>
+    </div>
+
+    <div class="col-2">
+    </div>
+</div>

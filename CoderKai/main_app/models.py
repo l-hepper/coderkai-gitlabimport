@@ -54,18 +54,19 @@ class Post(models.Model):
     coderkaipoints = models.IntegerField(default=1)
     tags = models.ManyToManyField(Tag)
 
-# class Response(models.Model):
-#     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-#     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-#     body = models.TextField(max_length=2048)
-#     timestamp = models.DateTimeField(auto_now_add=True)
+class Response(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    body = models.TextField(max_length=2048)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    coderkaipoints = models.IntegerField(default=1)
 
 
-# class Reply(models.Model):
-#     response = models.ForeignKey(Response, on_delete=models.CASCADE)
-#     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-#     body = models.TextField(max_length=512)
-#     timestamp = models.DateTimeField(auto_now_add=True)
+class Reply(models.Model):
+    response = models.ForeignKey(Response, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    body = models.TextField(max_length=512)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
 
 

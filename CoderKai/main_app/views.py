@@ -1,7 +1,7 @@
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from datetime import datetime
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
@@ -12,8 +12,8 @@ from django.utils.text import slugify
 
 
 from django.views.generic.edit import UpdateView
-from main_app.forms import NewPostForm, ProfileInfoForm, SignUpForm
-from main_app.models import CoderKaiPoints, Post, ProfileInfo
+from main_app.forms import NewPostForm, NewReplyForm, NewResponseForm, ProfileInfoForm, SignUpForm
+from main_app.models import CoderKaiPoints, Post, ProfileInfo, Response
 
 
 # Create your views here.
@@ -56,7 +56,11 @@ class PostContent(View):
 
     def get(self, request, **kwargs):
         post = Post.objects.get(slug=kwargs['slug'])
-        return render(request, self.template_name, {'post': post})
+        responses = Response.objects.filter(post=post)
+        return render(request, self.template_name, {
+            'post': post,
+            'responses': responses
+        })
 
 
 def about(request):
@@ -134,12 +138,64 @@ class NewPostView(LoginRequiredMixin, FormView):
         post.preview = post.body[0:500] + "..."
 
         post.save()
-        
+
         tags = self.request.POST.getlist('tags')
         for tag in tags:
             post.tags.add(tag)
 
         return super().form_valid(form)
+
+
+class NewResponseView(LoginRequiredMixin, FormView):
+    login_url = "login"
+    template_name = './main_app/new_response.html'
+    form_class = NewResponseForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = Post.objects.get(slug=self.kwargs['slug'])
+        context['post'] = post
+        return context
+
+    def form_valid(self, form):
+        response = form.save(commit=False)
+
+        post = Post.objects.get(slug=self.kwargs['slug'])
+        response.post = post
+        response.author = self.request.user
+        response.coderkaipoints = 1  # or calculate this value somehow
+
+        response.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('post_content', kwargs={'slug': self.kwargs['slug']})
+    
+
+class NewReplyView(LoginRequiredMixin, FormView):
+    login_url = "login"
+    template_name = './main_app/new_reply.html'
+    form_class = NewReplyForm
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     response = Response.objects.get(slug=self.kwargs['slug'])
+    #     context['response'] = response
+    #     return context
+
+    def form_valid(self, form):
+        response = form.save(commit=False)
+
+        post = Post.objects.get(slug=self.kwargs['slug'])
+        response.post = post
+        response.author = self.request.user
+        response.coderkaipoints = 1  # or calculate this value somehow
+
+        response.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('post_content', kwargs={'slug': self.kwargs['slug']})
 
 
 def raise_404_error(request, attemptedURL):
