@@ -2,7 +2,11 @@
 {% load static %}
 
 {% block page-title%}
+{% if user.is_authenticated %}
+  Coder Kai - Dashboard
+{% else %}
   Coder Kai - Welcome!
+{% endif %}
 {% endblock %}
 
 {% block css-stylesheet %}
@@ -11,6 +15,16 @@
 
 
 {% block mainbody %}
+
+{% if user.is_authenticated %}
+  <div class="px-4 py-5 my-5 text-center dashboard-message">
+    <h1 class="display-5 fw-bold text-white">TODO: Dashboard Recommendations</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4 text-white">Recommended posts</p>
+      <p class="lead mb-4 text-white">Recommended groups</p>
+    </div>
+  </div>
+{% else %}
   <div class="px-4 py-5 my-5 text-center welcome-message">
     <h1 class="display-5 fw-bold text-white">Welcome to Coder Kai!</h1>
     <div class="col-lg-6 mx-auto">
@@ -21,6 +35,7 @@
       </div>
     </div>
   </div>
+{% endif %}
 
 
   <h2>Why Choose Coder Kai?</h2>
