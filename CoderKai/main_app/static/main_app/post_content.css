@@ -89,6 +89,20 @@ hr {
     color: goldenrod;
 }
 
+.reply-count {
+    margin-left: 10%;
+    margin-top: 0;
+    font-size: 1.2rem;
+}
+
+.reply-count > svg,p {
+    margin-bottom: 0;
+}
+
+#mf-svg {
+    margin-top: 0.2rem;
+}
+
 .response-count > p {
     margin-left: 1rem;
 }
@@ -158,7 +172,7 @@ hr {
 }
 
 .reply {
-    margin-top: -1rem;  
+    margin-top: 0.3rem;  
     display: inline-flex;
     margin-left: 15%;
     width: 86%;
@@ -284,8 +298,10 @@ hr {
     }
 
     .reply {
-        margin-top: -0.2rem;
+        margin-top: -0.3rem;
+        margin-bottom: -0.6rem;
         margin-left: 10%;
+        padding-bottom: 0;
         width: 98.5%;
     }
 
@@ -295,10 +311,6 @@ hr {
 
     .reply .post-body {
         background-color:#2F648E;
-    }
-
-    .reply-break {
-        display: none;
     }
 
     .response-author {

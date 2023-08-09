@@ -65,7 +65,7 @@
         <p>7 answers</p>
     </div>
 
-    {%for response in responses.all %}
+    {% for response, replies in response_dictionary.items %}
     <div class="container response">
         <div class="row">
             <div class="col-2 op-info-response">
@@ -95,8 +95,9 @@
             <div class="col-2">
             </div>
         </div>
-    <br class="reply-break">
 
+
+    {% for reply in replies %}
         <div class="reply">
             <div class="col-2 op-info">
                 <div class="row">
@@ -104,7 +105,7 @@
                         <img class="profile-picture rounded-circle" width="50" height="50" src={% static "main_app/images/cat.jpg" %}>
                         <div class="row">
                             <div class="col profile-info">
-                                <p id="username-reply" class="reply-op-info">{{ post.author }}</p>
+                                <p id="username-reply" class="reply-op-info">{{ reply.author }}</p>
                                 <p class="reply-op-info">Rank:<span id="rank"> Code Master</span></p>
                                 <p id="coder-kai-points" class="reply-op-info">Coder Kai Points: {{ post.author.coderkaipoints.points }}</p>
                             </div>
@@ -113,13 +114,11 @@
                 </div>
             </div>
             <div class="response-text post-body">
-                <p>
-    Right now, when I use polars to read a pandas dataframe, I lose the name of the field. 
-    Is there a way to not lose the field name?
-                </p>
-                <div class="post-author"><span><a class="username" href="#">CatCoder1234 </a></span>Aug. 6, 2023, 6:32 p.m.</span></div>
+                <p>{{ reply.body }}</p>
+                <div class="post-author"><span><a class="username" href="#">{{ reply.author }} </a></span>{{ reply.timestamp }}</span></div>
             </div>
         </div>
+        {% endfor %}
     </div>
     {% endfor %}
 {% endblock%}

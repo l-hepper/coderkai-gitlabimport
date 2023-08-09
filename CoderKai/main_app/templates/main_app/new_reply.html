@@ -6,14 +6,41 @@
 {% endblock %}
 
 {% block css-stylesheet %}
+    <link rel="stylesheet" href={% static "main_app/post_content.css" %}>
     <link rel="stylesheet" href={% static "main_app/registration/signup.css" %}>
+    <style>
+
+        #login-form {
+            width: 80%;
+            margin-left: 10%;
+        }
+
+        .row {
+            width: 80%;
+            margin-left: 10%;
+        }
+
+        #id_body {
+            height: 5rem;
+        }
+
+        @media (max-width: 575px) {
+            #login-form {
+                width: 95%;
+                margin-left: 2.5%;
+            }
+        }
+
+
+    </style>
 {% endblock %}
 
-
+{% block mainbody %}
+<h2>Replying to:</h2>
 <div class="row">
     <div class="col-2 op-info-response">
             <div class="col profile-pic-response">
-                <img class="profile-picture" width="80" height="80" src={% static "main_app/images/cat.jpg" %}>
+                <img class="profile-picture rounded-circle" width="80" height="80" src={% static "main_app/images/cat.jpg" %}>
                 <div class="row">
                     <div class="col profile-info-response">
                         <p id="username">{{ response.author }}</p>
@@ -30,11 +57,24 @@
         </p>
     </div>
     <div class="response-author">Answered by&nbsp<span><a class="username" href="#">{{ response.author }}</a></span>&nbspon {{ response.timestamp }}</span></div>
-    <div class="post-options">
-        <button id="reply-button" type="button" class="btn btn-outline-secondary btn-lg px-1" onclick="location.href='{% url "new_reply" response.id %}'">Reply</button>
-    </div>
     </div>
 
     <div class="col-2">
     </div>
 </div>
+
+<div>
+    <br>
+        <form method="post" id="login-form">
+            {% csrf_token %}
+            {{ form }}
+            <div>
+                <div class="row">
+                    <div class="col" id="form-buttons">
+                        <button type="submit" class="btn btn-outline-secondary btn-lg px-4 submit-button">Submit</button>
+                    </div>
+                </row>
+            </div>
+        </form>
+    </div>
+{% endblock %}

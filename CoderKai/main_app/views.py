@@ -13,7 +13,7 @@ from django.utils.text import slugify
 
 from django.views.generic.edit import UpdateView
 from main_app.forms import NewPostForm, NewReplyForm, NewResponseForm, ProfileInfoForm, SignUpForm
-from main_app.models import CoderKaiPoints, Post, ProfileInfo, Response
+from main_app.models import CoderKaiPoints, Post, ProfileInfo, Reply, Response
 
 
 # Create your views here.
@@ -57,9 +57,15 @@ class PostContent(View):
     def get(self, request, **kwargs):
         post = Post.objects.get(slug=kwargs['slug'])
         responses = Response.objects.filter(post=post)
+        response_dictionary = {}
+
+        for response in responses:
+            response_dictionary[response] = Reply.objects.filter(response=response)
+        
         return render(request, self.template_name, {
             'post': post,
-            'responses': responses
+            'responses': responses,
+            'response_dictionary': response_dictionary
         })
 
 
@@ -177,21 +183,20 @@ class NewReplyView(LoginRequiredMixin, FormView):
     template_name = './main_app/new_reply.html'
     form_class = NewReplyForm
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     response = Response.objects.get(slug=self.kwargs['slug'])
-    #     context['response'] = response
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        response = Response.objects.get(id=self.kwargs['response_id'])
+        context['response'] = response
+        return context
 
     def form_valid(self, form):
-        response = form.save(commit=False)
+        reply = form.save(commit=False)
 
-        post = Post.objects.get(slug=self.kwargs['slug'])
-        response.post = post
-        response.author = self.request.user
-        response.coderkaipoints = 1  # or calculate this value somehow
+        response = Response.objects.get(id=self.kwargs['response_id'])
+        reply.response = response
+        reply.author = self.request.user
 
-        response.save()
+        reply.save()
         return super().form_valid(form)
 
     def get_success_url(self):
