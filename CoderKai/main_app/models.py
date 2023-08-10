@@ -30,6 +30,16 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class TypeTag(models.Model):
+    name = models.CharField(max_length=50)
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
 
 
 class CoderKaiPoints(models.Model):
@@ -53,6 +63,7 @@ class Post(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     coderkaipoints = models.IntegerField(default=1)
     tags = models.ManyToManyField(Tag)
+    type_tag = models.ForeignKey(TypeTag, on_delete=models.SET_NULL, null=True, blank=True)
 
 class Response(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)

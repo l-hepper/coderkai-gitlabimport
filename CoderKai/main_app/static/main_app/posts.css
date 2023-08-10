@@ -1,6 +1,5 @@
 a {
     text-decoration: none;
-    color: #7797BF;
 }
 
 hr {
@@ -13,12 +12,8 @@ hr {
     justify-content: space-around;
     padding: 1rem;
     width: 80%;
-    margin-left: 10%;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    text-align: center;
-    color: white;
-    background-color: #0D304A;
+    margin: 1% 0 1% 10%;
+    border-bottom: goldenrod 1px solid;
 }
 
 .bi {
@@ -61,12 +56,41 @@ hr {
 .post-item {
     color: white;
     list-style: none;
+    background-color: #0D304A;
+    padding: 0.4rem 0.2rem;
 }
 
 .post-title {
+    display: inline;
     color: goldenrod;
     font-size: 1.4rem;
     margin-left: 0.3rem;
+}
+
+/*
+Introduction - darkgoldenrod
+Discussion - darkcyan
+Question - firebrick
+*/
+
+.post-type-tag {
+    display: inline;
+    margin-left: 0.5rem;
+    border-radius: 12px;
+    padding: 0rem 0.3rem;
+    font-size: 1rem;
+}
+
+.Introduction {
+    background-color: darkgoldenrod;
+}
+
+.Discussion {
+    background-color: darkcyan;
+}
+
+.Question {
+    background-color: firebrick;
 }
 
 .post-title:hover {
@@ -159,5 +183,13 @@ hr {
 
     .tag-list {
         display: none;
+    }
+
+    .post-type-tag {
+        display: inline;
+        margin-left: 0.5rem;
+        border-radius: 12px;
+        padding: 0rem 0.3rem;
+        font-size: 0.9rem;
     }
 }

@@ -13,7 +13,7 @@ from django.utils.text import slugify
 
 from django.views.generic.edit import UpdateView
 from main_app.forms import NewPostForm, NewReplyForm, NewResponseForm, ProfileInfoForm, SignUpForm
-from main_app.models import CoderKaiPoints, Post, ProfileInfo, Reply, Response
+from main_app.models import CoderKaiPoints, Post, ProfileInfo, Reply, Response, TypeTag
 
 
 # Create your views here.
@@ -139,10 +139,9 @@ class NewPostView(LoginRequiredMixin, FormView):
         post = form.save(commit=False)
 
         post.author = self.request.user
-        post.coderkaipoints = 1  # or calculate this value somehow
-        post.slug = slugify(post.title)  # you will need to import slugify
+        post.coderkaipoints = 1
+        post.slug = slugify(post.title)
         post.preview = post.body[0:500] + "..."
-
         post.save()
 
         tags = self.request.POST.getlist('tags')

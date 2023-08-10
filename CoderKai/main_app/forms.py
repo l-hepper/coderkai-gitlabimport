@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from main_app.models import Interest, Motivation, Post, ProfileInfo, Reply, Response
+from main_app.models import Interest, Motivation, Post, ProfileInfo, Reply, Response, TypeTag
 
 
 class SignUpForm(UserCreationForm):
@@ -43,11 +43,19 @@ class EditProfileForm(forms.ModelForm):
 class NewPostForm(forms.ModelForm):
     tags = forms.ModelMultipleChoiceField(
         queryset=Interest.objects.all(), widget=forms.CheckboxSelectMultiple)
+    type_tag = forms.ModelChoiceField(queryset=TypeTag.objects.all())
 
 
     class Meta:
         model = Post
-        fields = ['title', 'body', 'tags']
+        fields = ['type_tag', 'title', 'body', 'tags']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['body'].label = "Post body:"
+        self.fields['type_tag'].label = "Post type:"
+        self.fields['body'].help_text = "Keep it clean, concise, and positive. That's Coder Kai!"
+        self.fields['tags'].help_text = "Pin your post with the relevant tags to promote engagement!"
 
 
 class NewResponseForm(forms.ModelForm):

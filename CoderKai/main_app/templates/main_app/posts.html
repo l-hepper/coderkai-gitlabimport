@@ -19,7 +19,7 @@
                 <span class="button-text">Sort</span>
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href={% url "edit_profile" pk=user.profileinfo.pk %}>Most Recent</a>
+              <a class="dropdown-item" href="#">Most Recent</a>
               <a class="dropdown-item" href="#">Most Active</a>
               <a class="dropdown-item" href="#">Highest Rated</a>
             </div>
@@ -32,7 +32,7 @@
                 <span class="button-text">Filter</span>
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href={% url "edit_profile" pk=user.profileinfo.pk %}>Code Review Only</a>
+              <a class="dropdown-item" href="#">Code Review Only</a>
               <a class="dropdown-item" href="#">Unanswered Only</a>
               <a class="dropdown-item" href="#">Intro Only</a>
             </div>
@@ -53,6 +53,9 @@
                 <li class="post-item">
                     <article>
                         <a href="{% url "post_content" post.slug %}"><h3 class="post-title">{{ post.title|capfirst }}</h3></a>
+                        <span class="post-type-tag {{ post.type_tag.name }}">
+                            {{ post.type_tag }}
+                        </span>
                         <p style="white-space: pre-line; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;" class="post-preview">{{ post.preview }}</p>
                         <div class="post-info">
                                 <div class="post-replies">
