@@ -1,3 +1,4 @@
+from itertools import count
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from datetime import datetime
@@ -40,8 +41,18 @@ class PostsView(View):
     template_name = "./main_app/posts.html"
 
     def get(self, request):
-        posts = Post.objects.all().order_by('-timestamp')
-        return render(request, self.template_name, {'posts': posts})
+        post_list = Post.objects.all().order_by('-timestamp')
+        post_info = {}
+
+        for post in post_list:
+            post_info[post] = Response.objects.filter(post=post).count()
+
+
+        print(post_info)
+
+        return render(request, self.template_name, {
+            'posts': post_info
+        })
 
 
 # def post_content(request, slug):
@@ -64,7 +75,7 @@ class PostContent(View):
         
         return render(request, self.template_name, {
             'post': post,
-            'responses': responses,
+            'no_responses': len(responses),
             'response_dictionary': response_dictionary
         })
 
@@ -79,10 +90,12 @@ class ProfileView(LoginRequiredMixin, View):
     login_url = "login"
     template_name = "./main_app/profile.html"
 
-    def get(self, request):
-        user = User.objects.get(id=request.user.id)
-        print(f"logged in as {user.username}")  # for debugging
-        return render(request, self.template_name, {'user': user})
+    def get(self, request, **kwargs):
+        profile_info = User.objects.get(username=kwargs['username'])
+
+        print(f"logged in as {self.request.user}")  # for debugging
+
+        return render(request, self.template_name, {'profileinfo': profile_info})
 
 
 class CompleteProfileView(LoginRequiredMixin, FormView):
@@ -168,7 +181,6 @@ class NewResponseView(LoginRequiredMixin, FormView):
         post = Post.objects.get(slug=self.kwargs['slug'])
         response.post = post
         response.author = self.request.user
-        response.coderkaipoints = 1  # or calculate this value somehow
 
         response.save()
         return super().form_valid(form)

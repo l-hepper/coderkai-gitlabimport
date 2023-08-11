@@ -12,9 +12,7 @@
 
 {% block mainbody %}
     <div class="container op-post">
-        
         <br />
-
         <div class="row">
             <div class="col-2 op-info">
                 <div class="row">
@@ -24,18 +22,26 @@
                             <div class="col profile-info">
                                 <p id="username">{{ post.author }}</p>
                                 <p>Rank:<span id="rank"> Code Master</span></p>
-                                <p id="coder-kai-points">Coder Kai Points: {{ post.author.coderkaipoints.points }}</p>
+                                <div class="coderkaipoint-operation">
+                                    <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                        <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                                    </svg></a>
+                                    <p>Kudos: {{ post.coderkaipoints }} </P>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="col-10 post-body">
                 <div class="row">
                     <div class="col">
                         <h2 id="post-title">{{ post.title }}</h2>
-                        <div class="tag-list">Tags:
+                        <span class="post-type-tag {{ post.type_tag.name }}">
+                            {{ post.type_tag }}
+                        </span>
+                        <div class="tag-list">
                             {% for tag in post.tags.all %}
                             <span><li class="tag">{{ tag }}</li></span>
                             {% endfor %}
@@ -44,8 +50,21 @@
                     </div>
                 </div>
                 <p style="white-space: pre-line" class="post-text">{{ post.body }}</p>
+                <p class="timestamp"> Posted on {{ post.timestamp }}</p>
                 <div class="post-options">
+                    <button id="kudos" type="button" class="btn btn-outline-secondary btn-lg px-1" onclick="location.href='{% url "login" %}'">
+                        <svg style="margin-right: 0.2rem; margin-bottom: -0.1rem;" xmlns="http://www.w3.org/2000/svg" width="26" height="27" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                            <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                        </svg>
+                        Kudos: {{ post.coderkaipoints }}
+                    </button>
                     <button type="button" class="btn btn-outline-secondary btn-lg px-1" onclick="location.href='{% url "login" %}'">
+                        <svg style="margin-right: 0.2rem; margin-top: 0.3rem;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bullseye" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M8 13A5 5 0 1 1 8 3a5 5 0 0 1 0 10zm0 1A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
+                            <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/>
+                            <path d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                          </svg>
                         Track
                     </button>
                     <button type="button" class="btn btn-outline-secondary btn-lg px-1" onclick="location.href='{% url "new_response" post.slug %}'">
@@ -54,6 +73,7 @@
                         </svg>
                     Answer</button>
                 </div>
+
             </div>
         </div>
     </div>
@@ -62,20 +82,30 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-bar-down" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6z"/>
         </svg>
-        <p>7 answers</p>
+        <p>{{ no_responses }} 
+            {% if no_responses == 1 %}
+                Answer
+            {% else %}
+            Answers
+            {% endif %}</p>
     </div>
 
     {% for response, replies in response_dictionary.items %}
     <div class="container response">
         <div class="row">
-            <div class="col-2 op-info-response">
+            <div class="col-2 op-info">
                     <div class="col profile-pic-response">
-                        <img class="profile-picture rounded-circle" width="80" height="80" src={% static "main_app/images/cat.jpg" %}>
+                        <img class="profile-picture rounded-circle" width="140" height="125" src={% static "main_app/images/cat.jpg" %}>
                         <div class="row">
-                            <div class="col profile-info-response">
+                            <div class="col profile-info">
                                 <p id="username">{{ response.author }}</p>
                                 <p>Rank:<span id="rank"> Code Master</span></p>
-                                <p id="coder-kai-points">Coder Kai Points: 7723</p>
+                                <div class="coderkaipoint-operation-response">
+                                    <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                        <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                                    </svg></a>
+                                    <p>Kudos: {{ response.coderkaipoints }} </P>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -87,8 +117,19 @@
                 </p>
             </div>
             <div class="response-author">Answered by&nbsp<span><a class="username" href="#">{{ response.author }}</a></span>&nbspon {{ response.timestamp }}</span></div>
+                <p class="timestamp"> Posted on {{ response.timestamp }}</p>
             <div class="post-options">
-                <button id="reply-button" type="button" class="btn btn-outline-secondary btn-lg px-1" onclick="location.href='{% url "new_reply" post.slug response.id %}'">Reply</button>
+                <button id="kudos" type="button" class="btn btn-outline-secondary btn-lg px-1" onclick="location.href='{% url "login" %}'">
+                    <svg style="margin-right: 0.2rem; margin-bottom: -0.1rem;" xmlns="http://www.w3.org/2000/svg" width="26" height="27" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                        <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                    </svg>
+                      Kudos: {{ post.coderkaipoints }}
+                </button>
+                <button id="reply-button" type="button" class="btn btn-outline-secondary btn-lg px-1" onclick="location.href='{% url "new_reply" post.slug response.id %}'">
+                    <svg style="margin-right: 0.2rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-reply" viewBox="0 0 16 16">
+                        <path d="M6.598 5.013a.144.144 0 0 1 .202.134V6.3a.5.5 0 0 0 .5.5c.667 0 2.013.005 3.3.822.984.624 1.99 1.76 2.595 3.876-1.02-.983-2.185-1.516-3.205-1.799a8.74 8.74 0 0 0-1.921-.306 7.404 7.404 0 0 0-.798.008h-.013l-.005.001h-.001L7.3 9.9l-.05-.498a.5.5 0 0 0-.45.498v1.153c0 .108-.11.176-.202.134L2.614 8.254a.503.503 0 0 0-.042-.028.147.147 0 0 1 0-.252.499.499 0 0 0 .042-.028l3.984-2.933zM7.8 10.386c.068 0 .143.003.223.006.434.02 1.034.086 1.7.271 1.326.368 2.896 1.202 3.94 3.08a.5.5 0 0 0 .933-.305c-.464-3.71-1.886-5.662-3.46-6.66-1.245-.79-2.527-.942-3.336-.971v-.66a1.144 1.144 0 0 0-1.767-.96l-3.994 2.94a1.147 1.147 0 0 0 0 1.946l3.994 2.94a1.144 1.144 0 0 0 1.767-.96v-.667z"/>
+                    </svg> 
+                    Reply</button>
             </div>
             </div>
 
@@ -107,7 +148,6 @@
                             <div class="col profile-info">
                                 <p id="username-reply" class="reply-op-info">{{ reply.author }}</p>
                                 <p class="reply-op-info">Rank:<span id="rank"> Code Master</span></p>
-                                <p id="coder-kai-points" class="reply-op-info">Coder Kai Points: {{ post.author.coderkaipoints.points }}</p>
                             </div>
                         </div>
                     </div>
@@ -116,6 +156,7 @@
             <div class="response-text post-body">
                 <p>{{ reply.body }}</p>
                 <div class="post-author"><span><a class="username" href="#">{{ reply.author }} </a></span>{{ reply.timestamp }}</span></div>
+                <p class="timestamp"> Posted on {{ reply.timestamp }}</p>
             </div>
         </div>
         {% endfor %}

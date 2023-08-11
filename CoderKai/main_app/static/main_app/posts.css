@@ -90,7 +90,7 @@ Question - firebrick
 }
 
 .Question {
-    background-color: firebrick;
+    background-color:forestgreen;
 }
 
 .post-title:hover {
@@ -100,6 +100,7 @@ Question - firebrick
 .post-preview {
     color: whitesmoke;
     margin-left: 0.3rem;
+    margin-top: 0.3rem;
 }
 
 .post-info {
@@ -141,6 +142,22 @@ Question - firebrick
     color: #FCC742;
 }
 
+.tag-list-mobile {
+    display: none;
+    color: #7797BF;
+}
+
+.tag-mobile {
+    display:none;
+    list-style: none;
+    color: whitesmoke;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    border-radius: 12px;
+    background-color: crimson;
+    font-size: 0.9rem;
+}
+
 @media (max-width: 575px) {
 
     #sort-posts {
@@ -161,11 +178,13 @@ Question - firebrick
 
     .post-title {
         font-size: 1.2rem;
+        margin-left: 0;
     }
 
     .post-preview {
         font-size: 0.8rem;
         margin-bottom: 0.3rem;
+        margin-left: 0;
     }
 
     .post-info {
@@ -189,7 +208,24 @@ Question - firebrick
         display: inline;
         margin-left: 0.5rem;
         border-radius: 12px;
-        padding: 0rem 0.3rem;
+        padding: 0rem 0.2rem;
         font-size: 0.9rem;
+    }
+
+    .tag-list-mobile {
+        display: flex;
+        color: #7797BF;
+    }
+    
+    .tag-mobile {
+        display: flex;
+        list-style: none;
+        color: whitesmoke;
+        padding-left: 0.4rem;
+        padding-right: 0.4rem;
+        margin-right: 0.2rem;
+        border-radius: 12px;
+        background-color: crimson;
+        font-size: 0.8rem;
     }
 }

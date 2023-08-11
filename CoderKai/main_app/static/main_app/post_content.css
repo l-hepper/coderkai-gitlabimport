@@ -25,15 +25,39 @@ pre {
     border-radius: 3px;
 }
 
+.post-type-tag {
+    display: inline;
+    margin-left: 0.5rem 0.5rem;
+    border-radius: 12px;
+    padding: 0rem 0.3rem;
+    font-size: 1rem;
+}
+
+.Introduction {
+    background-color: darkgoldenrod;
+}
+
+.Discussion {
+    background-color: darkcyan;
+}
+
+.Question {
+    background-color: forestgreen;
+}
+
 .post-body {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding-left: 1rem;
     color: white;
     background-color: #0D304A;
+}
+
+.post-text {
+    margin-bottom: 1rem;
 }
 
 .op-info {
@@ -51,10 +75,29 @@ pre {
     color: goldenrod;
 }
 
+#coder-kai-points {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
 .coderkaipoint-operation {
     margin-top: 1rem;
     color: goldenrod;
     padding: 1rem;
+}
+
+.coderkaipoint-operation-response {
+    padding-top: 1.5rem !important;
+    color: goldenrod;
+    padding: 1rem;
+}
+
+.timestamp {
+    border-top: 1px solid darkgoldenrod;
+    margin-top: auto;
+    padding-top: 0.2rem;
+    font-size: 0.8rem;
+    color: #7797BF !important;
 }
 
 hr {
@@ -62,16 +105,17 @@ hr {
 }
 
 #post-title {
+    display: inline;
     color: goldenrod;
 }
 
 .profile-info > p {
     color: goldenrod;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 .profile-info > #username {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
 }
 
 #rank {
@@ -79,14 +123,21 @@ hr {
 }
 
 .tag-list {
+    display: block;
     margin-bottom: 1rem;
+}
+
+.tag {
+    font-size: 1rem;
+    margin-left: 0;
+    display: inline;
 }
 
 .response-count {
     margin-left: 8%;
     display:inline-flex;
     font-size: 2.1rem;
-    color: goldenrod;
+    color: darkgoldenrod;
 }
 
 .reply-count {
@@ -112,7 +163,7 @@ hr {
 }
 
 .post-options {
-    align-self:flex-end;
+    margin-left: auto;
     margin-right: 2rem;
 }
 
@@ -124,13 +175,17 @@ hr {
     margin-left: 0.5rem;
 }
 
+#kudos {
+    display: none;
+}
+
 .response {
     padding-left: 0rem;
     padding-bottom: 2rem;
     padding-top: 2rem;
-    margin-left: 7.75%;
+    margin-left: 7.65%;
     width: 91%;
-    border-top: goldenrod solid 2px;
+    border-top: darkgoldenrod solid 2px;
 }
 
 .op-info-response {
@@ -147,11 +202,6 @@ hr {
     flex-direction: column;
     justify-content: space-between;
     color: white;
-}
-
-.profile-pic-response {
-    padding:0;
-    padding-top: 0.5rem;
 }
 
 .profile-info-response {
@@ -246,14 +296,27 @@ hr {
     color: #FCC742;
 }
 
+.bi-caret-up-fill {
+    fill: goldenrod;
+}
+
+.bi-caret-up-fill:hover {
+    fill: #FCC742;
+}
+
 
 @media (max-width: 575px) {
+
+    body {
+        margin-left: 1%;
+    }
 
     .op-info-response {
         display: none;
     }
 
     .post-options {
+        margin-right: 0;
         order: 2;
     }
 
@@ -278,16 +341,15 @@ hr {
     }
 
     .response {
+        width: 95%;
+        margin: 2.5%;
         border-top: goldenrod solid 2px;
         padding-top: 0.25rem;
         padding-bottom: 0.25rem;
-        width: 95%;
-        margin-left: 2.5%;
         margin-bottom: 1rem;
     }
 
     .post-body-response {
-        margin-top: 0;
         margin-bottom: 0;
         width: 95%;
         margin-left: 4%;
@@ -299,7 +361,7 @@ hr {
 
     .reply {
         margin-top: -0.3rem;
-        margin-bottom: -0.6rem;
+        margin-bottom: -1rem;
         margin-left: 10%;
         padding-bottom: 0;
         width: 98.5%;
@@ -307,6 +369,7 @@ hr {
 
     .reply .post-author {
         display: block;
+        font-size: 0.8rem;
     }
 
     .reply .post-body {
@@ -319,6 +382,23 @@ hr {
 
     #reply-button {
         font-size: 1rem;
-    };
+    }
+
+    .timestamp {
+        display: none;
+    }
+
+    #kudos {
+        font-size: 1.1rem;
+        display: inline-flex;
+    }
+
+    #reply-button {
+        font-size: 1.1rem;
+    }
+
+    .response-text {
+        margin-bottom: 1rem;
+    }
 
 }

@@ -17,10 +17,10 @@
             <img class="profile-picture rounded-circle" width="220" height="200" src={% static "main_app/images/cat.jpg" %}>
         </div>
         <div class="col-lg-12">
-          <h1 id="username">{{ user.username }}</h1>
+          <h1 id="username">{{ profileinfo.username }}</h1>
           <h4 id="rank">Rank: Code Cadet</h4>
-          <h4 id="coder-kai-points">Coder Kai Points: {{ user.coderkaipoints.points }}</h4>
-          {% comment %} <div class="row justify-content-around profile-options"> {% endcomment %}
+          <h4 id="coder-kai-points">Coder Kai Points: {{ profileinfo.coderkaipoints.points }}</h4>
+          {% if user.username == profileinfo.username %}
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle button-options" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
@@ -30,22 +30,13 @@
                     Options
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href={% url "edit_profile" pk=user.profileinfo.pk %}>Edit Profile</a>
+                  <a class="dropdown-item" href={% url "edit_profile" pk=profileinfo.profileinfo.pk %}>Edit Profile</a>
                   <a class="dropdown-item" href="#">Change Avatar</a>
                   <a class="dropdown-item" href="#">Delete Profile</a>
                   <a class="dropdown-item" href={% url "logout" %}>Log Out</a>
                 </div>
-              {% comment %} </div> {% endcomment %}
-            {% comment %} <div class="col-auto">
-              <button type="button" class="btn btn-outline-secondary btn-lg px-4" onclick="location.href='{% url "edit_profile" pk=user.profileinfo.pk %}'">Edit</button>
-            </div>
-            <div class="col-auto">
-              <button type="button" class="btn btn-outline-secondary btn-lg px-4" onclick="location.href='{% url "login" %}'">Delete</button>
-            </div>
-            <div class="col-auto">
-              <button type="button" class="btn btn-outline-secondary btn-lg px-4" onclick="location.href='{% url "logout" %}'">Log Out</button>
-            </div> {% endcomment %}
           </div>
+          {% endif %}
         </div>
       </div>
       <div class="col-lg-6 profile-info-box">
@@ -59,7 +50,7 @@
                 <p style="display: block;" class="profile-info-label">About:</p>
             </div>
             <div class="col-8 profile-info-answer">
-                <p>{{ user.profileinfo.about_me }}</p>
+                <p>{{ profileinfo.profileinfo.about_me }}</p>
             </div>
         </div>
         <div class="row profile-row">
@@ -67,7 +58,7 @@
                 <span class="profile-info-label">Motivations:</span>
             </div>
             <div class="col-8 profile-info-answer">
-                {% for motivation in user.profileinfo.motivations.all %}
+                {% for motivation in profileinfo.profileinfo.motivations.all %}
                 <span class="motivation-tag">{{ motivation }}</span>
                 {% endfor %}
             </div>
@@ -77,7 +68,7 @@
                 <span class="profile-info-label">Interests:</span>
             </div>
             <div class="col-8 profile-info-answer">
-                {% for interest in user.profileinfo.interests.all %}
+                {% for interest in profileinfo.profileinfo.interests.all %}
                 <span class="interest-tag">{{ interest }}</span>
                 {% endfor %}
             </div>
