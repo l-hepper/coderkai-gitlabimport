@@ -80,12 +80,20 @@ class Reply(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
 
-class PostVote(models.Model):
+class PostKudos(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ['user', 'post']
+
+
+class ResponseKudos(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    response = models.ForeignKey(Response, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ['user', 'response']
 
 
 

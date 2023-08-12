@@ -135,4 +135,10 @@ footer {
         margin-top: 0;
         margin-bottom: 4px;
     }
+
+    .btn:hover {
+        border: goldenrod solid 1px;
+        color: goldenrod;
+        background-color: #0F1826;
+    }
 }

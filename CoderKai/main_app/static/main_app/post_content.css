@@ -314,28 +314,26 @@ hr {
     transform: scale(0.95);
 }
 
+.kudos-error-mobile {
+    display: none;
+}
+
 
 @media (max-width: 575px) {
-
-
-
-    .response {
-        margin-right: 0 !important;
-        padding: 0;
-    }
 
     .op-info-response {
         display: none;
     }
 
+    .response-count {
+        margin-left: 5%;
+        width: 90%;
+    }
+
     .post-options {
         margin-right: 0;
         order: 2;
-    }
-
-    .post-body {
-        width: 95%;
-        margin-left: 2.5%;
+        display: inline-flex;
     }
 
     .tag-list {
@@ -349,25 +347,34 @@ hr {
 
     .response-count {
         font-size: 2rem;
-        margin-left: 1rem;
-        width: 90%;
+        width: 100%;
     }
 
     .response {
-        width: 95%;
-        margin-left: 2.5%;
+        width: 100%;
+        margin: 0;
         border-top: goldenrod solid 2px;
         padding-top: 0.25rem;
         padding-bottom: 0.25rem;
         margin-bottom: 1rem;
-        margin-left: 2.5%;
-
     }
 
     .post-body-response {
+        width: 100%;
         margin-bottom: 0;
-        margin-left: 2.5%;
-        width: 95%;
+    }
+
+    .response-text {
+        align-self: flex-start;
+        margin-left: 1rem;
+        margin-bottom: 0rem;
+    }
+
+    .response-author {
+        align-self: flex-end;
+        margin-top: 0.5rem;
+        margin-left: 1rem;
+        margin-bottom: 0;
     }
 
     .op-info {
@@ -375,10 +382,10 @@ hr {
     }
 
     .reply {
-        margin-bottom: -1rem;
-        margin-left: 8.5%;
+        width: 100%;
+        margin-left: 6.5%;
+        margin-bottom: 0rem;
         padding-bottom: 0;
-        width: 98.5%;
     }
 
     .reply .post-author {
@@ -411,12 +418,31 @@ hr {
         font-size: 1.1rem;
     }
 
-    .response-text {
+    .post-body {
+        width: 100%;
+    }
+
+    .op.post > .row {
+        justify-content: center;
+    }
+
+    .op-post {
+        background-color: red;
+        justify-content: center;
+    }
+
+    .kudos-error-mobile {
+        display: inline-flex;
+        align-self: flex-end;
+        margin-left: 1rem;
         margin-bottom: 1rem;
     }
 
-    .container {
-        margin-right: 0 !important;
+    .btn:hover {
+        border: goldenrod solid 1px;
+        color: goldenrod;
+        background-color: #0D304A;
     }
+
 
 }

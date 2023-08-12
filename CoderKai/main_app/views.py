@@ -16,7 +16,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.views.generic.edit import UpdateView
 from main_app.forms import NewPostForm, NewReplyForm, NewResponseForm, ProfileInfoForm, SignUpForm
-from main_app.models import CoderKaiPoints, Post, PostVote, ProfileInfo, Reply, Response, TypeTag
+from main_app.models import CoderKaiPoints, Post, PostKudos, ProfileInfo, Reply, Response, ResponseKudos, TypeTag
 
 
 # Create your views here.
@@ -66,7 +66,7 @@ class PostContent(View):
 
     def get(self, request, **kwargs):
         post = Post.objects.get(slug=kwargs['slug'])
-        responses = Response.objects.filter(post=post)
+        responses = Response.objects.filter(post=post).order_by("-timestamp")
         response_dictionary = {}
 
         for response in responses:
@@ -90,21 +90,40 @@ class PostContent(View):
 class KudosPostView(View):
     
     def post(self, request, *args, **kwargs):
-        post_id = self.kwargs['post_id']
+        post_id = kwargs['post_id']
         post = Post.objects.get(pk=post_id)
         
         # Check if user already kudosed this post or if they're the author
-        if PostVote.objects.filter(user=request.user, post=post).exists():
+        if PostKudos.objects.filter(user=request.user, post=post).exists():
             return JsonResponse({'error': "You kudosed this post already!"}, status=400)
         
         if post.author == request.user:
             return JsonResponse({'error': 'Sorry, no giving yourself kudos!'}, status=400)
 
         # If checks pass, create a vote record and update post kudos.
-        PostVote.objects.create(user=request.user, post=post)
+        PostKudos.objects.create(user=request.user, post=post)
         post.coderkaipoints += 1
         post.save()
         return JsonResponse({'post_id': post.id, 'coderkaipoints': post.coderkaipoints})
+    
+
+class KudosResponseView(View):
+    
+    def post(self, request, *args, **kwargs):
+        response_id = kwargs['response_id']
+        response = Response.objects.get(pk=response_id)
+        
+        if ResponseKudos.objects.filter(user=request.user, response=response).exists():
+            return JsonResponse({'error': "You kudosed this response already!"}, status=400)
+        
+        if response.author == request.user:
+            return JsonResponse({'error': 'Sorry, no giving yourself kudos!'}, status=400)
+
+        # If checks pass, create a vote record and update post kudos.
+        ResponseKudos.objects.create(user=request.user, response=response)
+        response.coderkaipoints += 1
+        response.save()
+        return JsonResponse({'response_id': response.id, 'coderkaipoints': response.coderkaipoints})
 
 
 def about(request):
