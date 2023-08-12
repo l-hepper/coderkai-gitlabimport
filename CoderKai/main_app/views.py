@@ -1,6 +1,6 @@
 from itertools import count
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from datetime import datetime
 from django.urls import reverse, reverse_lazy
 from django.views import View
@@ -10,11 +10,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth import logout, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.text import slugify
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
 
 from django.views.generic.edit import UpdateView
 from main_app.forms import NewPostForm, NewReplyForm, NewResponseForm, ProfileInfoForm, SignUpForm
-from main_app.models import CoderKaiPoints, Post, ProfileInfo, Reply, Response, TypeTag
+from main_app.models import CoderKaiPoints, Post, PostVote, ProfileInfo, Reply, Response, TypeTag
 
 
 # Create your views here.
@@ -47,9 +49,6 @@ class PostsView(View):
         for post in post_list:
             post_info[post] = Response.objects.filter(post=post).count()
 
-
-        print(post_info)
-
         return render(request, self.template_name, {
             'posts': post_info
         })
@@ -72,12 +71,40 @@ class PostContent(View):
 
         for response in responses:
             response_dictionary[response] = Reply.objects.filter(response=response)
-        
+
         return render(request, self.template_name, {
             'post': post,
             'no_responses': len(responses),
             'response_dictionary': response_dictionary
         })
+
+
+# class KudosPostView(LoginRequiredMixin, View):
+#     def post(self, request, *args, **kwargs):
+#         post_id = self.kwargs['post_id']
+#         post = Post.objects.get(pk=post_id)
+#         post.coderkaipoints += 1
+#         post.save()
+#         return JsonResponse({'post_id': post.id, 'coderkaipoints': post.coderkaipoints})
+
+class KudosPostView(View):
+    
+    def post(self, request, *args, **kwargs):
+        post_id = self.kwargs['post_id']
+        post = Post.objects.get(pk=post_id)
+        
+        # Check if user already kudosed this post or if they're the author
+        if PostVote.objects.filter(user=request.user, post=post).exists():
+            return JsonResponse({'error': "You kudosed this post already!"}, status=400)
+        
+        if post.author == request.user:
+            return JsonResponse({'error': 'Sorry, no giving yourself kudos!'}, status=400)
+
+        # If checks pass, create a vote record and update post kudos.
+        PostVote.objects.create(user=request.user, post=post)
+        post.coderkaipoints += 1
+        post.save()
+        return JsonResponse({'post_id': post.id, 'coderkaipoints': post.coderkaipoints})
 
 
 def about(request):
@@ -187,7 +214,7 @@ class NewResponseView(LoginRequiredMixin, FormView):
 
     def get_success_url(self):
         return reverse('post_content', kwargs={'slug': self.kwargs['slug']})
-    
+
 
 class NewReplyView(LoginRequiredMixin, FormView):
     login_url = "login"

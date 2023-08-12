@@ -23,12 +23,22 @@
                                 <p id="username">{{ post.author }}</p>
                                 <p>Rank:<span id="rank"> Code Master</span></p>
                                 <div class="coderkaipoint-operation">
-                                    <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
-                                        <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
-                                    </svg></a>
-                                    <p>Kudos: {{ post.coderkaipoints }} </P>
+                                    {% if user.is_authenticated %}
+                                        <div style="color: crimson" id="error-message-div"></div>
+                                        <form method="post" action="{% url 'kudos_post' post.id %}" class="kudos-form-post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="post_id" value="{{ post.id }}">
+                                            <button type="submit" class="kudos-button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                                    <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                                                </svg>
+                                            </button>
+                                            <p style="font-size:1.5rem;" id="kudos-count-{{ post.id }}">Kudos: {{ post.coderkaipoints }} </p>
+                                        </form>
+                                    {% else %}
+                                        <p style="font-size:1.5rem;" id="kudos-count-{{ post.id }}">Kudos: {{ post.coderkaipoints }} </p>
+                                    {% endif %}
                                 </div>
-                                
                             </div>
                         </div>
                     </div>
@@ -51,13 +61,16 @@
                 </div>
                 <p style="white-space: pre-line" class="post-text">{{ post.body }}</p>
                 <p class="timestamp"> Posted on {{ post.timestamp }}</p>
+                {% if user.is_authenticated %}
                 <div class="post-options">
+
                     <button id="kudos" type="button" class="btn btn-outline-secondary btn-lg px-1" onclick="location.href='{% url "login" %}'">
                         <svg style="margin-right: 0.2rem; margin-bottom: -0.1rem;" xmlns="http://www.w3.org/2000/svg" width="26" height="27" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                             <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                         </svg>
                         Kudos: {{ post.coderkaipoints }}
                     </button>
+
                     <button type="button" class="btn btn-outline-secondary btn-lg px-1" onclick="location.href='{% url "login" %}'">
                         <svg style="margin-right: 0.2rem; margin-top: 0.3rem;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bullseye" viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -73,7 +86,9 @@
                         </svg>
                     Answer</button>
                 </div>
-
+                {% else %}
+                    <p style="color: #7797BF; margin-left: auto"><a href="{% url 'login' %}">Log in</a> to answer, track, and kudos posts!</p>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -101,10 +116,16 @@
                                 <p id="username">{{ response.author }}</p>
                                 <p>Rank:<span id="rank"> Code Master</span></p>
                                 <div class="coderkaipoint-operation-response">
-                                    <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
-                                        <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
-                                    </svg></a>
-                                    <p>Kudos: {{ response.coderkaipoints }} </P>
+                                    {% comment %} <form method="post" action="{% url 'upvote_post' post.id %}" class="upvote-form">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="response_id" value="{{ response.id }}">
+                                        <button type="submit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                                            </svg>
+                                        </button>
+                                        <p id="kudos-count-{{ response.id }}">Kudos: {{ response.coderkaipoints }} </p>
+                                    </form> {% endcomment %}
                                 </div>
                             </div>
                         </div>
@@ -118,21 +139,24 @@
             </div>
             <div class="response-author">Answered by&nbsp<span><a class="username" href="#">{{ response.author }}</a></span>&nbspon {{ response.timestamp }}</span></div>
                 <p class="timestamp"> Posted on {{ response.timestamp }}</p>
-            <div class="post-options">
-                <button id="kudos" type="button" class="btn btn-outline-secondary btn-lg px-1" onclick="location.href='{% url "login" %}'">
-                    <svg style="margin-right: 0.2rem; margin-bottom: -0.1rem;" xmlns="http://www.w3.org/2000/svg" width="26" height="27" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
-                        <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
-                    </svg>
-                      Kudos: {{ post.coderkaipoints }}
-                </button>
-                <button id="reply-button" type="button" class="btn btn-outline-secondary btn-lg px-1" onclick="location.href='{% url "new_reply" post.slug response.id %}'">
-                    <svg style="margin-right: 0.2rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-reply" viewBox="0 0 16 16">
-                        <path d="M6.598 5.013a.144.144 0 0 1 .202.134V6.3a.5.5 0 0 0 .5.5c.667 0 2.013.005 3.3.822.984.624 1.99 1.76 2.595 3.876-1.02-.983-2.185-1.516-3.205-1.799a8.74 8.74 0 0 0-1.921-.306 7.404 7.404 0 0 0-.798.008h-.013l-.005.001h-.001L7.3 9.9l-.05-.498a.5.5 0 0 0-.45.498v1.153c0 .108-.11.176-.202.134L2.614 8.254a.503.503 0 0 0-.042-.028.147.147 0 0 1 0-.252.499.499 0 0 0 .042-.028l3.984-2.933zM7.8 10.386c.068 0 .143.003.223.006.434.02 1.034.086 1.7.271 1.326.368 2.896 1.202 3.94 3.08a.5.5 0 0 0 .933-.305c-.464-3.71-1.886-5.662-3.46-6.66-1.245-.79-2.527-.942-3.336-.971v-.66a1.144 1.144 0 0 0-1.767-.96l-3.994 2.94a1.147 1.147 0 0 0 0 1.946l3.994 2.94a1.144 1.144 0 0 0 1.767-.96v-.667z"/>
-                    </svg> 
-                    Reply</button>
+            {% if user.is_authenticated %}
+                <div class="post-options">
+                    <button id="kudos" type="button" class="btn btn-outline-secondary btn-lg px-1" onclick="location.href='{% url "login" %}'">
+                        <svg style="margin-right: 0.2rem; margin-bottom: -0.1rem;" xmlns="http://www.w3.org/2000/svg" width="26" height="27" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                            <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                        </svg>
+                        Kudos: {{ post.coderkaipoints }}
+                    </button>
+                    <button id="reply-button" type="button" class="btn btn-outline-secondary btn-lg px-1" onclick="location.href='{% url "new_reply" post.slug response.id %}'">
+                        <svg style="margin-right: 0.2rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-reply" viewBox="0 0 16 16">
+                            <path d="M6.598 5.013a.144.144 0 0 1 .202.134V6.3a.5.5 0 0 0 .5.5c.667 0 2.013.005 3.3.822.984.624 1.99 1.76 2.595 3.876-1.02-.983-2.185-1.516-3.205-1.799a8.74 8.74 0 0 0-1.921-.306 7.404 7.404 0 0 0-.798.008h-.013l-.005.001h-.001L7.3 9.9l-.05-.498a.5.5 0 0 0-.45.498v1.153c0 .108-.11.176-.202.134L2.614 8.254a.503.503 0 0 0-.042-.028.147.147 0 0 1 0-.252.499.499 0 0 0 .042-.028l3.984-2.933zM7.8 10.386c.068 0 .143.003.223.006.434.02 1.034.086 1.7.271 1.326.368 2.896 1.202 3.94 3.08a.5.5 0 0 0 .933-.305c-.464-3.71-1.886-5.662-3.46-6.66-1.245-.79-2.527-.942-3.336-.971v-.66a1.144 1.144 0 0 0-1.767-.96l-3.994 2.94a1.147 1.147 0 0 0 0 1.946l3.994 2.94a1.144 1.144 0 0 0 1.767-.96v-.667z"/>
+                        </svg> 
+                        Reply</button>
+                </div>
+            {% else %}
+                    <p style="color: #7797BF; margin-left: auto"><a href="{% url 'login' %}">Log in</a> to reply!</p>
+            {% endif %}
             </div>
-            </div>
-
             <div class="col-2">
             </div>
         </div>
@@ -162,4 +186,26 @@
         {% endfor %}
     </div>
     {% endfor %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(".kudos-form-post").submit(function(e) {
+            e.preventDefault();
+        
+            $.ajax({
+                url: $(this).attr("action"),
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(data) {
+                    $(`#kudos-count-${data.post_id}`).text(`Kudos: ${data.coderkaipoints}`);
+                },
+                error: function(xhr) {
+                    let errorData = JSON.parse(xhr.responseText); 
+                    $('#error-message-div').text(errorData.error);
+                }
+            });
+        });
+    </script>
+    
 {% endblock%}

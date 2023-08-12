@@ -14,6 +14,7 @@ urlpatterns = [
     path("new-post", views.NewPostView.as_view(), name="new_post"),
     path("posts/<slug:slug>/new-response", views.NewResponseView.as_view(), name="new_response"),
     path("posts/<slug:slug>/<str:response_id>/new-reply", views.NewReplyView.as_view(), name="new_reply"),
+    path('kudos_post/<int:post_id>/', views.KudosPostView.as_view(), name='kudos_post'),
     path("signup", views.SignUpView.as_view(), name="signup"),
     path("logout", views.logout_view, name="logout"),
     path("<str:attemptedURL>", views.raise_404_error, name="404Error")

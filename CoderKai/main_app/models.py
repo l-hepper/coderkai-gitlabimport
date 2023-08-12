@@ -80,6 +80,14 @@ class Reply(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
 
+class PostVote(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ['user', 'post']
+
+
 
 # TODO - associated a range of points with a RANK to be displayed on the profile page
 # class CoderKaiRank(models.Model):
