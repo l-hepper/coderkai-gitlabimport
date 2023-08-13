@@ -114,21 +114,23 @@ Question - firebrick
 
 .post-replies {
     color: #7797BF;
-    margin-right: 6rem;
+    margin-right: 10rem;
 }
 
 .post-kudos-count > svg {
     height: 1.5rem !important;
     width: 1.5rem !important;
-
 }
 
 .post-kudos-count{
-    margin-right: 6rem;
+    margin-right: 10rem;
+}
+
+.post-author {
+    margin-left: auto;
 }
 
 .tag-list {
-    margin-left: 14rem;
     display: inline-flex;
     color: #7797BF;
 }
@@ -213,7 +215,12 @@ Question - firebrick
     }
 
     .post-kudos-count{
+        margin-left: auto;
         margin-right: 0;
+    }
+
+    .post-author {
+        margin-left: auto;
     }
 
     .tag-list {
@@ -250,4 +257,6 @@ Question - firebrick
         width: 1.1rem !important;
     
     }
+
+
 }

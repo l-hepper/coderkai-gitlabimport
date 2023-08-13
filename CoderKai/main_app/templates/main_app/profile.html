@@ -99,7 +99,7 @@
                     <div class="col stat-info-item">
                         Date Joined:
                     </div>
-                    <div class="col">
+                    <div class="col date">
                         {{ user.date_joined }}
                     </div>
                 </div>
@@ -107,7 +107,7 @@
                     <div class="col stat-info-item">
                         Last Login:
                     </div>
-                    <div class="col">
+                    <div class="col date">
                         {{ user.last_login }}
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                         Questions Asked:
                     </div>
                     <div class="col">
-                        14
+                        {{ num_of_questions }}
                     </div>
                 </div>
                 <div class="row stat-row">
@@ -126,27 +126,42 @@
                         Answers Posted:
                     </div>
                     <div class="col">
-                        127
+                        {{ num_of_answers }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-
-
-
-
     <div class="container highest-scoring-posts">
         <div class="row">
             <div class="col">
-                <h3 id="highest-scoring-posts-header">Highest Scoring Answers</h3>
+                <h3 id="highest-scoring-posts-header">Top 3 Answers</h3>
             </div>
         </div>
-
-
+        {% for answer in top3_answers.all %}
+            <div class="row">    
+                <div class="container response">
+                    <div class="row full-response">
+                        <div class="col-1 coderkaipoint-operation">
+                            <p style="font-size:1.2rem;">Kudos: {{ answer.coderkaipoints }}</p>
+                        </div>
+                        <div class="col-11 post-body-response">
+                            <div class="response-text">
+                                <p style="white-space: pre-line">
+                                {{ answer.body }}
+                                </p>
+                                <p class="timestamp"> Posted on {{ answer.timestamp }} in <span><a class="top-post-link" href={% url "post_content" answer.post.slug %}>{{ answer.post.title}}</a><span></p>
+                                <p class="coderkaikudos-operation-mobile">Kudos: {{ answer.coderkaipoints }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
-  </div>
+  
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -3,11 +3,10 @@
 }
 
 .profile-card {
-    border-radius: 20px;
     padding: 1rem 0rem;
     margin-left: 2.5rem;
     margin-top: 1.6rem;
-    background-color: #0E426C;
+    background-color: #0D304A;
 }
 
 .profile-picture {
@@ -31,7 +30,7 @@
 
 #profile-header {
     color: goldenrod;
-    background-color: #0E426C;
+    border-bottom: 1px goldenrod solid;
     padding-top: 0.2rem;
     padding-bottom: 0.2rem;
 }
@@ -64,10 +63,9 @@
 }
 
 #stats-header {
+    margin-top: 1rem;
     color: goldenrod;
-    background-color: #0E426C;
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
+    border-bottom: 1px goldenrod solid;
 }
 
 .stat-info-item {
@@ -83,9 +81,7 @@
 
 #highest-scoring-posts-header {
     color: goldenrod;
-    background-color: #0E426C;
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
+    border-bottom: 1px goldenrod solid;
 }
 
 .interest-tag, .motivation-tag {
@@ -96,12 +92,12 @@
 
 .button-options button {
     margin-top: 2rem;
-    background-color: #0E426C;
+    background-color: #0D304A;
 }
 
 .button-options {
     margin-top: 1.5rem;
-    background-color: #0E426C;
+    background-color: #0D304A;
 }
 
 .dropdown-menu {
@@ -122,6 +118,77 @@ h4 {
     font-size: 1.3rem;
 }
 
+.highest-scoring-posts {
+    margin-top: 1rem;
+}
+
+#highest-scoring-posts-header {
+    margin: 0;
+}
+
+.timestamp {
+    display: block;
+    border-top: 1px solid darkgoldenrod;
+    padding-top: 0.2rem;
+    font-size: 0.8rem;
+    color: #7797BF !important;
+    margin-right: auto;
+}
+
+.response {
+    padding-top: 0.5rem;
+}
+
+.post-body-response {
+    background-color: #0D304A;
+    padding-bottom: 0.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: white;
+}
+
+.timestamp {
+    border-top: 1px solid darkgoldenrod;
+    padding-top: 0.2rem;
+    font-size: 0.8rem;
+    color: #7797BF !important;
+}
+
+.coderkaipoint-operation {
+    color: goldenrod;
+    background-color: #0D304A;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.response-text {
+    text-align: left;
+}
+
+.full-response {
+    width: 100%;
+    margin-left: 0rem;
+}
+
+.top-post-link {
+    color: goldenrod;
+    text-decoration: none;
+}
+
+.top-post-link:hover {
+    color: #FCC742;
+}
+
+.kudos-svg {
+    text-align: center;
+}
+
+.coderkaikudos-operation-mobile {
+    display: none;
+}
+
 @media (max-width: 575px) {
 
     .container {
@@ -138,6 +205,7 @@ h4 {
     }
 
     .profile-card {
+        margin-top: 0;
         width: 90%;
         margin-left: 5%;
     }
@@ -162,6 +230,14 @@ h4 {
         font-size: 1rem;
     }
 
+    .highest-scoring-posts {
+        padding-top: 1rem;
+    }
+
+    .profile-stats {
+        padding-top: 1rem;
+    }
+
     .profile-stats * {
         display: flex;
         flex-direction: column;
@@ -176,6 +252,13 @@ h4 {
     .stat-info-item {
         color: goldenrod;
         text-align: left;
+        padding-right: 0;
+    }
+
+    .date {
+        padding-left: 0;
+        padding-right: 0;
+        font-size: 0.8rem;
     }
 
     .tag-list-mobile {
@@ -183,4 +266,33 @@ h4 {
         background-color: blue;
         color: #7797BF;
     }
+
+    .coderkaipoint-operation {
+        display: none;
+    }
+
+    .kudos-svg {
+        text-align: center;
+    }
+
+    .full-response {
+        width: 120%;
+        margin-right: 0;
+        margin-left: -5%;
+        margin-top: -15%;
+    }
+
+    .timestamp {
+        margin-bottom: 0.2rem;
+    }
+
+    .coderkaikudos-operation-mobile {
+        display: block;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        color: goldenrod;
+    }
+
+
 }

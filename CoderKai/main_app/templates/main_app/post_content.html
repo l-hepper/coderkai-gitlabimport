@@ -55,7 +55,7 @@
                             <span><li class="tag">{{ tag }}</li></span>
                             {% endfor %}
                         </div>
-                        <div class="post-author-op">Asked by&nbsp<span><a class="username" href="#">CatCoder1234</a></span>&nbspon Aug. 6, 2023, 6:32 p.m.</span></div>
+                        <div class="post-author-op">Asked by&nbsp<span><a class="username" href={% url "profile" post.author %}>{{ post.author }}</a></span>&nbspon Aug. 6, 2023, 6:32 p.m.</span></div>
                     </div>
                 </div>
                 <p style="white-space: pre-line" class="post-text">{{ post.body }}</p>

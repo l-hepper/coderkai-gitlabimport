@@ -137,11 +137,19 @@ class ProfileView(LoginRequiredMixin, View):
     template_name = "./main_app/profile.html"
 
     def get(self, request, **kwargs):
-        profile_info = User.objects.get(username=kwargs['username'])
+        user = User.objects.get(username=kwargs['username'])
+        num_of_questions = Post.objects.filter(author=user).count()
+        
+        users_answers = Response.objects.filter(author=user).order_by('-coderkaipoints')
+        num_of_answers = users_answers.count()
+        top3_answers = users_answers[:3]
 
-        print(f"logged in as {self.request.user}")  # for debugging
-
-        return render(request, self.template_name, {'profileinfo': profile_info})
+        return render(request, self.template_name, {
+            'profileinfo': user,
+            'num_of_questions': num_of_questions,
+            'num_of_answers': num_of_answers,
+            'top3_answers': top3_answers
+        })
 
 
 class CompleteProfileView(LoginRequiredMixin, FormView):
