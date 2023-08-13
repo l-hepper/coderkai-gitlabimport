@@ -318,6 +318,13 @@ hr {
     display: none;
 }
 
+#mobile-error-message-div {
+    display: none;
+}
+
+.pls-go-away {
+    display: none;
+}
 
 @media (max-width: 575px) {
 
@@ -414,6 +421,17 @@ hr {
         display: inline-flex;
     }
 
+    #kudos-response-button,#kudos-post-button-mobile * {
+        padding: 0;
+        font-size: 0.7rem;
+        display: inline-flex;
+    }
+
+    #kudos-response-button * {
+        font-size: 1.5rem;
+        display: inline-flex;
+    }
+
     #reply-button {
         font-size: 1.1rem;
     }
@@ -438,11 +456,30 @@ hr {
         margin-bottom: 1rem;
     }
 
+    #mobile-error-message-div {
+        display: inline-flex;
+        align-self: flex-end;
+        margin-left: 1rem;
+        margin-bottom: 1rem;
+    }
+
     .btn:hover {
         border: goldenrod solid 1px;
         color: goldenrod;
         background-color: #0D304A;
     }
 
+    #kudos-response-button * {
+        font-size: 1.5rem;
+        display: inline-flex;
+    }
 
+    .mf-post-mobile-button {
+        font-size: 0.1rem;
+    }
+
+    .pls-go-away {
+        display: inline-flex;
+        padding: 0;
+    }
 }

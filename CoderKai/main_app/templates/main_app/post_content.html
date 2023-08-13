@@ -59,16 +59,24 @@
                     </div>
                 </div>
                 <p style="white-space: pre-line" class="post-text">{{ post.body }}</p>
+
                 <p class="timestamp"> Posted on {{ post.timestamp }}</p>
+                <div style="color: crimson" id="mobile-error-message-div"></div>
+
                 {% if user.is_authenticated %}
+
                 <div class="post-options">
 
-                    <button id="kudos" type="button" class="btn btn-outline-secondary btn-lg px-1" onclick="location.href='{% url "login" %}'">
-                        <svg style="margin-right: 0.2rem; margin-bottom: -0.1rem;" xmlns="http://www.w3.org/2000/svg" width="26" height="27" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
-                            <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
-                        </svg>
-                        Kudos: {{ post.coderkaipoints }}
-                    </button>
+                    <form style="display: inline-flex;" method="post" action="{% url 'kudos_post' post.id %}" class="kudos-form-post">
+                        {% csrf_token %}
+                        <input type="hidden" name="post_id" value="{{ post.id }}">
+                        <button id="kudos-post-button" type="submit" class="btn btn-outline-secondary btn-lg px-1 pls-go-away">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                            </svg>
+                            <p style="font-size:1.1rem; margin-right: 0.2rem;" class="mf-post-mobile-button" id="kudos-count-{{ post.id }}">Kudos: {{ post.coderkaipoints }} </p>
+                        </button>
+                    </form>
 
                     <button type="button" class="btn btn-outline-secondary btn-lg px-1" onclick="location.href='{% url "login" %}'">
                         <svg style="margin-right: 0.2rem; margin-top: 0.3rem;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bullseye" viewBox="0 0 16 16">
@@ -150,7 +158,7 @@
                         {% csrf_token %}
                         <input type="hidden" name="response_id" value="{{ response.id }}">
                         <button style="padding: 0;" id="kudos" type="submit" class="btn btn-outline-secondary btn-lg px-1">
-                            <svg style="margin-right: 0.2rem; margin-bottom: -0.1rem;" xmlns="http://www.w3.org/2000/svg" width="26" height="27" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                            <svg style="margin-right: 0.2rem; margin-bottom: -0.1rem;" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                                 <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                             </svg>
                             <p style="margin-right: 0.2rem;" id="mobile-kudos-count-{{ response.id }}">Kudos: {{ response.coderkaipoints }} </p>
@@ -209,11 +217,11 @@
                 type: 'POST',
                 data: $(this).serialize(),
                 success: function(data) {
-                    $(`#kudos-count-${data.post_id}`).text(`Kudos: ${data.coderkaipoints}`);
+                    $(`#kudos-count-${data.post_id}, #mobile-kudos-count-${data.post_id}`).text(`Kudos: ${data.coderkaipoints}`);
                 },
                 error: function(xhr) {
                     let errorData = JSON.parse(xhr.responseText); 
-                    $('#error-message-div').text(errorData.error);
+                    $('#error-message-div, #mobile-error-message-div').text(errorData.error);
                 }
             });
         });
