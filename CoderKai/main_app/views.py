@@ -1,6 +1,6 @@
 from itertools import count
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 from datetime import datetime
 from django.urls import reverse, reverse_lazy
 from django.views import View
@@ -11,7 +11,8 @@ from django.contrib.auth import logout, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.text import slugify
 from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
+
 
 
 from django.views.generic.edit import UpdateView
@@ -144,11 +145,17 @@ class ProfileView(LoginRequiredMixin, View):
         num_of_answers = users_answers.count()
         top3_answers = users_answers[:3]
 
+        post_kudos = Post.objects.filter(author=user).aggregate(total=Sum('coderkaipoints'))['total'] or 0
+        response_kudos = Response.objects.filter(author=user).aggregate(total=Sum('coderkaipoints'))['total'] or 0
+
+        total_kudos = post_kudos + response_kudos
+
         return render(request, self.template_name, {
             'profileinfo': user,
             'num_of_questions': num_of_questions,
             'num_of_answers': num_of_answers,
-            'top3_answers': top3_answers
+            'top3_answers': top3_answers,
+            'total_kudos': total_kudos
         })
 
 
@@ -156,7 +163,7 @@ class CompleteProfileView(LoginRequiredMixin, FormView):
     login_url = "login"
     template_name = "./main_app/complete_profile.html"
     form_class = ProfileInfoForm
-    success_url = "profile"
+    success_url = reverse_lazy('welcome_page')
 
     def form_valid(self, form):
         profileinfo = form.save(commit=False)
@@ -179,8 +186,9 @@ class EditProfileView(UpdateView):
     model = ProfileInfo
     form_class = ProfileInfoForm
     template_name = "./main_app/edit_profile.html"
-    # Assuming 'profile' is the name of the desired URL pattern
-    success_url = reverse_lazy('profile')
+
+    def get_success_url(self):
+        return reverse_lazy('profile', kwargs={'username': self.request.user.username})
 
 
 class SignUpView(FormView):

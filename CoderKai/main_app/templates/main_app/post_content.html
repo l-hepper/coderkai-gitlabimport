@@ -20,7 +20,7 @@
                         <div class="row">
                             <div class="col profile-info">
                                 <a class="username-link" href={% url "profile" post.author %}>{{ post.author }}</a>
-                                <p>Rank:<span id="rank"> Code Master</span></p>
+                                <p><span id="rank">Code Master</span></p>
                                 <div class="coderkaipoint-operation">
                                     {% if user.is_authenticated %}
                                         <div style="color: crimson" id="error-message-div"></div>
@@ -32,10 +32,10 @@
                                                     <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                                                 </svg>
                                             </button>
-                                            <p style="font-size:1.5rem;" id="kudos-count-{{ post.id }}">Kudos: {{ post.coderkaipoints }} </p>
+                                            <p style="font-size:1.2rem;" id="kudos-count-{{ post.id }}">Kudos: {{ post.coderkaipoints }} </p>
                                         </form>
                                     {% else %}
-                                        <p style="font-size:1.5rem;" id="kudos-count-{{ post.id }}">Kudos: {{ post.coderkaipoints }} </p>
+                                        <p style="font-size:1.2rem;" id="kudos-count-{{ post.id }}">Kudos: {{ post.coderkaipoints }} </p>
                                     {% endif %}
                                 </div>
                             </div>
@@ -55,12 +55,11 @@
                             <span><li class="tag">{{ tag }}</li></span>
                             {% endfor %}
                         </div>
-                        <div class="post-author-op">Asked by&nbsp<span><a class="username" href={% url "profile" post.author %}>{{ post.author }}</a></span>&nbspon Aug. 6, 2023, 6:32 p.m.</span></div>
                     </div>
                 </div>
                 <p style="white-space: pre-line" class="post-text">{{ post.body }}</p>
-
                 <p class="timestamp"> Posted on {{ post.timestamp }}</p>
+                <div class="post-author-op">asked by&nbsp<span><a class="username" href={% url "profile" post.author %}>{{ post.author }}</a></span>&nbspon Aug. 6, 2023, 6:32 p.m.</span></div>
                 <div style="color: crimson" id="mobile-error-message-div"></div>
 
                 {% if user.is_authenticated %}
@@ -121,7 +120,7 @@
                         <div class="row">
                             <div class="col profile-info">
                                 <a class="username-link" href={% url "profile" response.author %}>{{ response.author }}</a>
-                                <p>Rank:<span id="rank"> Code Master</span></p>
+                                <p><span id="rank"> Code Master</span></p>
                                 <div class="coderkaipoint-operation">
                                     {% if user.is_authenticated %}
                                         <div style="color: crimson" id="error-message-div-{{ response.id }}"></div>
@@ -133,10 +132,10 @@
                                                     <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                                                 </svg>
                                             </button>
-                                            <p style="font-size:1.5rem;" id="kudos-count-{{ response.id }}">Kudos: {{ response.coderkaipoints }} </p>
+                                            <p style="font-size:1.2rem;" id="kudos-count-{{ response.id }}">Kudos: {{ response.coderkaipoints }} </p>
                                         </form>
                                     {% else %}
-                                        <p style="font-size:1.5rem;" id="kudos-count-{{ response.id }}">Kudos: {{ response.coderkaipoints }} </p>
+                                        <p style="font-size:1.2rem;" id="kudos-count-{{ response.id }}">Kudos: {{ response.coderkaipoints }} </p>
                                     {% endif %}
                                 </div>
                             </div>
@@ -149,8 +148,8 @@
                 {{ response.body }}
                 </p>
             </div>
-            <div class="response-author">Answered by&nbsp<span><a class="username" href="#">{{ response.author }}</a></span>&nbspon {{ response.timestamp }}</span></div>
-                <p class="timestamp"> Posted on {{ response.timestamp }}</p>
+            <p class="timestamp"> posted on {{ response.timestamp }}</p>
+            <div class="response-author timestamp">aswered by&nbsp<span><a class="username" href="#">{{ response.author }}</a></span>&nbspon {{ response.timestamp }}</span></div>
             {% if user.is_authenticated %}
                 <div class="kudos-error-mobile" style="color: crimson" id="mobile-error-message-div-{{ response.id }}"></div>
                 <div class="post-options">
@@ -183,10 +182,10 @@
 
     {% for reply in replies %}
         <div class="reply">
-            <div class="col-2 op-info">
+            {% comment %} <div class="col-2 op-info">
                 <div class="row">
                     <div class="col profile-pic reply-op-info">
-                        <img class="profile-picture rounded-circle" width="50" height="50" src={% static "main_app/images/cat.jpg" %}>
+                        <img class="profile-picture rounded-circle reply-profile-pic" width="50" height="50" src={% static "main_app/images/cat.jpg" %}>
                         <div class="row">
                             <div class="col profile-info">
                                 <p id="username-reply" class="reply-op-info">{{ reply.author }}</p>
@@ -195,11 +194,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> {% endcomment %}
             <div class="response-text post-body">
                 <p>{{ reply.body }}</p>
-                <div class="post-author"><span><a class="username" href="#">{{ reply.author }} </a></span>{{ reply.timestamp }}</span></div>
-                <p class="timestamp"> Posted on {{ reply.timestamp }}</p>
+                {% comment %} <div class="post-author"><span><a class="username" href="#">{{ reply.author }} </a></span>{{ reply.timestamp }}</span></div> {% endcomment %}
+                <p class="timestamp-reply timestamp">reply by&nbsp<span class="post-author"><a class="username" href="#">{{ reply.author }}</a></span>&nbspon {{ reply.timestamp }}</p>
             </div>
         </div>
         {% endfor %}

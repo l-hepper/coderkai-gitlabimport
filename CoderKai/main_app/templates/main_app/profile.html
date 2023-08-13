@@ -19,7 +19,7 @@
         <div class="col-lg-12">
           <h1 id="username">{{ profileinfo.username }}</h1>
           <h4 id="rank">Rank: Code Cadet</h4>
-          <h4 id="coder-kai-points">Coder Kai Points: {{ profileinfo.coderkaipoints.points }}</h4>
+          <h4 id="coder-kai-points">Kudos: {{ total_kudos }}</h4>
           {% if user.username == profileinfo.username %}
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle button-options" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -136,29 +136,33 @@
     <div class="container highest-scoring-posts">
         <div class="row">
             <div class="col">
-                <h3 id="highest-scoring-posts-header">Top 3 Answers</h3>
+                <h3 id="highest-scoring-posts-header">Most Kudosed</h3>
             </div>
         </div>
-        {% for answer in top3_answers.all %}
-            <div class="row">    
-                <div class="container response">
-                    <div class="row full-response">
-                        <div class="col-1 coderkaipoint-operation">
-                            <p style="font-size:1.2rem;">Kudos: {{ answer.coderkaipoints }}</p>
-                        </div>
-                        <div class="col-11 post-body-response">
-                            <div class="response-text">
-                                <p style="white-space: pre-line">
-                                {{ answer.body }}
-                                </p>
-                                <p class="timestamp"> Posted on {{ answer.timestamp }} in <span><a class="top-post-link" href={% url "post_content" answer.post.slug %}>{{ answer.post.title}}</a><span></p>
-                                <p class="coderkaikudos-operation-mobile">Kudos: {{ answer.coderkaipoints }}</p>
+        {% if top3_answers %}
+            {% for answer in top3_answers.all %}
+                <div class="row">    
+                    <div class="container response">
+                        <div class="row full-response">
+                            <div class="col-1 coderkaipoint-operation">
+                                <p style="font-size:1.2rem;">Kudos: {{ answer.coderkaipoints }}</p>
+                            </div>
+                            <div class="col-11 post-body-response">
+                                <div class="response-text">
+                                    <p style="white-space: pre-line">
+                                    {{ answer.body }}
+                                    </p>
+                                    <p class="timestamp"> Posted on {{ answer.timestamp }} in <span><a class="top-post-link" href={% url "post_content" answer.post.slug %}>{{ answer.post.title}}</a><span></p>
+                                    <p class="coderkaikudos-operation-mobile">Kudos: {{ answer.coderkaipoints }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+            <p style="margin: 1rem 0rem 3rem 0rem; font-size: 1.5rem;">No answers yet! Visit your dashboard and see who you can help</p>
+        {% endif %}
     </div>
   
 

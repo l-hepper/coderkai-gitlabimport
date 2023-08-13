@@ -56,7 +56,7 @@ hr {
 .post-item {
     color: white;
     list-style: none;
-    background-color: #0D304A;
+    /* background-color: #0D304A; */
     padding: 0.4rem 0.2rem;
 }
 

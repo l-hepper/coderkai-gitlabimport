@@ -1,12 +1,10 @@
-.container {
-    padding-top: 4%;
-}
 
 .profile-card {
+    background: linear-gradient(to bottom, #0D304A 20%, #0F1826 90%);
+    border-radius: 6px;
     padding: 1rem 0rem;
     margin-left: 2.5rem;
-    margin-top: 1.6rem;
-    background-color: #0D304A;
+    margin-top: 3rem;
 }
 
 .profile-picture {
@@ -31,7 +29,7 @@
 #profile-header {
     color: goldenrod;
     border-bottom: 1px goldenrod solid;
-    padding-top: 0.2rem;
+    margin-top: 1rem;
     padding-bottom: 0.2rem;
 }
 
@@ -63,7 +61,7 @@
 }
 
 #stats-header {
-    margin-top: 1rem;
+    margin-top: 6rem;
     color: goldenrod;
     border-bottom: 1px goldenrod solid;
 }
@@ -92,12 +90,12 @@
 
 .button-options button {
     margin-top: 2rem;
-    background-color: #0D304A;
+    background-color: #0F1826;
 }
 
 .button-options {
     margin-top: 1.5rem;
-    background-color: #0D304A;
+    background-color: #0F1826;
 }
 
 .dropdown-menu {
@@ -119,7 +117,7 @@ h4 {
 }
 
 .highest-scoring-posts {
-    margin-top: 1rem;
+    margin-top: 5rem;
 }
 
 #highest-scoring-posts-header {
@@ -195,6 +193,10 @@ h4 {
         padding-top: 15%;
     }
 
+    #profile-header {
+        margin-top: 0rem;
+    }
+
     .profile-info-box {
         margin-top: 10%;
     }
@@ -230,7 +232,12 @@ h4 {
         font-size: 1rem;
     }
 
+    #stats-header {
+        margin-top: 1rem;
+    }
+
     .highest-scoring-posts {
+        margin-top: 1rem;
         padding-top: 1rem;
     }
 

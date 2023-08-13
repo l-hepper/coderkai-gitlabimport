@@ -1,6 +1,6 @@
 .welcome-message {
     border-radius: 5px;
-    background-color: #0E426C;
+    background: linear-gradient(to bottom, #0D304A 20%, #0F1826 90%);
     width: 60%;
     margin-left: 20%;
     margin-top: 10%;
@@ -8,7 +8,7 @@
 
 .dashboard-message {
     border-radius: 5px;
-    background-color: #0E426C;
+    background: linear-gradient(to bottom, #0D304A 20%, #0F1826 90%);
     width: 80%;
     margin-left: 10%;
     margin-top: 10%;
