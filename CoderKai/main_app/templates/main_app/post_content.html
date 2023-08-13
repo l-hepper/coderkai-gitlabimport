@@ -19,7 +19,7 @@
                         <img class="profile-picture rounded-circle" width="140" height="125" src={% static "main_app/images/cat.jpg" %}>
                         <div class="row">
                             <div class="col profile-info">
-                                <p id="username">{{ post.author }}</p>
+                                <a class="username-link" href={% url "profile" post.author %}>{{ post.author }}</a>
                                 <p>Rank:<span id="rank"> Code Master</span></p>
                                 <div class="coderkaipoint-operation">
                                     {% if user.is_authenticated %}
@@ -120,7 +120,7 @@
                         <img class="profile-picture rounded-circle" width="140" height="125" src={% static "main_app/images/cat.jpg" %}>
                         <div class="row">
                             <div class="col profile-info">
-                                <p id="username">{{ response.author }}</p>
+                                <a class="username-link" href={% url "profile" response.author %}>{{ response.author }}</a>
                                 <p>Rank:<span id="rank"> Code Master</span></p>
                                 <div class="coderkaipoint-operation">
                                     {% if user.is_authenticated %}

@@ -68,11 +68,24 @@ pre {
 
 .profile-picture {
     border: goldenrod 2px solid;
+    margin-bottom: 1rem;
 }
 
 #username {
+    font-size: 1.3rem;
     padding-top: 1rem;
     color: goldenrod;
+}
+
+.username-link {
+    text-decoration: none;
+    font-size: 1.3rem;
+    color: goldenrod;
+}
+
+.username-link:hover {
+    text-decoration: none;
+    color:#FCC742;
 }
 
 #coder-kai-points {
