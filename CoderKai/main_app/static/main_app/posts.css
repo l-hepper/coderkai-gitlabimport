@@ -114,7 +114,17 @@ Question - firebrick
 
 .post-replies {
     color: #7797BF;
-    margin-right: 14rem;
+    margin-right: 6rem;
+}
+
+.post-kudos-count > svg {
+    height: 1.5rem !important;
+    width: 1.5rem !important;
+
+}
+
+.post-kudos-count{
+    margin-right: 6rem;
 }
 
 .tag-list {
@@ -158,6 +168,8 @@ Question - firebrick
     font-size: 0.9rem;
 }
 
+
+
 @media (max-width: 575px) {
 
     #sort-posts {
@@ -183,7 +195,7 @@ Question - firebrick
 
     .post-preview {
         font-size: 0.8rem;
-        margin-bottom: 0.3rem;
+        margin-bottom: 0.6rem;
         margin-left: 0;
     }
 
@@ -197,6 +209,10 @@ Question - firebrick
     }
 
     .post-replies {
+        margin-right: 0;
+    }
+
+    .post-kudos-count{
         margin-right: 0;
     }
 
@@ -227,5 +243,11 @@ Question - firebrick
         border-radius: 12px;
         background-color: crimson;
         font-size: 0.8rem;
+    }
+
+    .post-kudos-count > svg {
+        height: 1.1rem !important;
+        width: 1.1rem !important;
+    
     }
 }
