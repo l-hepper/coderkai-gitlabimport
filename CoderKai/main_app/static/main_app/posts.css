@@ -169,7 +169,37 @@ Question - firebrick
     font-size: 0.9rem;
 }
 
+.pagination {
+    justify-content: center;
+}
 
+.pagination * {
+    background-color: #0F1826;
+    color: goldenrod;
+    border-color: goldenrod;
+}
+
+.pagination *:hover {
+    color: #FCC742;
+    border-color: goldenrod;
+    background-color: #0F1826;
+}
+
+.pagination *:active {
+    color: #FCC742;
+    border-color: goldenrod;
+}
+
+.disabled-gold {
+    color: darkgoldenrod;
+    border-color: darkgoldenrod;
+}
+
+.disabled-gold:hover {
+    color: darkgoldenrod;
+    border-color: darkgoldenrod;
+    background-color: #0F1826;
+}
 
 @media (max-width: 575px) {
 

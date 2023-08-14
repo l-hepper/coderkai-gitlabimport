@@ -145,4 +145,10 @@ footer {
         color: goldenrod;
         background-color: #0F1826;
     }
+
+    .profile-picture-nav {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: 0.2rem;
+    }
 }

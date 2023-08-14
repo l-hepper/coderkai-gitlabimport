@@ -123,13 +123,18 @@ class PostsView(View):
 
     def get(self, request):
         post_list = Post.objects.all().order_by('-timestamp')
-        post_info = {}
 
-        for post in post_list:
+        paginator = Paginator(post_list, 10)
+        page = request.GET.get('page')
+        posts = paginator.get_page(page)
+        
+        post_info = {}
+        for post in posts:
             post_info[post] = Response.objects.filter(post=post).count()
 
         return render(request, self.template_name, {
             'posts': post_info,
+            'posts_pag': posts # required for page navigation/pagination
         })
 
 

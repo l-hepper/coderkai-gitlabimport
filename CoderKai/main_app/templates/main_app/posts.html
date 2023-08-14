@@ -84,10 +84,26 @@
                         </div>
                     </article>
                 </li>
-            <hr style="color: #7797BF" />
+            <hr style="color: #2F648E" />
             {% endfor %}
         </ul>
     </div>
+
+    <nav aria-label="Page navigation" class="pagination">
+        <ul class="pagination">
+            {% if posts_pag.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ posts_pag.previous_page_number }}">Previous Page</a></li>
+            {% else %}
+                <li class="page-item"><a class="page-link disabled-gold">Previous Page</a></li>
+            {% endif %}
+
+            {% if posts_pag.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ posts_pag.next_page_number }}">Next Page</a></li>
+            {% else %}
+                <li class="page-item"><a class="page-link disabled-gold">Next Page</a></li>
+            {% endif %}
+        </ul>
+    </nav>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
