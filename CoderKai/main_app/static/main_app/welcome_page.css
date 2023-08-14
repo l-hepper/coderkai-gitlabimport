@@ -1,17 +1,20 @@
 .welcome-message {
     border-radius: 5px;
-    background: linear-gradient(to bottom, #0D304A 20%, #0F1826 90%);
+    background-color: #0D304A;
     width: 60%;
     margin-left: 20%;
     margin-top: 10%;
 }
 
+.navbar {
+    margin-bottom: 2rem !important;
+}
+
 .dashboard-message {
     border-radius: 5px;
-    background: linear-gradient(to bottom, #0D304A 20%, #0F1826 90%);
     width: 80%;
     margin-left: 10%;
-    margin-top: 10%;
+    padding: 1rem;
 }
 
 .navbar {
@@ -47,6 +50,30 @@ h2 {
     text-align: center;
     color: white;
 }
+
+.rec-for-you {
+    margin: 0;
+    color: whitesmoke;
+    text-align: center;
+    border-bottom: whitesmoke 1px solid;
+    margin-top: 2.5rem;
+}
+
+.rec-posts-help {
+    text-align: center;
+    color: #7797BF;
+    margin-top: 0.2rem;
+    margin-bottom: 3rem;
+}
+
+
+
+#post-list {
+    margin-left: 0;
+    margin-right: 0 !important;
+}
+
+
 
 @media (max-width: 575px) {
 

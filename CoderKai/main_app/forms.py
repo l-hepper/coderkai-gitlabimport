@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from main_app.models import Interest, Motivation, Post, ProfileInfo, Reply, Response, TypeTag
+from main_app.models import Interest, Motivation, Post, ProfileInfo, Reply, Response, Tag, TypeTag
 
 
 class SignUpForm(UserCreationForm):
@@ -42,7 +42,7 @@ class EditProfileForm(forms.ModelForm):
 
 class NewPostForm(forms.ModelForm):
     tags = forms.ModelMultipleChoiceField(
-        queryset=Interest.objects.all(), widget=forms.CheckboxSelectMultiple)
+        queryset=Tag.objects.all(), widget=forms.CheckboxSelectMultiple)
     type_tag = forms.ModelChoiceField(queryset=TypeTag.objects.all())
 
 

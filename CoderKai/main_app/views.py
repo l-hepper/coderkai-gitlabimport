@@ -1,10 +1,9 @@
-from itertools import count
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
-from datetime import datetime
+from datetime import datetime, timedelta
+from django.utils import timezone
 from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 from django.contrib.auth.models import User
 from django.contrib.auth import logout, login
@@ -12,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.text import slugify
 from django.http import JsonResponse
 from django.db.models import Sum
-
+from django.core.paginator import Paginator
 
 
 from django.views.generic.edit import UpdateView
@@ -22,9 +21,88 @@ from main_app.models import CoderKaiPoints, Post, PostKudos, ProfileInfo, Reply,
 
 # Create your views here.
 
+# these are the factors which are taken into account when calculating recommendation scores for content to serve a user
+INTEREST_MATCH_SCORE = 10
+MOTIVATION_MATCH_SCORE = 10
+INTRODUCTION_POST_BONUS = 50
+KUDOS_MULTIPLIER = 1
 
-class HomepageView(TemplateView):
+
+class HomepageView(View):
     template_name = "./main_app/welcome_page.html"
+
+    def get(self, request):
+        if request.user.is_authenticated:
+            recommended_posts = self.recommendation_score(request.user)[::-1]
+            posts = {}
+
+            for post in recommended_posts:
+                posts[post] = Response.objects.filter(post=post).count()
+
+            # used in development for iterating over three item list in DTL
+            itemlist3 = ['one', 'two', 'three']
+
+            return render(request, self.template_name, {
+                'posts': posts,
+                'list': itemlist3
+            })
+        else:
+            return render(request, self.template_name)
+
+    # this function is the algorithm that constructs the recommendation score for each post.
+    def recommendation_score(self, user):
+        # Filtering posts from the last week only
+        one_week_ago = timezone.now() - timedelta(days=7)
+        posts = Post.objects.filter(timestamp__gte=one_week_ago)
+
+        user_profile = ProfileInfo.objects.get(user=user)
+        user_interests = set(
+            user_profile.interests.values_list('name', flat=True))
+        user_motivations = set(
+            user_profile.motivations.values_list('name', flat=True))
+
+        # debugging - ensure that lists of motivations and interests are populating correctly
+        # print("User Motivations")
+        # for motivation in user_motivations:
+        #     print(motivation)
+
+        # print("User Interests")
+        # for interest in user_interests:
+        #     print(interest)
+
+        post_scores = {}
+
+        for post in posts:
+            score = 0
+            post_tags = set(post.tags.values_list('name', flat=True))
+
+            # match tags with user interests and motivations
+            score += len(post_tags.intersection(user_interests)) * \
+                INTEREST_MATCH_SCORE
+            score += len(post_tags.intersection(user_motivations)
+                         ) * MOTIVATION_MATCH_SCORE
+
+            # posts with a higher coderkaipoint score (kudos on the front-end) are given more recommendation
+            score += post.coderkaipoints
+
+            # introduction posts are recommended highly to support user engagement
+            if post.type_tag and post.type_tag.name == 'introduction':
+                score += INTRODUCTION_POST_BONUS
+
+            # TODO - shared group membership should also promote recommendation score
+
+            # higher kudos on the post means a higher rec score
+            kudos_count = PostKudos.objects.filter(post=post).count()
+            score += kudos_count * KUDOS_MULTIPLIER
+
+            post_scores[post.id] = score
+
+        # Sorting the posts by their scores
+        recommended_posts = sorted(
+            post_scores.keys(), key=lambda x: post_scores[x])
+
+        # Return top 5 posts
+        return Post.objects.filter(id__in=recommended_posts[-5:])
 
 
 def get_started(request):
@@ -51,7 +129,7 @@ class PostsView(View):
             post_info[post] = Response.objects.filter(post=post).count()
 
         return render(request, self.template_name, {
-            'posts': post_info
+            'posts': post_info,
         })
 
 
@@ -71,12 +149,14 @@ class PostContent(View):
         response_dictionary = {}
 
         for response in responses:
-            response_dictionary[response] = Reply.objects.filter(response=response)
+            response_dictionary[response] = Reply.objects.filter(
+                response=response)
 
         return render(request, self.template_name, {
             'post': post,
             'no_responses': len(responses),
-            'response_dictionary': response_dictionary
+            'response_dictionary': response_dictionary,
+            'response_dict_length': len(response_dictionary)
         })
 
 
@@ -89,15 +169,15 @@ class PostContent(View):
 #         return JsonResponse({'post_id': post.id, 'coderkaipoints': post.coderkaipoints})
 
 class KudosPostView(View):
-    
+
     def post(self, request, *args, **kwargs):
         post_id = kwargs['post_id']
         post = Post.objects.get(pk=post_id)
-        
+
         # Check if user already kudosed this post or if they're the author
         if PostKudos.objects.filter(user=request.user, post=post).exists():
             return JsonResponse({'error': "You kudosed this post already!"}, status=400)
-        
+
         if post.author == request.user:
             return JsonResponse({'error': 'Sorry, no giving yourself kudos!'}, status=400)
 
@@ -106,17 +186,17 @@ class KudosPostView(View):
         post.coderkaipoints += 1
         post.save()
         return JsonResponse({'post_id': post.id, 'coderkaipoints': post.coderkaipoints})
-    
+
 
 class KudosResponseView(View):
-    
+
     def post(self, request, *args, **kwargs):
         response_id = kwargs['response_id']
         response = Response.objects.get(pk=response_id)
-        
+
         if ResponseKudos.objects.filter(user=request.user, response=response).exists():
             return JsonResponse({'error': "You kudosed this response already!"}, status=400)
-        
+
         if response.author == request.user:
             return JsonResponse({'error': 'Sorry, no giving yourself kudos!'}, status=400)
 
@@ -140,13 +220,16 @@ class ProfileView(LoginRequiredMixin, View):
     def get(self, request, **kwargs):
         user = User.objects.get(username=kwargs['username'])
         num_of_questions = Post.objects.filter(author=user).count()
-        
-        users_answers = Response.objects.filter(author=user).order_by('-coderkaipoints')
+
+        users_answers = Response.objects.filter(
+            author=user).order_by('-coderkaipoints')
         num_of_answers = users_answers.count()
         top3_answers = users_answers[:3]
 
-        post_kudos = Post.objects.filter(author=user).aggregate(total=Sum('coderkaipoints'))['total'] or 0
-        response_kudos = Response.objects.filter(author=user).aggregate(total=Sum('coderkaipoints'))['total'] or 0
+        post_kudos = Post.objects.filter(author=user).aggregate(
+            total=Sum('coderkaipoints'))['total'] or 0
+        response_kudos = Response.objects.filter(author=user).aggregate(
+            total=Sum('coderkaipoints'))['total'] or 0
 
         total_kudos = post_kudos + response_kudos
 

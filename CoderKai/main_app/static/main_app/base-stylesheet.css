@@ -14,7 +14,7 @@ body {
 
 .navbar {
     --bs-navbar-padding-y: 0rem;
-    border-bottom: goldenrod solid 1px;
+    border-bottom: goldenrod solid 2px;
     background-color: #0F1826;
 }
 
@@ -45,7 +45,7 @@ body {
     font-size: 3rem;
     margin-right: 5rem;
     padding-right: 1rem;
-    border-right: goldenrod solid 1px;
+    border-right: goldenrod solid 2px;
     color: goldenrod;
     background-color: #0F1826;
 }
@@ -79,17 +79,17 @@ body {
     flex-direction: column;
     align-items: center;
     font-size: 1.3rem;
-    color: white;
+    color: goldenrod;
     margin-right: 3rem;
     fill: #0E426C;
 }
 
 .nav-link:hover {
-    color: goldenrod;
+    color: #FED852;
 }
 
 .navbar-icon {
-    fill: goldenrod;
+    fill: whitesmoke;
     height: 3rem;
     width: 3rem;
 }
@@ -105,6 +105,10 @@ footer {
 .brand {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: goldenrod;
+}
+
+.profile-picture-nav {
+    border: goldenrod 2px solid;
 }
 
 @media (max-width: 575px) {
