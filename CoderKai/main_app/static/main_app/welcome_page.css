@@ -36,8 +36,8 @@
 
 
 .card {
+    background-color:#0D304A;
     border: none;
-    background-color: #111927;
 }
 
 .card img {
@@ -63,27 +63,103 @@ h2 {
     text-align: center;
     color: #7797BF;
     margin-top: 0.2rem;
-    margin-bottom: 3rem;
 }
-
-
 
 #post-list {
     margin-left: 0;
     margin-right: 0 !important;
 }
 
+.group-list {
+    margin-top: -0.5rem !important;
+    margin-bottom: 3rem;
+}
+
+.card {
+    min-height: 100%;
+    text-align: center;
+}
+
+.group-name {
+    color: goldenrod;
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.group-name-link {
+    text-decoration: none;
+}
+
+.group-name:hover {
+    color: #FCC742;
+}
+
+.tag-list {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.2rem;
+}
+
+.leader-info {
+    display: flex;
+    justify-content: center;
+    color: #7797BF;
+    font-size: 0.8rem;
+}
+
+.leader-info a {
+    color: goldenrod;
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+
+.leader-info a:hover {
+    color: #FCC742;
+    font-size: 0.8rem;
+}
 
 
 @media (max-width: 575px) {
 
-    .card {
-        text-align: center;
-        border-bottom: gray solid 1px;
-        border-radius: 0;
+    .rec-for-you {
+        margin-top: -1rem;
     }
 
-    .card-last {
-        border-bottom: none;
+    .rec-posts-help {
+        text-align: center;
+        color: #7797BF;
+        margin-top: 0.2rem;
+        font-size: 0.8rem;
+    }
+
+    .card {
+        border-radius: 6px !important;
+        border-bottom: none !important;
+    }
+
+    .group-list {
+        order: 1;
+        display: flex;
+        flex-direction: row;
+        margin-top: 2rem;
+        width: 100%;
+        margin-left: 0;
+        row-gap: 1rem;
+    }
+
+    .dashboard-message {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .tag-mobile {
+        list-style: none;
+        color: whitesmoke;
+        padding-left: 0.4rem;
+        padding-right: 0.4rem;
+        border-radius: 12px;
+        background-color: crimson;
+        font-size: 0.8rem;
     }
 }

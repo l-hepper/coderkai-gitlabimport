@@ -39,12 +39,11 @@ class HomepageView(View):
             for post in recommended_posts:
                 posts[post] = Response.objects.filter(post=post).count()
 
-            # used in development for iterating over three item list in DTL
-            itemlist3 = ['one', 'two', 'three']
+            groups = KaiGroup.objects.all()[0:3]
 
             return render(request, self.template_name, {
                 'posts': posts,
-                'list': itemlist3
+                'group_list': groups,
             })
         else:
             return render(request, self.template_name)
@@ -60,15 +59,6 @@ class HomepageView(View):
             user_profile.interests.values_list('name', flat=True))
         user_motivations = set(
             user_profile.motivations.values_list('name', flat=True))
-
-        # debugging - ensure that lists of motivations and interests are populating correctly
-        # print("User Motivations")
-        # for motivation in user_motivations:
-        #     print(motivation)
-
-        # print("User Interests")
-        # for interest in user_interests:
-        #     print(interest)
 
         post_scores = {}
 
@@ -127,14 +117,14 @@ class PostsView(View):
         paginator = Paginator(post_list, 10)
         page = request.GET.get('page')
         posts = paginator.get_page(page)
-        
+
         post_info = {}
         for post in posts:
             post_info[post] = Response.objects.filter(post=post).count()
 
         return render(request, self.template_name, {
             'posts': post_info,
-            'posts_pag': posts # required for page navigation/pagination
+            'posts_pag': posts  # required for page navigation/pagination
         })
 
 
@@ -191,7 +181,7 @@ class KudosPostView(View):
         post.coderkaipoints += 1
         post.save()
         return JsonResponse({'post_id': post.id, 'coderkaipoints': post.coderkaipoints})
-    
+
 
 class AllGroupsView(View):
     template_name = "./main_app/all_groups.html"
@@ -202,7 +192,7 @@ class AllGroupsView(View):
         # paginator = Paginator(post_list, 10)
         # page = request.GET.get('page')
         # posts = paginator.get_page(page)
-        
+
         # post_info = {}
         # for post in posts:
         #     post_info[post] = Response.objects.filter(post=post).count()
@@ -256,6 +246,9 @@ class ProfileView(LoginRequiredMixin, View):
             total=Sum('coderkaipoints'))['total'] or 0
 
         total_kudos = post_kudos + response_kudos
+
+        if user.username == request.user.username:
+            CoderKaiPoints.objects.update(points=total_kudos)
 
         return render(request, self.template_name, {
             'profileinfo': user,
@@ -372,7 +365,7 @@ class NewReplyView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         reply = form.save(commit=False)
 
-        response = Response.objects.get(id=self.kwargs['response_id'])  
+        response = Response.objects.get(id=self.kwargs['response_id'])
         reply.response = response
         reply.author = self.request.user
 
@@ -403,6 +396,45 @@ class CreateKaiGroupView(LoginRequiredMixin, FormView):
 
         groupform.slug = slugify(groupform.name)
         groupform.creator = self.request.user
-
         form.save()
+        groupform.members.add(groupform.creator)
+
         return super().form_valid(form)
+
+
+class KaiGroupView(LoginRequiredMixin, View):
+    login_url = "login"
+    template_name = "./main_app/kaigroup.html"
+
+    def get(self, request, **kwargs):
+        group = KaiGroup.objects.get(name=kwargs['groupname'])
+        most_kudosed_members = group.members.order_by('coderkaipoints')
+
+        return render(request, self.template_name, {
+            'group': group,
+            'most_kudosed_members': most_kudosed_members
+        })
+
+
+class JoinGroupView(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+        group = KaiGroup.objects.get(name=kwargs['groupname'])
+
+        # Check if user already kudosed this post or if they're the author
+        group.members.add(request.user)
+
+        # If checks pass, create a vote record and update post kudos.
+        return HttpResponseRedirect(reverse_lazy("posts"))
+
+
+class LeaveGroupView(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+        group = KaiGroup.objects.get(name=kwargs['groupname'])
+
+        # Check if user already kudosed this post or if they're the author
+        group.members.remove(request.user)
+
+        # If checks pass, create a vote record and update post kudos.
+        return HttpResponseRedirect(reverse_lazy("posts"))

@@ -1,0 +1,81 @@
+.group-card {
+    margin-top: 3rem;
+    background: linear-gradient(to bottom, #0D304A 20%, #0F1826 90%);
+
+}
+
+.group-picture {
+    margin-top: 2rem;
+    border-radius: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.group-name {
+    font-size: 2rem;
+}
+
+.group-about {
+    width: 50%;
+    margin-left: 25%;
+}
+
+.member-card {
+    background-color: #0F1826;
+}
+
+.member-pic {
+    border: goldenrod 2px solid;
+}
+
+.member-username {
+    font-size: 1.4rem;
+    margin-top: 0.5rem;
+    text-decoration: none;
+    color: goldenrod;
+}
+
+.member-username:hover {
+    color: #FCC742;
+}
+
+.leader-info {
+    font-size: 1.4rem;
+    text-decoration: none;
+    color: goldenrod;
+}
+
+.leader-info:hover {
+    color: #FCC742;
+}
+
+.join-button {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 575px) {
+
+    .group-card {
+        margin-top: 0rem;
+        width: 98%;
+        margin-left: 1%;
+    }
+
+    .member-pic {
+        border: goldenrod 2px solid;
+        width: 150px !important;
+        height: 150px !important;
+    }
+
+    .leader-info {
+        margin-top: -0.2rem;
+        padding-top: 0;
+        font-size: 1.1rem;
+        text-decoration: none;
+        color: goldenrod;
+    }
+
+    .group-about {
+        width: 100%;
+        margin-left: 0;
+    }
+}
