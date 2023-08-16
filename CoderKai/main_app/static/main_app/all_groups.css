@@ -1,0 +1,90 @@
+.new-group-button {
+    padding-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.group-list {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2rem;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.card-text {
+    text-align: center;
+}
+
+.group-name {
+    color: goldenrod;
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+.group-name-link {
+    text-decoration: none;
+}
+
+.group-name:hover {
+    color: #FCC742;
+}
+
+.card-img {
+    border: 2px white solid;
+}
+
+.group-buttons * {
+    font-size: 1.2rem;
+}
+
+.tag-list {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.2rem;
+}
+
+.tag {
+    color: whitesmoke;
+    margin-left: 0.6rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    margin-bottom: 0.2rem;
+    border-radius: 12px;
+    background-color: crimson;
+    font-size: 0.9rem;
+}
+
+.leader-info {
+    display: flex;
+    justify-content: center;
+    color: #7797BF;
+    font-size: 0.8rem;
+}
+
+.leader-info a {
+    color: goldenrod;
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+
+.leader-info a:hover {
+    color: #FCC742;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 575px) {
+
+    .card {
+        border-radius: 6px !important;
+        border-bottom: none !important;
+    }
+
+    .group-list {
+        display: flex;
+        flex-direction: row;
+        margin-top: 2rem;
+        width: 100%;
+        margin-left: 0;
+    }
+}

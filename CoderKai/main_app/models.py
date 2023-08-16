@@ -96,6 +96,23 @@ class ResponseKudos(models.Model):
         unique_together = ['user', 'response']
 
 
+class KaiGroup(models.Model):
+    name = models.CharField(max_length=20, unique=True)
+    about = models.TextField(max_length=252, help_text="Short info about the group")
+    created_at = models.DateTimeField(auto_now_add=True)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_groups")
+    members = models.ManyToManyField(User)
+    interests = models.ManyToManyField(Interest)
+    motivations = models.ManyToManyField(Motivation)
+    slug = models.SlugField(blank=True, null=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return self.name
+
+
 
 # TODO - associated a range of points with a RANK to be displayed on the profile page
 # class CoderKaiRank(models.Model):

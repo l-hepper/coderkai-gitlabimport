@@ -15,8 +15,8 @@ from django.core.paginator import Paginator
 
 
 from django.views.generic.edit import UpdateView
-from main_app.forms import NewPostForm, NewReplyForm, NewResponseForm, ProfileInfoForm, SignUpForm
-from main_app.models import CoderKaiPoints, Post, PostKudos, ProfileInfo, Reply, Response, ResponseKudos, TypeTag
+from main_app.forms import KaiGroupForm, NewPostForm, NewReplyForm, NewResponseForm, ProfileInfoForm, SignUpForm
+from main_app.models import CoderKaiPoints, KaiGroup, Post, PostKudos, ProfileInfo, Reply, Response, ResponseKudos, TypeTag
 
 
 # Create your views here.
@@ -191,6 +191,25 @@ class KudosPostView(View):
         post.coderkaipoints += 1
         post.save()
         return JsonResponse({'post_id': post.id, 'coderkaipoints': post.coderkaipoints})
+    
+
+class AllGroupsView(View):
+    template_name = "./main_app/all_groups.html"
+
+    def get(self, request):
+        group_list = KaiGroup.objects.all().order_by('-created_at')
+
+        # paginator = Paginator(post_list, 10)
+        # page = request.GET.get('page')
+        # posts = paginator.get_page(page)
+        
+        # post_info = {}
+        # for post in posts:
+        #     post_info[post] = Response.objects.filter(post=post).count()
+
+        return render(request, self.template_name, {
+            'group_list': group_list
+        })
 
 
 class KudosResponseView(View):
@@ -353,7 +372,7 @@ class NewReplyView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         reply = form.save(commit=False)
 
-        response = Response.objects.get(id=self.kwargs['response_id'])
+        response = Response.objects.get(id=self.kwargs['response_id'])  
         reply.response = response
         reply.author = self.request.user
 
@@ -372,3 +391,18 @@ def logout_view(request):
     print(f"logging out of {request.user}")  # for debugging
     logout(request)
     return render(request, "main_app/welcome_page.html")
+
+
+class CreateKaiGroupView(LoginRequiredMixin, FormView):
+    template_name = './main_app/create_kaigroup.html'
+    form_class = KaiGroupForm
+    success_url = reverse_lazy('posts')
+
+    def form_valid(self, form):
+        groupform = form.save(commit=False)
+
+        groupform.slug = slugify(groupform.name)
+        groupform.creator = self.request.user
+
+        form.save()
+        return super().form_valid(form)

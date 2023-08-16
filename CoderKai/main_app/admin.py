@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from main_app.models import Interest, Motivation, Post, ProfileInfo, Reply, Response, Tag, TypeTag
+from main_app.models import Interest, KaiGroup, Motivation, Post, ProfileInfo, Reply, Response, Tag, TypeTag
 
 # Register your models here.
 
@@ -13,3 +13,4 @@ admin.site.register(Response)
 admin.site.register(Reply)
 admin.site.register(Tag)
 admin.site.register(TypeTag)
+admin.site.register(KaiGroup)

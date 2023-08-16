@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from main_app.models import Interest, Motivation, Post, ProfileInfo, Reply, Response, Tag, TypeTag
+from main_app.models import Interest, KaiGroup, Motivation, Post, ProfileInfo, Reply, Response, Tag, TypeTag
 
 
 class SignUpForm(UserCreationForm):
@@ -19,10 +19,8 @@ class SignUpForm(UserCreationForm):
 
 
 class ProfileInfoForm(forms.ModelForm):
-    interests = forms.ModelMultipleChoiceField(
-        queryset=Interest.objects.all(), widget=forms.CheckboxSelectMultiple)
-    motivations = forms.ModelMultipleChoiceField(
-        queryset=Motivation.objects.all(), widget=forms.CheckboxSelectMultiple)
+    interests = forms.ModelMultipleChoiceField(queryset=Interest.objects.all(), widget=forms.CheckboxSelectMultiple)
+    motivations = forms.ModelMultipleChoiceField(queryset=Motivation.objects.all(), widget=forms.CheckboxSelectMultiple)
 
     class Meta:
         model = ProfileInfo
@@ -41,8 +39,7 @@ class EditProfileForm(forms.ModelForm):
 
 
 class NewPostForm(forms.ModelForm):
-    tags = forms.ModelMultipleChoiceField(
-        queryset=Tag.objects.all(), widget=forms.CheckboxSelectMultiple)
+    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), widget=forms.CheckboxSelectMultiple)
     type_tag = forms.ModelChoiceField(queryset=TypeTag.objects.all())
 
 
@@ -78,3 +75,15 @@ class NewReplyForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['body'].label = "Enter your reply below:"
         self.fields['body'].help_text = "Replies are used to thank people or ask for more information on their answer."
+
+
+class KaiGroupForm(forms.ModelForm):
+    interests = forms.ModelMultipleChoiceField(queryset=Interest.objects.all(), widget=forms.CheckboxSelectMultiple)
+    motivations = forms.ModelMultipleChoiceField(queryset=Motivation.objects.all(), widget=forms.CheckboxSelectMultiple)
+
+    class Meta:
+        model = KaiGroup
+        fields = ['name', 'about', 'interests', 'motivations']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
