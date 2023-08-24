@@ -152,3 +152,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = reverse_lazy("login")
 LOGIN_REDIRECT_URL = "welcome_page"
 LOGOUT_REDIRECT_URL = "welcome_page"
+
+MEDIA_ROOT = BASE_DIR / "images"
+MEDIA_URL = "/user-avatars/"

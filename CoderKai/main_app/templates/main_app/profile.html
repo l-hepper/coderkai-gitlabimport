@@ -14,7 +14,7 @@
     <div class="row">
       <div class="col-lg-5 profile-card">
         <div class="col-lg-12 user-card">
-            <img class="profile-picture rounded-circle" width="220" height="200" src={% static "main_app/images/cat.jpg" %}>
+            <img class="profile-picture rounded-circle" width="220" height="200" src="{{ profileinfo.profileinfo.avatar.url }}" alt="user_avatar">
         </div>
         <div class="col-lg-12">
           <h1 id="username">{{ profileinfo.username }}</h1>

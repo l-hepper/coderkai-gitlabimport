@@ -79,19 +79,25 @@ body {
     flex-direction: column;
     align-items: center;
     font-size: 1.3rem;
-    color: goldenrod;
+    color: whitesmoke;
     margin-right: 3rem;
-    fill: #0E426C;
-}
-
-.nav-link:hover {
-    color: #FED852;
 }
 
 .navbar-icon {
     fill: whitesmoke;
     height: 3rem;
     width: 3rem;
+}
+
+.nav-item:hover {
+
+    .navbar-icon {
+        fill: goldenrod;
+    }
+
+    .nav-link {
+        color: goldenrod;
+    }
 }
 
 footer {
@@ -109,6 +115,10 @@ footer {
 
 .profile-picture-nav {
     border: goldenrod 2px solid;
+}
+
+.d-flex {
+    margin-top: 2rem;
 }
 
 @media (max-width: 575px) {

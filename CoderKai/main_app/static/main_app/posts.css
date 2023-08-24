@@ -74,7 +74,6 @@ Question - firebrick
 
 .post-type-tag {
     display: inline;
-    margin-left: 0.5rem;
     border-radius: 12px;
     padding: 0rem 0.3rem;
     font-size: 1rem;
@@ -258,7 +257,6 @@ Question - firebrick
 
     .post-type-tag {
         display: inline;
-        margin-left: 0.5rem;
         border-radius: 12px;
         padding: 0rem 0.2rem;
         font-size: 0.9rem;

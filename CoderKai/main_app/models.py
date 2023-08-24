@@ -49,6 +49,7 @@ class CoderKaiPoints(models.Model):
 
 class ProfileInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to="images", null=True, blank=True)
     interests = models.ManyToManyField(Interest)
     motivations = models.ManyToManyField(Motivation)
     about_me = models.TextField(max_length=64)
