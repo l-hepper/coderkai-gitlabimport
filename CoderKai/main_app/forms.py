@@ -83,7 +83,7 @@ class KaiGroupForm(forms.ModelForm):
 
     class Meta:
         model = KaiGroup
-        fields = ['name', 'about', 'interests', 'motivations']
+        fields = ['group_image', 'name', 'about', 'interests', 'motivations']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

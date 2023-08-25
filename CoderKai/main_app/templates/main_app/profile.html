@@ -18,7 +18,7 @@
         </div>
         <div class="col-lg-12">
           <h1 id="username">{{ profileinfo.username }}</h1>
-          <h4 id="rank">Rank: Code Cadet</h4>
+          <h4 id="rank">Code Cadet</h4>
           <h4 id="coder-kai-points">Kudos: {{ total_kudos }}</h4>
           {% if user.username == profileinfo.username %}
             <div class="dropdown">
@@ -31,9 +31,8 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href={% url "edit_profile" pk=profileinfo.profileinfo.pk %}>Edit Profile</a>
-                  <a class="dropdown-item" href="#">Change Avatar</a>
-                  <a class="dropdown-item" href="#">Delete Profile</a>
                   <a class="dropdown-item" href={% url "logout" %}>Log Out</a>
+                  <a style="color: grey" class="dropdown-item inactive">Delete Profile (under construction)</a>
                 </div>
           </div>
           {% endif %}
@@ -75,7 +74,7 @@
         </div>
         <div class="row profile-row">
             <div class="col-4 profile-item">
-                <span class="profile-info-label">Groups:</span>
+                <span class="profile-info-label">Awards:</span>
             </div>
             <div class="col-8 profile-info-answer">
                 <span>None</span>

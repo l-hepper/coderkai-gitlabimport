@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block css-stylesheet %}
+    <style>
+        h1 {
+            font-size: 10rem;
+            margin-top: 2rem;
+            text-align: center;
+            color: goldenrod;
+        }
+
+        p {
+            font-size: 3rem;
+            text-align: center;
+            color: goldenrod;
+            margin-bottom: 30rem;
+        }
+    </style>
+{% endblock %}
+
+{% block mainbody %}
+<h1>Oops!</h1>
+<p>{{ error_message }}</p>
+<p>Please use the address bar above to navigate back to the main site.<p>
+<p>To report this error, please email <a href="#">coderkai-help@coderkai.com</a></p>
+{% endblock %}

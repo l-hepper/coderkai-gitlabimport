@@ -67,7 +67,7 @@ class Post(models.Model):
     type_tag = models.ForeignKey(TypeTag, on_delete=models.SET_NULL, null=True, blank=True)
 
 class Response(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='response')
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     body = models.TextField(max_length=2048)
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -99,6 +99,7 @@ class ResponseKudos(models.Model):
 
 class KaiGroup(models.Model):
     name = models.CharField(max_length=20, unique=True)
+    group_image = models.ImageField(upload_to="group_images", default="images/default-avatar.png", null=True, blank=True)
     about = models.TextField(max_length=252, help_text="Short info about the group")
     created_at = models.DateTimeField(auto_now_add=True)
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_groups")

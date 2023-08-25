@@ -21,7 +21,7 @@
 {% block mainbody %}
     <div>
     <h2>Create Kai Group</h2>
-        <form method="post" id="login-form">
+        <form method="post" id="login-form" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form }}
             <div>

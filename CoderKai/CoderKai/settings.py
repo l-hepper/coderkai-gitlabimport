@@ -155,3 +155,5 @@ LOGOUT_REDIRECT_URL = "welcome_page"
 
 MEDIA_ROOT = BASE_DIR / "images"
 MEDIA_URL = "/user-avatars/"
+
+HANDLER404 = 'myapp.views.custom_404'

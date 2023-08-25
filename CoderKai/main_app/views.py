@@ -11,7 +11,7 @@ from django.contrib.auth import logout, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.text import slugify
 from django.http import JsonResponse
-from django.db.models import Sum
+from django.db.models import Sum, Count
 from django.core.paginator import Paginator
 
 
@@ -114,7 +114,30 @@ class PostsView(View):
     template_name = "./main_app/posts.html"
 
     def get(self, request):
-        post_list = Post.objects.all().order_by('-timestamp')
+        #post_list = Post.objects.all().order_by('-timestamp')
+        post_list = Post.objects.all()
+
+        sort_option = request.GET.get('sort', 'most_recent')  # Defaults to 'most_recent'
+        filter_option = request.GET.get('filter', 'all')
+
+        if sort_option == 'most_recent':
+            post_list = post_list.order_by('-timestamp')
+        elif sort_option == 'most_active':
+            post_list = post_list.annotate(reply_count=Count('response')).order_by('-reply_count')
+        elif sort_option == 'most_kudosed':
+            post_list = post_list.order_by('-coderkaipoints')
+        # Add more sorting options here as needed
+
+        if filter_option == 'all':
+            post_list = post_list.all()
+        elif filter_option == 'unanswered_only':
+            post_list = post_list.annotate(num_responses=Count('response')).filter(num_responses=0)
+        elif filter_option == 'introduction_only':
+            post_list = post_list.filter(type_tag__name="Introduction")
+        elif filter_option == 'question_only':
+            post_list = post_list.filter(type_tag__name="Question")
+        elif filter_option == 'discussion_only':
+            post_list = post_list.filter(type_tag__name="Discussion")
 
         paginator = Paginator(post_list, 10)
         page = request.GET.get('page')
@@ -126,22 +149,22 @@ class PostsView(View):
 
         return render(request, self.template_name, {
             'posts': post_info,
-            'posts_pag': posts  # required for page navigation/pagination
+            'posts_pag': posts,  # required for page navigation/pagination
+            'sort_option': sort_option.replace('_', ' '),
+            'filter_option': filter_option.replace('_', ' ')
         })
 
-
-# def post_content(request, slug):
-#     clicked_post = post_dictionary[slug]
-#     return render(request, "./main_app/post_content.html", {
-#         "page_title": slug,
-#         "post_content": clicked_post
-#     })
 
 class PostContent(View):
     template_name = "./main_app/post_content.html"
 
     def get(self, request, **kwargs):
-        post = Post.objects.get(slug=kwargs['slug'])
+
+        try:
+            post = Post.objects.get(slug=kwargs['slug'])
+        except Post.DoesNotExist:
+            raise Http404("Post does not exist")
+
         responses = Response.objects.filter(post=post).order_by("-timestamp")
         response_dictionary = {}
 
@@ -156,14 +179,6 @@ class PostContent(View):
             'response_dict_length': len(response_dictionary)
         })
 
-
-# class KudosPostView(LoginRequiredMixin, View):
-#     def post(self, request, *args, **kwargs):
-#         post_id = self.kwargs['post_id']
-#         post = Post.objects.get(pk=post_id)
-#         post.coderkaipoints += 1
-#         post.save()
-#         return JsonResponse({'post_id': post.id, 'coderkaipoints': post.coderkaipoints})
 
 class KudosPostView(View):
 
@@ -354,7 +369,6 @@ class NewResponseView(LoginRequiredMixin, FormView):
         post = Post.objects.get(slug=self.kwargs['slug'])
         response.post = post
         response.author = self.request.user
-
         response.save()
         return super().form_valid(form)
 
@@ -387,8 +401,18 @@ class NewReplyView(LoginRequiredMixin, FormView):
         return reverse('post_content', kwargs={'slug': self.kwargs['slug']})
 
 
-def raise_404_error(request, attemptedURL):
-    raise Http404(f"This page does not exist on CoderKai")
+def custom_404(request, exception):
+    context = {
+        'error_message': 'Coder Kai is unable to find this page!'
+    }
+    print("CALLED custom 404")
+
+    if 'user' in request.path:
+        context['error_message'] = 'User not found.'
+    elif 'posts' in request.path:
+        context['error_message'] = 'This post does not exist on Coder Kai'
+
+    return render(request, "./main_app/404.html", context)
 
 
 def logout_view(request):
@@ -400,17 +424,19 @@ def logout_view(request):
 class CreateKaiGroupView(LoginRequiredMixin, FormView):
     template_name = './main_app/create_kaigroup.html'
     form_class = KaiGroupForm
-    success_url = reverse_lazy('posts')
 
     def form_valid(self, form):
         groupform = form.save(commit=False)
 
         groupform.slug = slugify(groupform.name)
         groupform.creator = self.request.user
-        form.save()
+        groupform.save()
         groupform.members.add(groupform.creator)
 
         return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse('group', kwargs={'slug': self.name})
 
 
 class KaiGroupView(LoginRequiredMixin, View):
@@ -449,3 +475,4 @@ class LeaveGroupView(LoginRequiredMixin, View):
 
         # If checks pass, create a vote record and update post kudos.
         return HttpResponseRedirect(reverse_lazy("posts"))
+
