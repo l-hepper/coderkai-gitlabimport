@@ -57,7 +57,7 @@
           {% if user.is_authenticated %}
             <li class="nav-item mf-item">
               <a class="nav-link" href="{% url "profile" user.username %}">
-                  <img class="profile-picture-nav rounded-circle" width="51" height="51" src={% static "main_app/images/cat.jpg" %}>
+                  <img class="profile-picture-nav rounded-circle" width="51" height="51" src={{ user.profileinfo.avatar.url }}>
                 {{ user.username }}
               </a>
             </li>

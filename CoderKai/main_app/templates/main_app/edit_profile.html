@@ -13,7 +13,7 @@
     <div class="text-center login-form">
     <h2>Edit Your Profile</h2>
     <h3 id="coderkai-profile-instruction">Coder Kai will dynamically create recommended groups and community posts based on your profile.</h3>
-        <form method="post" id="login-form">
+        <form method="post" id="login-form" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form }}
             <div id="form-buttons">
