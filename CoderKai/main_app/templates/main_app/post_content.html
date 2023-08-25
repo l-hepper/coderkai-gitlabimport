@@ -7,6 +7,10 @@
 
 {% block css-stylesheet %}
     <link rel="stylesheet" href={% static "main_app/post_content.css" %}>
+
+    <!-- syntax highlighting for code snippets, CDN for highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/arta.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
 {% endblock %}
 
 
@@ -16,7 +20,7 @@
             <div class="col-2 op-info">
                 <div class="row">
                     <div class="col profile-pic">
-                        <img class="profile-picture rounded-circle" width="140" height="125" src={% static "main_app/images/cat.jpg" %}>
+                        <img class="profile-picture rounded-circle" width="140" height="125" src={{ post.author.profileinfo.avatar.url }}>
                         <div class="row">
                             <div class="col profile-info">
                                 <a class="username-link" href={% url "profile" post.author %}>{{ post.author }}</a>
@@ -57,7 +61,7 @@
                         </div>
                     </div>
                 </div>
-                <p style="white-space: pre-line" class="post-text">{{ post.body }}</p>
+                <p style="white-space: pre-line" class="post-text">{{ post.body|safe }}</p>
                 <p class="timestamp"> Posted on {{ post.timestamp }}</p>
                 <div class="post-author-op">asked by&nbsp<span><a class="username" href={% url "profile" post.author %}>{{ post.author }}</a></span>&nbspon Aug. 6, 2023, 6:32 p.m.</span></div>
                 <div style="color: crimson" id="mobile-error-message-div"></div>
@@ -116,7 +120,7 @@
         <div class="row">
             <div class="col-2 op-info">
                     <div class="col profile-pic-response">
-                        <img class="profile-picture rounded-circle" width="140" height="125" src={% static "main_app/images/cat.jpg" %}>
+                        <img class="profile-picture rounded-circle" width="140" height="125" src={{ response.author.profileinfo.avatar.url }}>
                         <div class="row">
                             <div class="col profile-info">
                                 <a class="username-link" href={% url "profile" response.author %}>{{ response.author }}</a>
@@ -182,23 +186,10 @@
 
     {% for reply in replies %}
         <div class="reply">
-            {% comment %} <div class="col-2 op-info">
-                <div class="row">
-                    <div class="col profile-pic reply-op-info">
-                        <img class="profile-picture rounded-circle reply-profile-pic" width="50" height="50" src={% static "main_app/images/cat.jpg" %}>
-                        <div class="row">
-                            <div class="col profile-info">
-                                <p id="username-reply" class="reply-op-info">{{ reply.author }}</p>
-                                <p class="reply-op-info">Rank:<span id="rank"> Code Master</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> {% endcomment %}
             <div class="response-text post-body">
                 <p>{{ reply.body }}</p>
                 {% comment %} <div class="post-author"><span><a class="username" href="#">{{ reply.author }} </a></span>{{ reply.timestamp }}</span></div> {% endcomment %}
-                <p class="timestamp-reply timestamp">reply by&nbsp<span class="post-author"><a class="username" href="#">{{ reply.author }}</a></span>&nbspon {{ reply.timestamp }}</p>
+                <p class="timestamp-reply timestamp">reply by&nbsp<span class="post-author"><a class="username" href={% url "profile" reply.author %}>{{ reply.author }}</a></span>&nbspon {{ reply.timestamp }}</p>
             </div>
         </div>
         {% endfor %}
@@ -219,7 +210,7 @@
             Back to Top</button>
         </div>
     {% endif %}
-
+    <script>hljs.highlightAll();</script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>

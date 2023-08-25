@@ -20,9 +20,13 @@
 }
 
 pre {
-    padding: 1rem;
-    background-color: #2F536C;
-    border-radius: 3px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+code {
+    border-radius: 8px;
+    margin-top: 1rem;
 }
 
 .post-type-tag {
@@ -57,14 +61,9 @@ pre {
     border-radius: 8px;
 }
 
-.post-text {
-    margin-bottom: 1rem;
-}
-
 .op-info {
     padding-top: 1rem;
     text-align: center;
-    border-radius: 8px;
 }
 
 .profile-picture {
@@ -90,14 +89,11 @@ pre {
 }
 
 #coder-kai-points {
-    margin-top: 0.5rem;
     margin-bottom: 1rem;
 }
 
 .coderkaipoint-operation {
-    margin-top: 0.6rem;
     color: goldenrod;
-    padding: 1rem;
 }
 
 .kudos-button {
@@ -106,16 +102,14 @@ pre {
 }
 
 .coderkaipoint-operation-response {
-    padding-top: 1rem !important;
     color: goldenrod;
-    padding: 1rem;
 }
 
 .timestamp {
     border-top: 1px solid #7797BF;
-    margin-top: auto;
     padding-top: 0.2rem;
     font-size: 0.8rem;
+    margin-top: auto;
     color: #7797BF !important;
 }
 
@@ -508,4 +502,5 @@ hr {
     .timestamp-reply {
         display: inline-flex;
     }
+
 }

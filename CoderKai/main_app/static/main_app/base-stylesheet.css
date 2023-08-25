@@ -1,5 +1,5 @@
 /* * {
-    border: black dashed 1px;
+    border: red dashed 1px;
 } */
 
 html {
@@ -18,13 +18,12 @@ body {
     background-color: #0F1826;
 }
 
-.container-fluid {
-    background-color: #0F1826;
+.navbar-collapse {
+    margin-bottom: -1.6rem;
 }
 
-.collapse {
-    margin-top: 2.5rem;
-    margin-bottom: -2.3rem;
+.container-fluid {
+    background-color: #0F1826;
 }
 
 .navbar-toggler {
@@ -40,24 +39,7 @@ body {
 }
 
 .navbar-brand {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    text-align: left;
-    font-size: 3rem;
-    margin-right: 3rem;
-    padding-right: 1rem;
-    border-right: goldenrod solid 2px;
-    color: goldenrod;
-    background-color: #0F1826;
-}
-
-.navbar-brand:hover {
-    color: goldenrod;
-    text-decoration: none;
-}
-
-.navbar-brand:focus {
-    color: goldenrod;
-    text-decoration: none;
+    border-right: goldenrod 2px solid;
 }
 
 .navbar-nav {
@@ -118,7 +100,7 @@ footer {
 }
 
 .d-flex {
-    margin-top: 2rem;
+    margin-top: 1.8rem;
 }
 
 @media (max-width: 575px) {
@@ -129,8 +111,13 @@ footer {
     }
 
     .navbar-brand {
-        font-size: 1.5rem;
-        color: goldenrod;
+        max-width: 8rem;
+        border-right: none;
+    }
+
+    .navbar-brand > img {
+        width: 75%;
+        height: 75%;
     }
 
     .nav-link {
@@ -160,5 +147,9 @@ footer {
         width: 1.5rem;
         height: 1.5rem;
         margin-right: 0.2rem;
+    }
+
+    .d-flex {
+        margin-top: 0;
     }
 }

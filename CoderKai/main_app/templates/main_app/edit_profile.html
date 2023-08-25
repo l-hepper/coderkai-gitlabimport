@@ -7,22 +7,69 @@
 
 {% block css-stylesheet %}
     <link rel="stylesheet" href={% static "main_app/registration/signup.css" %}>
+    <style>
+        #avatar-clear_id {
+            display: none;
+        }
+
+        form a {
+            display: none;
+        }
+
+        [for="id_avatar"] {
+            display: none;
+          }
+
+        [for="avatar-clear_id"] {
+        display: none;
+        }
+
+        .rounded-circle {
+            border: 2px solid goldenrod;
+        }
+
+        .helptext {
+            margin-top: 0;
+        }
+    </style>
 {% endblock %}
 
 {% block mainbody %}
-    <div class="text-center login-form">
+<div class="text-center login-form">
     <h2>Edit Your Profile</h2>
-    <h3 id="coderkai-profile-instruction">Coder Kai will dynamically create recommended groups and community posts based on your profile.</h3>
-        <form method="post" id="login-form" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form }}
-            <div id="form-buttons">
-                <div class="row">
-                    <div class="col">
-                        <button type="submit" value="Update" class="btn btn-outline-secondary btn-lg px-4 login-button">Finish Editing</button>
-                    </div>
-                </row>
+    <h3 id="coderkai-profile-instruction" style="color: #7797BF; margin-top: 0;">Coder Kai will dynamically create recommended groups and community posts based on your profile.</h3>
+
+
+    <form method="post" id="login-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <label for="{{ form.avatar.id_for_label }}">Avatar:</label>
+        {% if form.avatar.value %}
+            <div style="text-align: center; margin-top: 1rem;" class="current-avatar">
+                <img class="rounded-circle" width="220" height="200" src="{{ form.avatar.value.url }}" alt="Current Avatar" width="100">
             </div>
-        </form>
-    </div>
+        {% endif %}
+        {{ form.avatar }}
+        
+        <label style="text-decoration: underline; margin-top: 2rem;">Interests:</label>
+        <span class="helptext">{{ form.interests.help_text }}</span>
+        {{ form.interests }}
+    
+        <label style="text-decoration: underline; margin-top: 2rem;">Motivations:</label>
+        <span class="helptext">{{ form.motivations.help_text }}</span>
+        {{ form.motivations }}
+    
+        <label style="text-decoration: underline; margin-top: 2rem;" for="{{ form.about_me.id_for_label }}">About Me:</label>
+        {{ form.about_me }}
+    
+        <div id="form-buttons">
+            <div class="row">
+                <div class="col">
+                    <button type="submit" value="Update" class="btn btn-outline-secondary btn-lg px-4 login-button">Finish Editing</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+</div>
 {% endblock %}

@@ -60,7 +60,7 @@ class Post(models.Model):
     title = models.CharField(max_length=64)
     body = models.TextField(max_length=2048)
     preview = models.CharField(max_length=512)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     coderkaipoints = models.IntegerField(default=1)
     tags = models.ManyToManyField(Tag)

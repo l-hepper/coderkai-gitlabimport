@@ -40,12 +40,11 @@
 <div class="row">
     <div class="col-2 op-info-response">
             <div class="col profile-pic-response">
-                <img class="profile-picture rounded-circle" width="80" height="80" src={% static "main_app/images/cat.jpg" %}>
+                <img class="profile-picture rounded-circle" width="120" height="120" src={{ response.author.profileinfo.avatar.url }}>
                 <div class="row">
                     <div class="col profile-info-response">
                         <p id="username">{{ response.author }}</p>
-                        <p>Rank:<span id="rank"> Code Master</span></p>
-                        <p id="coder-kai-points">Coder Kai Points: 7723</p>
+                        <p><span id="rank"> Code Master</span></p>
                     </div>
                 </div>
             </div>

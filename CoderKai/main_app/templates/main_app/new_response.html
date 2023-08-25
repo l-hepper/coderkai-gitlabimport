@@ -8,6 +8,12 @@
 {% block css-stylesheet %}
     <link rel="stylesheet" href={% static "main_app/post_content.css" %}>
     <link rel="stylesheet" href={% static "main_app/registration/signup.css" %}>
+
+    <!-- syntax highlighting for code snippets, CDN for highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/arta.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+
+
     <style>
         h2 {
             margin: 0 0 0.5rem 0;
@@ -36,12 +42,11 @@
         <div class="col-2 op-info">
             <div class="row">
                 <div class="col profile-pic">
-                    <img class="profile-picture rounded-circle" width="140" height="125" src={% static "main_app/images/cat.jpg" %}>
+                    <img class="profile-picture rounded-circle" width="140" height="125" src="{{ post.author.profileinfo.avatar.url }}">
                     <div class="row">
                         <div class="col profile-info">
                             <p id="username">{{ post.author }}</p>
-                            <p>Rank:<span id="rank"> Code Master</span></p>
-                            <p id="coder-kai-points">Coder Kai Points: {{ post.author.coderkaipoints.points }}</p>
+                            <p><span id="rank"> Code Master</span></p>
                         </div>
                     </div>
                 </div>
@@ -59,7 +64,7 @@
                     <div class="post-author-op">Asked by&nbsp<span><a class="username" href="#">CatCoder1234</a></span>&nbspon Aug. 6, 2023, 6:32 p.m.</span></div>
                 </div>
             </div>
-            <p style="white-space: pre-line" class="post-text">{{ post.body }}</p>
+            <p style="white-space: pre-line" class="post-text">{{ post.body|safe }}</p>
         </div>
     </div>
 </div>
@@ -80,4 +85,7 @@
             </div>
         </form>
     </div>
+
+
+    <script>hljs.highlightAll();</script>
 {% endblock %}

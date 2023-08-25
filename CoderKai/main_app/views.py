@@ -1,3 +1,4 @@
+import re
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from datetime import datetime, timedelta
@@ -15,6 +16,7 @@ from django.core.paginator import Paginator
 
 
 from django.views.generic.edit import UpdateView
+from django.utils.html import escape
 from main_app.forms import KaiGroupForm, NewPostForm, NewReplyForm, NewResponseForm, ProfileInfoForm, SignUpForm
 from main_app.models import CoderKaiPoints, KaiGroup, Post, PostKudos, ProfileInfo, Reply, Response, ResponseKudos, TypeTag
 
@@ -316,7 +318,16 @@ class NewPostView(LoginRequiredMixin, FormView):
         post.author = self.request.user
         post.coderkaipoints = 1
         post.slug = slugify(post.title)
-        post.preview = post.body[0:500] + "..."
+
+        preview_body = re.sub('\[coderkai!\].*?\[/coderkai!\]', '[CODEBLOCK]', post.body, flags=re.DOTALL)
+        post.preview = preview_body[0:500] + "..."
+
+        post.body = escape(post.body)
+        post.body = post.body.replace('[coderkai!]', '<pre><code>')
+        post.body = post.body.replace('[/coderkai!]', '</code></pre>')
+
+
+
         post.save()
 
         tags = self.request.POST.getlist('tags')
