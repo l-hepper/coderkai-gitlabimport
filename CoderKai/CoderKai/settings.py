@@ -157,3 +157,5 @@ MEDIA_ROOT = BASE_DIR / "images"
 MEDIA_URL = "/user-avatars/"
 
 HANDLER404 = 'myapp.views.custom_404'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

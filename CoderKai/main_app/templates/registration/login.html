@@ -16,7 +16,7 @@
             {% csrf_token %}
             {{ form }}
             <div id="reset-password">
-                <button type="button"> Reset Password </button>
+                <a href={% url "password_reset" %}>Reset Password</a>
             </div>
             <div id="form-buttons">
                 <div class="row">

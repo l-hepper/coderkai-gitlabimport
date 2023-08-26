@@ -66,14 +66,15 @@ label {
     margin-bottom: 1rem;
 }
 
-#reset-password > button {
+#reset-password > a {
     border: none;
     font-size: 0.9rem;
     background-color: #0D304A;
     color: #7797BF;
+    text-decoration: none;
 }
 
-#reset-password > button:hover {
+#reset-password > a:hover {
     text-decoration: underline;
 }
 
