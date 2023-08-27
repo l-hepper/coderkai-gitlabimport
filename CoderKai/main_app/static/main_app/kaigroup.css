@@ -23,6 +23,10 @@
     background-color: #0F1826;
 }
 
+.member-card p {
+    margin-bottom: 0rem;
+}
+
 .member-pic {
     border: goldenrod 2px solid;
 }
@@ -54,11 +58,20 @@
 
 @media (max-width: 575px) {
 
+    .group-picture {
+        margin-top: 2rem;
+        border-radius: 2px;
+        margin-bottom: 0.5rem;
+        width: 100% !important;
+    }
+
     .group-card {
         margin-top: 0rem;
         width: 98%;
         margin-left: 1%;
     }
+
+
 
     .member-pic {
         border: goldenrod 2px solid;

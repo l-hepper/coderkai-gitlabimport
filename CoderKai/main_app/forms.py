@@ -53,7 +53,7 @@ class NewPostForm(forms.ModelForm):
         self.fields['type_tag'].label = "Post type:"
         self.fields['body'].help_text = """
         Keep it clean, concise, and positive.
-        Include a code snippet in your answer with tags [coderkai!] and [/coderkai!].
+        You can include a code snippet in your post with tags [coderkai!] and [/coderkai!].
         """
         self.fields['tags'].help_text = "Pin your post with the relevant tags to promote engagement!"
 
@@ -67,7 +67,7 @@ class NewResponseForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['body'].label = "Enter your answer below:"
         self.fields['body'].help_text = """
-        Include a code snippet in your answer with tags [coderkai!] and [/coderkai!].
+        You can include a code snippet in your answer with tags [coderkai!] and [/coderkai!].
         Your answer should be clear, concise, and positive. \n
         """
 

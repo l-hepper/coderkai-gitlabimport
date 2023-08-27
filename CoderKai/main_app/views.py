@@ -13,7 +13,7 @@ from django.utils.text import slugify
 from django.http import JsonResponse
 from django.db.models import Sum, Count
 from django.core.paginator import Paginator
-from django.db.models import F
+from django.db.models import F, Q
 from django.views.generic.base import TemplateView
 
 from django.views.generic.edit import UpdateView
@@ -38,7 +38,7 @@ class HomepageView(View):
             for post in recommended_posts:
                 posts[post] = Response.objects.filter(post=post).count()
 
-            groups = KaiGroup.objects.all()[0:3]
+            groups = self.recommend_groups(request.user)
 
             return render(request, self.template_name, {
                 'posts': posts,
@@ -90,7 +90,20 @@ class HomepageView(View):
         # Return top 10 posts
         return Post.objects.filter(id__in=recommended_posts[-10:])
 
+    def recommend_groups(self, user):
+        user_profile = ProfileInfo.objects.get(user=user)
+        user_interests = user_profile.interests.all()
+        user_motivations = user_profile.motivations.all()
 
+        # Filter groups based on user's interests and motivations
+        # Annotate the groups with a score based on the number of matches
+        # Order by this score and retrieve the top 3
+        groups = (KaiGroup.objects
+                  .filter(Q(interests__in=user_interests) | Q(motivations__in=user_motivations))
+                  .annotate(match_score=Count('interests', distinct=True) + Count('motivations', distinct=True))
+                  .order_by('-match_score')[:3])
+
+        return groups
 
 class CoderKaiGuideView(TemplateView):
     template_name = "./main_app/coderkai_guide.html"
@@ -372,6 +385,12 @@ class NewResponseView(LoginRequiredMixin, FormView):
         post = Post.objects.get(slug=self.kwargs['slug'])
         response.post = post
         response.author = self.request.user
+
+        response.body = escape(response.body)
+        response.body = response.body.replace('[coderkai!]', '<pre><code>')
+        response.body = response.body.replace('[/coderkai!]', '</code></pre>')
+
+
         response.save()
         return super().form_valid(form)
 
@@ -429,7 +448,6 @@ def logout_view(request):
 class CreateKaiGroupView(LoginRequiredMixin, FormView):
     template_name = './main_app/create_kaigroup.html'
     form_class = KaiGroupForm
-    success_url = "all-groups"
 
     def form_valid(self, form):
         self.groupform = form.save(commit=False)
@@ -442,14 +460,16 @@ class CreateKaiGroupView(LoginRequiredMixin, FormView):
         self.groupform.members.add(self.groupform.creator)
 
         return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse('kaigroup', kwargs={'slug': self.groupform.slug})
 
 
-class KaiGroupView(LoginRequiredMixin, View):
-    login_url = "login"
+class KaiGroupView(View):
     template_name = "./main_app/kaigroup.html"
 
     def get(self, request, **kwargs):
-        group = KaiGroup.objects.get(name=kwargs['groupname'])
+        group = KaiGroup.objects.get(slug=kwargs['slug'])
 
         member_list = group.members.all()
         group_kudos = 0
@@ -465,6 +485,14 @@ class KaiGroupView(LoginRequiredMixin, View):
             'group_kudos': group_kudos,
             'most_kudosed_members': most_kudosed_members
         })
+    
+class EditGroupView(UpdateView):
+    model = KaiGroup
+    form_class = KaiGroupForm
+    template_name = "./main_app/edit_group.html"
+
+    def get_success_url(self):
+        return reverse('kaigroup', kwargs={'slug': self.object.slug})
 
 
 class JoinGroupView(LoginRequiredMixin, View):
@@ -476,7 +504,7 @@ class JoinGroupView(LoginRequiredMixin, View):
         group.members.add(request.user)
 
         # If checks pass, create a vote record and update post kudos.
-        return HttpResponseRedirect(reverse("kaigroup", kwargs={'groupname': kwargs['groupname']}))
+        return HttpResponseRedirect(reverse("kaigroup", kwargs={'slug': group.slug}))
 
 
 class LeaveGroupView(LoginRequiredMixin, View):
@@ -488,5 +516,23 @@ class LeaveGroupView(LoginRequiredMixin, View):
         group.members.remove(request.user)
 
         # If checks pass, create a vote record and update post kudos.
-        return HttpResponseRedirect(reverse("kaigroup", kwargs={'groupname': kwargs['groupname']}))
+        return HttpResponseRedirect(reverse("kaigroup", kwargs={'slug': group.slug}))
+    
+
+class EditPostView(UpdateView):
+    model = Post
+    form_class = NewPostForm
+    template_name = "./main_app/edit_post.html"
+
+    def get_success_url(self):
+        return reverse('post_content', kwargs={'slug': self.object.slug})
+    
+
+class EditResponseView(UpdateView):
+    model = Response
+    form_class = NewResponseForm
+    template_name = "./main_app/edit_response.html"
+
+    def get_success_url(self):
+        return reverse('post_content', kwargs={'slug': self.object.post.slug })
 

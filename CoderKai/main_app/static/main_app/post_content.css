@@ -211,6 +211,7 @@ hr {
     color: white;
     background-color: #0D304A;
     border-radius: 8px;
+    padding-top: 0.5rem;
 }
 
 .profile-info-response {
@@ -338,6 +339,10 @@ hr {
     display: none;
 }
 
+#rank {
+    font-weight: bold;
+}
+
 .Cadet {
     color: whitesmoke;
 }
@@ -352,6 +357,10 @@ hr {
 
 .Lancer {
     color: fuchsia;
+}
+
+.Brigadier {
+    color: cyan;
 }
 
 @media (max-width: 575px) {
@@ -382,12 +391,13 @@ hr {
 
     .response-count {
         font-size: 2rem;
-        width: 100%;
+        width: 50%;
     }
 
     .response {
-        width: 100%;
+        width: 96%;
         margin: 0;
+        margin-left: 4%;
         border-top: goldenrod solid 1px;
         padding-top: 1rem;
         padding-bottom: 0.25rem;
@@ -395,8 +405,10 @@ hr {
     }
 
     .post-body-response {
-        width: 100%;
+        width: 98%;
+        margin-left: 0.5%;
         margin-bottom: 0;
+        padding-top: 0.5rem;
     }
 
     .response-text {
@@ -466,7 +478,8 @@ hr {
     }
 
     .post-body {
-        width: 100%;
+        width: 98%;
+        margin-left: 1%;
     }
 
     .op.post > .row {

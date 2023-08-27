@@ -10,7 +10,7 @@
     <link rel="stylesheet" href={% static "main_app/registration/signup.css" %}>
 
     <!-- syntax highlighting for code snippets, CDN for highlight.js -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/arta.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
 
 
@@ -45,8 +45,8 @@
                     <img class="profile-picture rounded-circle" width="140" height="125" src="{{ post.author.profileinfo.avatar.url }}">
                     <div class="row">
                         <div class="col profile-info">
-                            <p id="username">{{ post.author }}</p>
-                            <p><span id="rank"> Code Master</span></p>
+                            <a class="username-link" href={% url "profile" post.author %}>{{ post.author }}</a>
+                            <p><span id="rank" class="{{ post.author.profileinfo.rank }}">{{ post.author.profileinfo.rank }}</span></p>
                         </div>
                     </div>
                 </div>

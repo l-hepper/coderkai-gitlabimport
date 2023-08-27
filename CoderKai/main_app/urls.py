@@ -22,6 +22,8 @@ urlpatterns = [
     path("posts", views.PostsView.as_view(), name="posts"),
     path("posts/<slug:slug>", views.PostContent.as_view(), name="post_content"),
     path("new-post", views.NewPostView.as_view(), name="new_post"),
+    path("edit-post/<slug:slug>", views.EditPostView.as_view(), name="edit_post"),
+    path("edit-response/<int:pk>", views.EditResponseView.as_view(), name="edit_response"),
     path("posts/<slug:slug>/new-response", views.NewResponseView.as_view(), name="new_response"),
     path("posts/<slug:slug>/<str:response_id>/new-reply", views.NewReplyView.as_view(), name="new_reply"),
 
@@ -32,9 +34,10 @@ urlpatterns = [
     # Group functionality
     path('create-kaigroup', views.CreateKaiGroupView.as_view(), name='create_kaigroup'),
     path('all-groups', views.AllGroupsView.as_view(), name="all_groups"),
-    path('group/<str:groupname>', views.KaiGroupView.as_view(), name="kaigroup"),
+    path('group/<slug:slug>', views.KaiGroupView.as_view(), name="kaigroup"),
     path('join-group/<str:groupname>', views.JoinGroupView.as_view(), name="join_group"),
     path('leave-group/<str:groupname>', views.LeaveGroupView.as_view(), name="leave_group"),
+    path('edit-group/<slug:slug>', views.EditGroupView.as_view(), name='edit_group')
 ]
 
 handler404 = 'main_app.views.custom_404'

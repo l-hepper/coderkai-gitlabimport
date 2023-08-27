@@ -18,6 +18,10 @@ body {
     background-color: #0F1826;
 }
 
+.navbar-nav {
+    margin-left: 10rem;
+}
+
 .navbar-collapse {
     margin-bottom: -1.6rem;
 }
@@ -39,11 +43,7 @@ body {
 }
 
 .navbar-brand {
-    border-right: goldenrod 2px solid;
-}
-
-.navbar-nav {
-    margin-right: auto !important;
+    border-right: goldenrod 2px solid;  
 }
 
 .btn {
@@ -151,5 +151,9 @@ footer {
 
     .d-flex {
         margin-top: 0;
+    }
+
+    .navbar-nav {
+        margin-left: 0rem;
     }
 }

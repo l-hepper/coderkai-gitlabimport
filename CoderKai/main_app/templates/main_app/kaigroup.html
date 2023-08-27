@@ -38,8 +38,7 @@
                     Group Options
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Edit Group</a>
-                  <a class="dropdown-item" href="#">Delete Group</a>
+                  <a class="dropdown-item" href={% url "edit_group" group.slug %}>Edit Group</a>
                 </div>
           </div>
           {% else %}
@@ -121,11 +120,12 @@
                     {% for member in most_kudosed_members.all %}
                       <div class="col-md-2">
                         <div class="member-card mb-4" style="padding-top: 1rem;">
-                          <img class="card-img rounded-circle member-pic" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 125px; width: 65%; align-self: center;" src={{ member.profileinfo.avatar.url }} data-holder-rendered="true">
+                          <img class="card-img rounded-circle member-pic" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 125px; width: 75%; align-self: center;" src={{ member.profileinfo.avatar.url }} data-holder-rendered="true">
                           <div class="card-body">
                             <a class="member-username" href={% url "profile" member.username %}><p class="card-text member-username">{{ member.username }}</p></a>
                           </div>
-                          <p class="member-kudos-score">Kudos: {{ member.profileinfo.kudos }}</p>
+                          <p><span id="rank" class="{{ member.profileinfo.rank }}">{{ member.profileinfo.rank }}</span></p>
+                          <p class="member-kudos-score" style="font-weight: bold;">Kudos: {{ member.profileinfo.kudos }}</p>
                         </div>
                       </div>
                     {% endfor %}

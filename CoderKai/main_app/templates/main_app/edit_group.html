@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page-title %} 
+    Coder Kai - Edit Group
+{% endblock %}
+
+{% block css-stylesheet %}
+    <link rel="stylesheet" href={% static "main_app/registration/signup.css" %}>
+    <style>
+        select {
+            padding: 0.5rem;
+        }
+
+        option {
+            font-size: 1.2rem;
+        }
+    </style>
+{% endblock %}
+
+{% block mainbody %}
+    <div>
+    <h2>Edit Group</h2>
+        <form method="post" id="login-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form }}
+            <div>
+                <div class="row">
+                    <div class="col" id="form-buttons">
+                        <button type="submit" class="btn btn-outline-secondary btn-lg px-4 submit-button">Finishing Edit</button>
+                    </div>
+                </row>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -7,6 +7,10 @@
 
 {% block css-stylesheet %}
     <link rel="stylesheet" href={% static "main_app/profile.css" %}>
+
+    <!-- syntax highlighting for code snippets, CDN for highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
 {% endblock %}
 
 {% block mainbody %}
@@ -149,7 +153,7 @@
                             <div class="col-11 post-body-response">
                                 <div class="response-text">
                                     <p style="white-space: pre-line">
-                                    {{ answer.body }}
+                                    {{ answer.body|safe }}
                                     </p>
                                     <p class="timestamp"> Posted on {{ answer.timestamp }} in <span><a class="top-post-link" href={% url "post_content" answer.post.slug %}>{{ answer.post.title}}</a><span></p>
                                     <p class="coderkaikudos-operation-mobile">Kudos: {{ answer.kudos}}</p>
@@ -160,11 +164,11 @@
                 </div>
             {% endfor %}
         {% else %}
-            <p style="margin: 1rem 0rem 3rem 0rem; font-size: 1.5rem;">No answers yet! Visit your dashboard and see who you can help</p>
+            <p style="margin: 1rem 0rem 3rem 0rem; font-size: 1.5rem;">No answers posted yet</p>
         {% endif %}
     </div>
   
-
+<script>hljs.highlightAll();</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -37,3 +37,26 @@ p {
     border-radius: 12px;
     background-color: crimson;
 }
+
+@media (max-width: 575px) {
+    
+    .featurette {
+        margin-left: 0;
+        margin-top: 0rem;
+    }
+
+    .featurette-text-reverse {
+        margin-left: 0;
+    }
+
+    .welcome-message {
+        margin-bottom: 0 !important;
+    }
+
+    .screenshot {
+        height: 100% !important;
+        width: 100% !important;
+    }
+
+
+}
