@@ -200,6 +200,10 @@ Question - firebrick
     background-color: #0F1826;
 }
 
+.button-text-mobile {
+    display: none;
+}
+
 @media (max-width: 575px) {
 
     #sort-posts {
@@ -285,5 +289,12 @@ Question - firebrick
     
     }
 
+    .button-text {
+        display: none;
+    }
+
+    .button-text-mobile {
+        display: inline-flex;
+    }
 
 }

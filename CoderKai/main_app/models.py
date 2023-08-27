@@ -42,27 +42,23 @@ class TypeTag(models.Model):
         return self.name
 
 
-class CoderKaiPoints(models.Model):
-    points = models.IntegerField(default=0)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-
 class ProfileInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to="images", default="images/default-avatar.png", null=True, blank=True)
-    interests = models.ManyToManyField(Interest)
-    motivations = models.ManyToManyField(Motivation)
+    interests = models.ManyToManyField(Interest, blank=True)
+    motivations = models.ManyToManyField(Motivation, blank=True)
     about_me = models.TextField(max_length=64)
-
+    kudos = models.IntegerField(default=1)
+    rank = models.CharField(default="Code Cadet")
 
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    title = models.CharField(max_length=64)
+    title = models.CharField(max_length=128)
     body = models.TextField(max_length=2048)
     preview = models.CharField(max_length=512)
     slug = models.SlugField(unique=True)
     timestamp = models.DateTimeField(auto_now_add=True)
-    coderkaipoints = models.IntegerField(default=1)
+    kudos = models.IntegerField(default=1)
     tags = models.ManyToManyField(Tag)
     type_tag = models.ForeignKey(TypeTag, on_delete=models.SET_NULL, null=True, blank=True)
 
@@ -71,7 +67,7 @@ class Response(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     body = models.TextField(max_length=2048)
     timestamp = models.DateTimeField(auto_now_add=True)
-    coderkaipoints = models.IntegerField(default=1)
+    kudos = models.IntegerField(default=1)
 
 
 class Reply(models.Model):
@@ -113,10 +109,3 @@ class KaiGroup(models.Model):
 
     def __str__(self):
         return self.name
-
-
-
-# TODO - associated a range of points with a RANK to be displayed on the profile page
-# class CoderKaiRank(models.Model):
-#     coderkai_rank = models.CharField(default="Code Cadet")
-#     points = models.ForeignKey(CoderKaiPoints, on_delete=models.CASCADE)

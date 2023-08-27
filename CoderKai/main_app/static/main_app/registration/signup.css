@@ -45,11 +45,14 @@ label {
     height: 5rem;
 }
 
-#id_email,#id_password1,#id_password2,#id_username {
+#id_email,
+#id_password1,
+#id_password2,
+#id_username {
     padding-left: 0.5rem;
     font-size: 1.3rem;
     height: 3rem;
-    border-radius:6px;
+    border-radius: 6px;
     margin-top: 0.1rem;
 }
 
@@ -69,6 +72,12 @@ label {
 #login-prompt {
     margin-top: 1.5rem;
     color: #7797BF;
+}
+
+#login-prompt>a {
+    border: none;
+    background-color: #0D304A;
+    text-decoration: none;
 }
 
 #coderkai-profile-instruction {
@@ -104,4 +113,3 @@ label {
         font-size: 1.2rem;
     }
 }
-

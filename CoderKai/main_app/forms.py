@@ -24,7 +24,7 @@ class ProfileInfoForm(forms.ModelForm):
 
     class Meta:
         model = ProfileInfo
-        exclude = ["user"]
+        exclude = ["user", 'kudos', 'rank']
 
     def __init__(self, *args, **kwargs):
         super(ProfileInfoForm, self).__init__(*args, **kwargs)
@@ -35,7 +35,7 @@ class ProfileInfoForm(forms.ModelForm):
 class EditProfileForm(forms.ModelForm):
     class Meta:
         model = ProfileInfo
-        exclude = ['user']
+        exclude = ['user', 'kudos']
 
 
 class NewPostForm(forms.ModelForm):
@@ -51,7 +51,10 @@ class NewPostForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['body'].label = "Post body:"
         self.fields['type_tag'].label = "Post type:"
-        self.fields['body'].help_text = "Keep it clean, concise, and positive. That's Coder Kai!"
+        self.fields['body'].help_text = """
+        Keep it clean, concise, and positive.
+        Include a code snippet in your answer with tags [coderkai!] and [/coderkai!].
+        """
         self.fields['tags'].help_text = "Pin your post with the relevant tags to promote engagement!"
 
 
@@ -63,7 +66,10 @@ class NewResponseForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['body'].label = "Enter your answer below:"
-        self.fields['body'].help_text = "Your answer should be clear, concise, and positive. That's Coder Kai!"
+        self.fields['body'].help_text = """
+        Include a code snippet in your answer with tags [coderkai!] and [/coderkai!].
+        Your answer should be clear, concise, and positive. \n
+        """
 
 
 class NewReplyForm(forms.ModelForm):

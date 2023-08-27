@@ -131,10 +131,6 @@ hr {
     font-size: 1.3rem;
 }
 
-#rank {
-    color: crimson;
-}
-
 .tag-list {
     display: block;
     margin-bottom: 1rem;
@@ -340,6 +336,22 @@ hr {
 
 .pls-go-away {
     display: none;
+}
+
+.Cadet {
+    color: whitesmoke;
+}
+
+.Sensei {
+    color: crimson;
+}
+
+.Kernel {
+    color: lime;
+}
+
+.Lancer {
+    color: fuchsia;
 }
 
 @media (max-width: 575px) {

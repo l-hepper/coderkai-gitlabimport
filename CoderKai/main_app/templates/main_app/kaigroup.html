@@ -16,9 +16,9 @@
   <div class="container text-center text-white">
     <div class="row">
       <div class="col-lg-12 group-card">
-            <img class="group-picture" width="220" height="200" src={{ group.group_image.url }}>
+            <img class="group-picture" style="height: 230px; width: 30%; align-self: center; border: darkcyan solid 1px" src={{ group.group_image.url }}>
         <div class="col-lg-12">
-          <h2 class="group-name">{{ group.name }}</h1>
+          <h2 class="group-name" style="color: goldenrod;">{{ group.name }}</h1>
             <div class="tag-list">
                 {% for motivation in group.motivations.all %}
                 <span class="tag">{{ motivation }}</span>
@@ -52,6 +52,7 @@
                     </button>
                 </form>
             {% else %}
+            <p style="color: #7797BF">You are a member of this group.</p>
             <form method="post" action="{% url 'leave_group' group.name %}" class="leave-group-form-post">
                 {% csrf_token %}
                 <input type="hidden" name="group.name" value="{{ group.name }}">
@@ -105,7 +106,7 @@
                         Group Kudos:
                     </div>
                     <div class="col">
-                        {{ group.members.all|length }}
+                        {{ group_kudos }}
                     </div>
                 </div>
             </div>
@@ -124,7 +125,7 @@
                           <div class="card-body">
                             <a class="member-username" href={% url "profile" member.username %}><p class="card-text member-username">{{ member.username }}</p></a>
                           </div>
-                          <p class="member-kudos-score">Kudos: {{ member.coderkaipoints.points }}</p>
+                          <p class="member-kudos-score">Kudos: {{ member.profileinfo.kudos }}</p>
                         </div>
                       </div>
                     {% endfor %}

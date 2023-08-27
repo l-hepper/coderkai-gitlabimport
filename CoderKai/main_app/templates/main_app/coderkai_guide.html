@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page-title%}
+  Coder Kai - Guide
+{% endblock %}
+
+{% block css-stylesheet %}
+    <link rel="stylesheet" href={% static "./main_app/coderkai_guide.css" %}>
+{% endblock %}
+
+
+{% block mainbody %}
+
+<!--Coder Kai guide -->
+<div class="px-4 py-5 my-5 text-center welcome-message">
+    <h1 class="display-5 fw-bold text-white">Coder Kai Guide</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4 text-white">Code Cadet, there are 5 simple steps to begin your path to mastery.</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      </div>
+    </div>
+  </div>
+
+
+<!--First featurette row-->
+<div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading fw-normal lh-1">Step 1: Sign up to get started!</h2>
+      <p class="lead">Create an account by signing up and selecting your <span class="tag">interests</span> and <span class="tag">motivations</span>!
+        <br>
+        <br>
+        Everyone begins as a Code Cadet with a single Kudos, but you can earn more and climb the ranks by partipating in and contributing to the community.
+      </p>
+    </div>
+    <div class="col-md-5">
+      <img class="screenshot" style="width: 400px; height: 350px; border: goldenrod 2px solid; border-radius: 4px;" src={%static "./main_app/images/step1-screenshot.png" %}>
+    </div>
+</div>  
+<hr />
+
+<div class="row featurette">
+    <div class="col-md-7 order-md-2 featurette-text-reverse">
+      <h2 class="featurette-heading fw-normal lh-1">Step 2: Say 'Hi!' on Coder Kai!</h2>
+      <p class="lead">Time to introduce yourself to the community!
+        <br>
+        <br>
+        Go to the 'All Posts' link at the top and select 'New' to create your introduction post and tell us about yourself!
+      </p>
+    </div>
+    <div class="col-md-5 order-md-1">
+        <img class="screenshot" style="width: 400px; height: 350px; border: goldenrod 2px solid; border-radius: 4px;" src={%static "./main_app/images/step2-screenshot.png" %}>
+
+    </div>
+</div>
+<hr />
+
+<div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading fw-normal lh-1">Step 3: Check out the recommendation dashboard!</h2>
+      <p class="lead">Click the 'Dashboard' link at the top to see your recommended groups and ongoing discussions.
+        <br>
+        <br>
+        These are based on your <span class="tag">interests</span> and <span class="tag">motivations</span> which you can update at any time from your profile 'Options' menu.
+      </p>
+    </div>
+    <div class="col-md-5">
+        <img class="screenshot" style="width: 400px; height: 350px; border: goldenrod 2px solid; border-radius: 4px;" src={%static "./main_app/images/step3-screenshot.png" %}>
+
+    </div>
+</div>  
+<hr />
+
+<div class="row featurette">
+    <div class="col-md-7 order-md-2 featurette-text-reverse">
+      <h2 class="featurette-heading fw-normal lh-1">Step 4: Start earning Kudos!</h2>
+      <p class="lead">Earn Kudos by posting questions and answers. Give Kudos to others by hitting the 'up' arrow on their posts and answers too!
+      <br>
+      <br>
+      Everyone begins as a Code Cadet, but climb the ranks through <span style="color: cyan; font-weight: bold;">Bit Brigadier</span>, <span style="color: lime; font-weight: bold;">Kernel Knight</span> and
+      <span style="color: fuchsia; font-weight: bold;">Logic Lancer</span> to the ultimate title: <span style="color: crimson; font-weight: bold;">Cyber Sensei</span>
+    </p>
+    </div>
+    <div class="col-md-5 order-md-1">
+        <img class="screenshot" style="width: 400px; height: 350px; border: goldenrod 2px solid; border-radius: 4px;" src={%static "./main_app/images/step4-screenshot.png" %}>
+    </div>
+</div>
+<hr />
+
+<div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading fw-normal lh-1">Step 5: Join a group, or create one! </h2>
+      <p class="lead">Join a group that matches your learning goals or start a new one all your own.
+      <br>
+      <br>
+      Groups have a collective Kudos and a hall of fame for their most kudosed members.
+    </p>
+    </div>
+    <div class="col-md-5">
+        <img class="screenshot" style="width: 400px; height: 350px; border: goldenrod 2px solid; border-radius: 4px;" src={%static "./main_app/images/step5-screenshot.png" %}>
+    </div>
+</div>  
+
+  
+{% endblock %}

@@ -3,7 +3,7 @@
     background-color: #0D304A;
     width: 60%;
     margin-left: 20%;
-    margin-top: 10%;
+    margin-top: 10% !important;
 }
 
 .navbar {
@@ -119,6 +119,21 @@ h2 {
     font-size: 0.8rem;
 }
 
+.card-welcome {
+    min-height: 100%;
+    text-align: left-align;
+}
+
+.card-welcome .card-text {
+    margin-left: 1rem;
+    margin-top: 1rem;
+}
+
+.card-welcome .card-title {
+    font-size: 1.4rem;
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+}
 
 @media (max-width: 575px) {
 
@@ -136,6 +151,11 @@ h2 {
     .card {
         border-radius: 6px !important;
         border-bottom: none !important;
+    }
+
+    .card-welcome {
+        text-align: center;
+
     }
 
     .group-list {

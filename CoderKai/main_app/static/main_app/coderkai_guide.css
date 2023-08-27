@@ -1,0 +1,39 @@
+h2 {
+    color: goldenrod;
+}
+
+p {
+    color: whitesmoke;
+}
+
+.featurette {
+    margin-left: 10%;
+    margin-top: 5rem;
+}
+
+.featurette-heading {
+    margin-top: 3rem;
+}
+
+.featurette-text-reverse {
+    margin-left: -8rem;
+}
+
+.screenshot {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    transform: perspective(1000px) rotateX(10deg) rotateY(10deg);
+}
+
+.screenshot:hover {
+    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.4);
+    transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+}
+
+.tag {
+    color: whitesmoke;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    border-radius: 12px;
+    background-color: crimson;
+}

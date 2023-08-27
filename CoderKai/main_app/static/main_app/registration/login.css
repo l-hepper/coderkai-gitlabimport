@@ -70,16 +70,17 @@ label {
     border: none;
     font-size: 0.9rem;
     background-color: #0D304A;
-    color: #7797BF;
     text-decoration: none;
-}
-
-#reset-password > a:hover {
-    text-decoration: underline;
 }
 
 #signup-prompt {
     color: #7797BF;
+}
+
+#signup-prompt > a {
+    border: none;
+    background-color: #0D304A;
+    text-decoration: none;
 }
 
 @media (max-width: 575px) {

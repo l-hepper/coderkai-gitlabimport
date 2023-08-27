@@ -5,10 +5,11 @@ from . import views
 
 urlpatterns = [
 
-    #homepage and dashboard
+    # homepage and dashboard
     path("", views.HomepageView.as_view(), name="welcome_page"),
+    path("coderkai-guide", views.CoderKaiGuideView.as_view(), name="coderkai_guide"),
 
-    #account management
+    # account management
     path("signup", views.SignUpView.as_view(), name="signup"),
     path("logout", views.logout_view, name="logout"),
     
@@ -34,9 +35,6 @@ urlpatterns = [
     path('group/<str:groupname>', views.KaiGroupView.as_view(), name="kaigroup"),
     path('join-group/<str:groupname>', views.JoinGroupView.as_view(), name="join_group"),
     path('leave-group/<str:groupname>', views.LeaveGroupView.as_view(), name="leave_group"),
-
-    #error handling
-    # path("<str:exception>", views.custom_404, name="404Error"),
 ]
 
 handler404 = 'main_app.views.custom_404'

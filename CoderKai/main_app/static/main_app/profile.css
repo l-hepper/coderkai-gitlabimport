@@ -191,6 +191,22 @@ h4 {
     display: none;
 }
 
+.Cadet {
+    color: whitesmoke;
+}
+
+.Sensei {
+    color: crimson;
+}
+
+.Kernel {
+    color: lime;
+}
+
+.Lancer {
+    color: fuchsia;
+}
+
 @media (max-width: 575px) {
 
     .container {

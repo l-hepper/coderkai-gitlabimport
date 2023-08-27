@@ -23,7 +23,7 @@
         {% for group in group_list %}
           <div class="col-md-4">
             <div class="card mb-4" style="padding-top: 1rem;background-color: #0D304A">
-              <img class="card-img" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 150px; width: 50%; align-self: center;" src={{ group.group_image.url }} data-holder-rendered="true">
+              <img class="card-img" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 180px; width: 65%; align-self: center; border: darkcyan solid 1px" src={{ group.group_image.url }} data-holder-rendered="true">
               <div class="card-body">
                 <a class="group-name-link" href={% url "kaigroup" group.name %}><p class="card-text group-name">{{ group.name }}</p></a>
                 <div class="tag-list">

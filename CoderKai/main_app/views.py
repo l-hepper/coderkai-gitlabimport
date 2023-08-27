@@ -13,22 +13,19 @@ from django.utils.text import slugify
 from django.http import JsonResponse
 from django.db.models import Sum, Count
 from django.core.paginator import Paginator
-
+from django.db.models import F
+from django.views.generic.base import TemplateView
 
 from django.views.generic.edit import UpdateView
 from django.utils.html import escape
 from main_app.forms import KaiGroupForm, NewPostForm, NewReplyForm, NewResponseForm, ProfileInfoForm, SignUpForm
-from main_app.models import CoderKaiPoints, KaiGroup, Post, PostKudos, ProfileInfo, Reply, Response, ResponseKudos, TypeTag
-
-
-# Create your views here.
+from main_app.models import KaiGroup, Post, PostKudos, ProfileInfo, Reply, Response, ResponseKudos, TypeTag
 
 # these are the factors which are taken into account when calculating recommendation scores for content to serve a user
 INTEREST_MATCH_SCORE = 10
-MOTIVATION_MATCH_SCORE = 10
-INTRODUCTION_POST_BONUS = 50
-KUDOS_MULTIPLIER = 1
-
+MOTIVATION_MATCH_SCORE = 5
+INTRODUCTION_POST_BONUS = 10
+RESPONSE_SCORE_FACTOR = 1
 
 class HomepageView(View):
     template_name = "./main_app/welcome_page.html"
@@ -52,82 +49,74 @@ class HomepageView(View):
 
     # this function is the algorithm that constructs the recommendation score for each post.
     def recommendation_score(self, user):
+
         # Filtering posts from the last week only
         one_week_ago = timezone.now() - timedelta(days=7)
         posts = Post.objects.filter(timestamp__gte=one_week_ago)
 
         user_profile = ProfileInfo.objects.get(user=user)
-        user_interests = set(
-            user_profile.interests.values_list('name', flat=True))
-        user_motivations = set(
-            user_profile.motivations.values_list('name', flat=True))
+        user_interests = set(user_profile.interests.values_list('name', flat=True))
+        user_motivations = set(user_profile.motivations.values_list('name', flat=True))
 
         post_scores = {}
 
         for post in posts:
+
+            if post.author == user:
+                continue
+
             score = 0
             post_tags = set(post.tags.values_list('name', flat=True))
 
-            # match tags with user interests and motivations
-            score += len(post_tags.intersection(user_interests)) * \
-                INTEREST_MATCH_SCORE
-            score += len(post_tags.intersection(user_motivations)
-                         ) * MOTIVATION_MATCH_SCORE
+            # recommendation score is increased if the post tags match the users interest and motivations
+            score += len(post_tags.intersection(user_interests)) * INTEREST_MATCH_SCORE
+            score += len(post_tags.intersection(user_motivations)) * MOTIVATION_MATCH_SCORE
 
-            # posts with a higher coderkaipoint score (kudos on the front-end) are given more recommendation
-            score += post.coderkaipoints
+            # posts with a higher kudos are given higher recommendation score
+            score += post.kudos
 
-            # introduction posts are recommended highly to support user engagement
+            # posts with lots of responses are given a boost to recommendation score
+            score += post.response.count() * RESPONSE_SCORE_FACTOR
+
+            # introduction posts are boosted to welcome and support new users with similar interests
             if post.type_tag and post.type_tag.name == 'introduction':
                 score += INTRODUCTION_POST_BONUS
-
-            # TODO - shared group membership should also promote recommendation score
-
-            # higher kudos on the post means a higher rec score
-            kudos_count = PostKudos.objects.filter(post=post).count()
-            score += kudos_count * KUDOS_MULTIPLIER
 
             post_scores[post.id] = score
 
         # Sorting the posts by their scores
-        recommended_posts = sorted(
-            post_scores.keys(), key=lambda x: post_scores[x])
+        recommended_posts = sorted(post_scores.keys(), key=lambda x: post_scores[x])
 
-        # Return top 5 posts
-        return Post.objects.filter(id__in=recommended_posts[-5:])
-
-
-def get_started(request):
-    return render(request, "./main_app/get_started.html", {
-        "page_title": "Get Started"
-    })
+        # Return top 10 posts
+        return Post.objects.filter(id__in=recommended_posts[-10:])
 
 
-# def posts(request):
-#     return render(request, "./main_app/posts.html", {
-#         "page_title": "All Posts",
-#         "posts": post_dictionary
-#     })
+
+class CoderKaiGuideView(TemplateView):
+    template_name = "./main_app/coderkai_guide.html"
+
 
 
 class PostsView(View):
     template_name = "./main_app/posts.html"
 
     def get(self, request):
-        #post_list = Post.objects.all().order_by('-timestamp')
+        
         post_list = Post.objects.all()
 
-        sort_option = request.GET.get('sort', 'most_recent')  # Defaults to 'most_recent'
+        # the default display options are 'filter=all' and 'sort=most_recent'
+        sort_option = request.GET.get('sort', 'most_recent')
         filter_option = request.GET.get('filter', 'all')
 
+        #sorting options
         if sort_option == 'most_recent':
             post_list = post_list.order_by('-timestamp')
         elif sort_option == 'most_active':
             post_list = post_list.annotate(reply_count=Count('response')).order_by('-reply_count')
         elif sort_option == 'most_kudosed':
             post_list = post_list.order_by('-coderkaipoints')
-        # Add more sorting options here as needed
 
+        #filtering options
         if filter_option == 'all':
             post_list = post_list.all()
         elif filter_option == 'unanswered_only':
@@ -139,6 +128,7 @@ class PostsView(View):
         elif filter_option == 'discussion_only':
             post_list = post_list.filter(type_tag__name="Discussion")
 
+        # pagination improves query efficiency and usability of the 'posts' page
         paginator = Paginator(post_list, 10)
         page = request.GET.get('page')
         posts = paginator.get_page(page)
@@ -195,9 +185,9 @@ class KudosPostView(View):
 
         # If checks pass, create a vote record and update post kudos.
         PostKudos.objects.create(user=request.user, post=post)
-        post.coderkaipoints += 1
+        post.kudos += 1
         post.save()
-        return JsonResponse({'post_id': post.id, 'coderkaipoints': post.coderkaipoints})
+        return JsonResponse({'post_id': post.id, 'kudos': post.kudos})
 
 
 class AllGroupsView(View):
@@ -233,9 +223,9 @@ class KudosResponseView(View):
 
         # If checks pass, create a vote record and update post kudos.
         ResponseKudos.objects.create(user=request.user, response=response)
-        response.coderkaipoints += 1
+        response.kudos += 1
         response.save()
-        return JsonResponse({'response_id': response.id, 'coderkaipoints': response.coderkaipoints})
+        return JsonResponse({'response_id': response.id, 'kudos': response.kudos})
 
 
 def about(request):
@@ -252,28 +242,42 @@ class ProfileView(LoginRequiredMixin, View):
         user = User.objects.get(username=kwargs['username'])
         num_of_questions = Post.objects.filter(author=user).count()
 
-        users_answers = Response.objects.filter(
-            author=user).order_by('-coderkaipoints')
+        users_answers = Response.objects.filter(author=user).order_by('-kudos')
         num_of_answers = users_answers.count()
         top3_answers = users_answers[:3]
 
-        post_kudos = Post.objects.filter(author=user).aggregate(
-            total=Sum('coderkaipoints'))['total'] or 0
-        response_kudos = Response.objects.filter(author=user).aggregate(
-            total=Sum('coderkaipoints'))['total'] or 0
+        post_kudos = Post.objects.filter(author=user).aggregate(total=Sum('kudos'))['total'] or 0
+        response_kudos = Response.objects.filter(author=user).aggregate(total=Sum('kudos'))['total'] or 0
 
-        total_kudos = post_kudos + response_kudos
+        user.profileinfo.kudos = post_kudos + response_kudos + 1
+        user.profileinfo.save()
 
-        if user.username == request.user.username:
-            CoderKaiPoints.objects.update(points=total_kudos)
+        self.set_rank(user.profileinfo.kudos, user)
 
         return render(request, self.template_name, {
             'profileinfo': user,
             'num_of_questions': num_of_questions,
             'num_of_answers': num_of_answers,
             'top3_answers': top3_answers,
-            'total_kudos': total_kudos
         })
+    
+    def set_rank(self, total_kudos, user):
+        if total_kudos > 499:
+            user.profileinfo.rank = "Cyber Sensei"
+        elif total_kudos > 399:
+            user.profileinfo.rank = "Digital Druid"
+        elif total_kudos > 299:
+            user.profileinfo.rank = "Logic Lancer"
+        elif total_kudos > 199:
+            user.profileinfo.rank = "Kernel Knight"
+        elif total_kudos > 99:
+            user.profileinfo.rank = "Bit Brigadier"
+        else:
+            user.profileinfo.rank = "Code Cadet"
+        
+        user.profileinfo.save()
+    
+
 
 
 class CompleteProfileView(LoginRequiredMixin, FormView):
@@ -316,8 +320,6 @@ class SignUpView(FormView):
     def form_valid(self, form):
         user = form.save()  # `form.save()` should return the user object
         login(self.request, user)  # Log the user in
-        # create an instance of points for the user, starting at 0
-        CoderKaiPoints.objects.create(user=self.request.user, points=0)
         return super().form_valid(form)
 
 
@@ -331,11 +333,12 @@ class NewPostView(LoginRequiredMixin, FormView):
         post = form.save(commit=False)
 
         post.author = self.request.user
-        post.coderkaipoints = 1
-        post.slug = slugify(post.title)
+        post.author.profileinfo.kudos += 1
+        post.kudos = 1
+        post.slug = slugify(post.title)[:49]
 
         preview_body = re.sub('\[coderkai!\].*?\[/coderkai!\]', '[CODEBLOCK]', post.body, flags=re.DOTALL)
-        post.preview = preview_body[0:500] + "..."
+        post.preview = preview_body[0:498] + "..."
 
         post.body = escape(post.body)
         post.body = post.body.replace('[coderkai!]', '<pre><code>')
@@ -405,12 +408,14 @@ def custom_404(request, exception):
     context = {
         'error_message': 'Coder Kai is unable to find this page!'
     }
-    print("CALLED custom 404")
+    print("CALLED custom 404") # for debugging
 
     if 'user' in request.path:
         context['error_message'] = 'User not found.'
     elif 'posts' in request.path:
         context['error_message'] = 'This post does not exist on Coder Kai'
+    elif 'group' in request.path:
+        context['error_message'] = 'This group does not exist on Coder Kai'
 
     return render(request, "./main_app/404.html", context)
 
@@ -424,19 +429,19 @@ def logout_view(request):
 class CreateKaiGroupView(LoginRequiredMixin, FormView):
     template_name = './main_app/create_kaigroup.html'
     form_class = KaiGroupForm
+    success_url = "all-groups"
 
     def form_valid(self, form):
-        groupform = form.save(commit=False)
+        self.groupform = form.save(commit=False)
+        self.groupform.slug = slugify(self.groupform.name)
+        self.groupform.creator = self.request.user
+        self.groupform.save()
 
-        groupform.slug = slugify(groupform.name)
-        groupform.creator = self.request.user
-        groupform.save()
-        groupform.members.add(groupform.creator)
+        form.save_m2m()
+
+        self.groupform.members.add(self.groupform.creator)
 
         return super().form_valid(form)
-    
-    def get_success_url(self):
-        return reverse('group', kwargs={'slug': self.name})
 
 
 class KaiGroupView(LoginRequiredMixin, View):
@@ -445,10 +450,19 @@ class KaiGroupView(LoginRequiredMixin, View):
 
     def get(self, request, **kwargs):
         group = KaiGroup.objects.get(name=kwargs['groupname'])
-        most_kudosed_members = group.members.order_by('coderkaipoints')
+
+        member_list = group.members.all()
+        group_kudos = 0
+
+        for member in member_list:
+            member_kudos = member.profileinfo.kudos
+            group_kudos += member_kudos
+
+        most_kudosed_members = group.members.annotate(kudos_value=F('profileinfo__kudos')).order_by('-kudos_value')[:6]
 
         return render(request, self.template_name, {
             'group': group,
+            'group_kudos': group_kudos,
             'most_kudosed_members': most_kudosed_members
         })
 
@@ -462,7 +476,7 @@ class JoinGroupView(LoginRequiredMixin, View):
         group.members.add(request.user)
 
         # If checks pass, create a vote record and update post kudos.
-        return HttpResponseRedirect(reverse_lazy("posts"))
+        return HttpResponseRedirect(reverse("kaigroup", kwargs={'groupname': kwargs['groupname']}))
 
 
 class LeaveGroupView(LoginRequiredMixin, View):
@@ -474,5 +488,5 @@ class LeaveGroupView(LoginRequiredMixin, View):
         group.members.remove(request.user)
 
         # If checks pass, create a vote record and update post kudos.
-        return HttpResponseRedirect(reverse_lazy("posts"))
+        return HttpResponseRedirect(reverse("kaigroup", kwargs={'groupname': kwargs['groupname']}))
 

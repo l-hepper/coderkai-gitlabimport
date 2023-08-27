@@ -24,7 +24,7 @@
                         <div class="row">
                             <div class="col profile-info">
                                 <a class="username-link" href={% url "profile" post.author %}>{{ post.author }}</a>
-                                <p><span id="rank">Code Master</span></p>
+                                <p><span id="rank" class="{{ post.author.profileinfo.rank }}">{{ post.author.profileinfo.rank }}</span></p>
                                 <div class="coderkaipoint-operation">
                                     {% if user.is_authenticated %}
                                         <div style="color: crimson" id="error-message-div"></div>
@@ -36,10 +36,10 @@
                                                     <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                                                 </svg>
                                             </button>
-                                            <p style="font-size:1.2rem;" id="kudos-count-{{ post.id }}">Kudos: {{ post.coderkaipoints }} </p>
+                                            <p style="font-size:1.2rem;" id="kudos-count-{{ post.id }}">Kudos: {{ post.kudos }} </p>
                                         </form>
                                     {% else %}
-                                        <p style="font-size:1.2rem;" id="kudos-count-{{ post.id }}">Kudos: {{ post.coderkaipoints }} </p>
+                                        <p style="font-size:1.2rem;" id="kudos-count-{{ post.id }}">Kudos: {{ post.kudos }} </p>
                                     {% endif %}
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                                 <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                             </svg>
-                            <p style="font-size:1.1rem; margin-right: 0.2rem;" class="mf-post-mobile-button" id="kudos-count-{{ post.id }}">Kudos: {{ post.coderkaipoints }} </p>
+                            <p style="font-size:1.1rem; margin-right: 0.2rem;" class="mf-post-mobile-button" id="kudos-count-{{ post.id }}">Kudos: {{ post.kudos }} </p>
                         </button>
                     </form>
 
@@ -124,7 +124,7 @@
                         <div class="row">
                             <div class="col profile-info">
                                 <a class="username-link" href={% url "profile" response.author %}>{{ response.author }}</a>
-                                <p><span id="rank"> Code Master</span></p>
+                                <p><span id="rank" class="{{ post.author.profileinfo.rank }}">{{ response.author.profileinfo.rank }}</span></p>
                                 <div class="coderkaipoint-operation">
                                     {% if user.is_authenticated %}
                                         <div style="color: crimson" id="error-message-div-{{ response.id }}"></div>
@@ -136,10 +136,10 @@
                                                     <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                                                 </svg>
                                             </button>
-                                            <p style="font-size:1.2rem;" id="kudos-count-{{ response.id }}">Kudos: {{ response.coderkaipoints }} </p>
+                                            <p style="font-size:1.2rem;" id="kudos-count-{{ response.id }}">Kudos: {{ response.kudos }} </p>
                                         </form>
                                     {% else %}
-                                        <p style="font-size:1.2rem;" id="kudos-count-{{ response.id }}">Kudos: {{ response.coderkaipoints }} </p>
+                                        <p style="font-size:1.2rem;" id="kudos-count-{{ response.id }}">Kudos: {{ response.kudos }} </p>
                                     {% endif %}
                                 </div>
                             </div>
@@ -164,7 +164,7 @@
                             <svg style="margin-right: 0.2rem; margin-bottom: -0.1rem;" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                                 <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                             </svg>
-                            <p style="margin-right: 0.2rem;" id="mobile-kudos-count-{{ response.id }}">Kudos: {{ response.coderkaipoints }} </p>
+                            <p style="margin-right: 0.2rem;" id="mobile-kudos-count-{{ response.id }}">Kudos: {{ response.kudos }} </p>
                         </button>
                     </form>
 
@@ -222,7 +222,7 @@
                 type: 'POST',
                 data: $(this).serialize(),
                 success: function(data) {
-                    $(`#kudos-count-${data.post_id}, #mobile-kudos-count-${data.post_id}`).text(`Kudos: ${data.coderkaipoints}`);
+                    $(`#kudos-count-${data.post_id}, #mobile-kudos-count-${data.post_id}`).text(`Kudos: ${data.kudos}`);
                 },
                 error: function(xhr) {
                     let errorData = JSON.parse(xhr.responseText); 
@@ -243,7 +243,7 @@
                 type: 'POST',
                 data: $(this).serialize(),
                 success: function(data) {
-                    $(`#kudos-count-${data.response_id}, #mobile-kudos-count-${data.response_id}`).text(`Kudos: ${data.coderkaipoints}`);
+                    $(`#kudos-count-${data.response_id}, #mobile-kudos-count-${data.response_id}`).text(`Kudos: ${data.kudos}`);
                 },
                 error: function(xhr) {
                     let errorData = JSON.parse(xhr.responseText);
