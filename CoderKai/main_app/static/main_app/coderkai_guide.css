@@ -41,6 +41,7 @@ p {
 @media (max-width: 575px) {
     
     .featurette {
+        text-align: center;
         margin-left: 0;
         margin-top: 0rem;
     }

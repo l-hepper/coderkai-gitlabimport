@@ -363,6 +363,10 @@ hr {
     color: cyan;
 }
 
+.Druid { 
+    color: orange;
+}
+
 @media (max-width: 575px) {
 
     .op-info-response {

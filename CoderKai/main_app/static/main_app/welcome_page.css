@@ -22,20 +22,17 @@
     margin-bottom: 8%;
 }
 
-.features {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    border: goldenrod solid 1px;
-    border-radius: 5px;
-    margin-left: 10%;
-    width: 80%;
-    padding: 1rem;
+
+/* newstuffhere */
+.features-row {
+    text-align: center;
 }
 
-.features h5 {
-    color: goldenrod;
+.features-row h3 {
+    color: goldenrod !important;
 }
+
+/* new stuff ends */
 
 .card {
     background-color:#0D304A;
