@@ -8,6 +8,11 @@
 {% block css-stylesheet %}
     <link rel="stylesheet" href={% static "main_app/post_content.css" %}>
     <link rel="stylesheet" href={% static "main_app/registration/signup.css" %}>
+    <!-- syntax highlighting for code snippets, CDN for highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    
+    
     <style>
 
         #login-form {
@@ -15,13 +20,31 @@
             margin-left: 10%;
         }
 
-        .row {
-            width: 80%;
-            margin-left: 10%;
-        }
-
         #id_body {
             height: 5rem;
+        }
+
+        .response {
+            width: 96%;
+            margin: 0;
+            margin-left: 2%;
+            border-top: goldenrod solid 1px;
+            padding-top: 1rem;
+            padding-bottom: 0.25rem;
+            margin-bottom: 1rem;
+        }
+    
+        .post-body-response {
+            width: 98%;
+            margin-left: 0.5%;
+            margin-bottom: 0;
+            padding-top: 0.5rem;
+            padding: 1rem;
+        }
+    
+        .response-text {
+            align-self: flex-start;
+            margin-bottom: 0rem;
         }
 
         @media (max-width: 575px) {
@@ -43,18 +66,16 @@
                 <img class="profile-picture rounded-circle" width="120" height="120" src={{ response.author.profileinfo.avatar.url }}>
                 <div class="row">
                     <div class="col profile-info-response">
-                        <p id="username">{{ response.author }}</p>
-                        <p><span id="rank"> Code Master</span></p>
+                        <a class="username-link" href={% url "profile" response.author %}>{{ response.author }}</a>
+                        <p><span id="rank" class="{{ response.author.profileinfo.rank }}">{{ response.author.profileinfo.rank }}</span></p>
                     </div>
                 </div>
             </div>
     </div>
     <div class="col-10 post-body-response">
-    <div class="response-text">
-        <p style="white-space: pre-line">
-        {{ response.body }}
+        <p style="white-space: pre-line" class="post-text">
+        {{ response.body|safe }}
         </p>
-    </div>
     <div class="response-author">Answered by&nbsp<span><a class="username" href="#">{{ response.author }}</a></span>&nbspon {{ response.timestamp }}</span></div>
     </div>
 
@@ -76,4 +97,6 @@
             </div>
         </form>
     </div>
+
+    <script>hljs.highlightAll();</script>
 {% endblock %}

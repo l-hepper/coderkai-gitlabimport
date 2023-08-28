@@ -10,10 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-import os
-import django_on_heroku
-import dj_database_url
 from pathlib import Path
+import os
 from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-%k_(-)r&e@8ysjv5ycpnpaj407qwumou-bp17*^lx!c$nc^e$4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['coderkai.pythonanywhere.com']
 
 
 # Application definition
@@ -141,14 +139,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 's/tatic/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static'
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR / 'static'
+# ]
 
-
-
+STATIC_ROOT = "/home/coderkai/CoderKai/CoderKai/static"
 
 
 # Default primary key field type
@@ -160,8 +157,8 @@ LOGIN_URL = reverse_lazy("login")
 LOGIN_REDIRECT_URL = "welcome_page"
 LOGOUT_REDIRECT_URL = "welcome_page"
 
-MEDIA_ROOT = BASE_DIR / "images"
-MEDIA_URL = "/user-avatars/"
+MEDIA_ROOT = "/home/coderkai/CoderKai/CoderKai/images"
+MEDIA_URL = "/images/"
 
 HANDLER404 = 'myapp.views.custom_404'
 
