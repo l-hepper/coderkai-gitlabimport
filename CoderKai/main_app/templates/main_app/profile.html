@@ -8,12 +8,14 @@
 {% block css-stylesheet %}
     <link rel="stylesheet" href={% static "main_app/profile.css" %}>
 
-    <!-- syntax highlighting for code snippets, CDN for highlight.js -->
+    <!-- syntax highlighting for code snippets, this is the CDN for highlight.js library located at https://highlightjs.org/-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
 {% endblock %}
 
 {% block mainbody %}
+
+  <!-- Profile Card -->  
   <div class="container text-center text-white">
     <div class="row">
       <div class="col-lg-5 profile-card">
@@ -42,6 +44,8 @@
           {% endif %}
         </div>
       </div>
+
+      <!-- Profile Information --> 
       <div class="col-lg-6 profile-info-box">
         <div class="row">
             <div class="col">
@@ -89,7 +93,7 @@
       </div>
     </div>
 
-
+    <!-- Profile Stats -->
     <div class="container profile-stats">
         <div class="row">
             <div class="col">
@@ -103,7 +107,7 @@
                         Date Joined:
                     </div>
                     <div class="col date">
-                        {{ user.date_joined }}
+                        {{ profileinfo.date_joined }}
                     </div>
                 </div>
                 <div class="row stat-row">
@@ -111,7 +115,7 @@
                         Last Login:
                     </div>
                     <div class="col date">
-                        {{ user.last_login }}
+                        {{ profileinfo.last_login }}
                     </div>
                 </div>
             </div>
@@ -136,6 +140,7 @@
         </div>
     </div>
 
+    <!-- Highest Scoring Posts -->
     <div class="container highest-scoring-posts">
         <div class="row">
             <div class="col">
@@ -168,6 +173,7 @@
         {% endif %}
     </div>
   
+<!-- Scripts for javascript (dropdown and syntax highlighting)-->
 <script>hljs.highlightAll();</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

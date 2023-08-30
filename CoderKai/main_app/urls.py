@@ -18,6 +18,9 @@ urlpatterns = [
     path("complete-profile", views.CompleteProfileView.as_view(), name="complete_profile"),
     path("edit-profile/<int:pk>", views.EditProfileView.as_view(), name="edit_profile"),
 
+    # ADD THIS
+    path("all-users", views.AllUsersView.as_view(), name="all_users"),
+
     # user content
     path("posts", views.PostsView.as_view(), name="posts"),
     path("posts/<slug:slug>", views.PostContent.as_view(), name="post_content"),

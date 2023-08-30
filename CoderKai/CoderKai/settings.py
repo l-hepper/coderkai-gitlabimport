@@ -11,12 +11,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import os
+import sys
 from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -25,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-%k_(-)r&e@8ysjv5ycpnpaj407qwumou-bp17*^lx!c$nc^e$4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['coderkai.pythonanywhere.com']
+ALLOWED_HOSTS = ['coderkai.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
@@ -80,29 +79,29 @@ WSGI_APPLICATION = 'CoderKai.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 # LOCAL DATABASE CONFIGURATION
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'coderkaipro',
-#         'USER': 'postgres',
-#         'PASSWORD': 'whatever123',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
-
-
-# HEROKU POSTGRES DATABASE CONFIGURATION
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd4v987uk7hpm8',
-        'USER': 'mnfldmbuejptse',
-        'PASSWORD': '787c0ab1bde14e779187c4dffd75745afdccf6021cff4525492c89928e015acb',
-        'HOST': 'ec2-18-202-8-133.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
+        'NAME': 'coderkaipro',
+        'USER': 'postgres',
+        'PASSWORD': 'whatever123',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
+
+
+# # HEROKU POSTGRES DATABASE CONFIGURATION
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'd4v987uk7hpm8',
+#         'USER': 'mnfldmbuejptse',
+#         'PASSWORD': '787c0ab1bde14e779187c4dffd75745afdccf6021cff4525492c89928e015acb',
+#         'HOST': 'ec2-18-202-8-133.eu-west-1.compute.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
@@ -139,13 +138,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 's/tatic/'
+STATIC_URL = '/static/'
 
-# STATICFILES_DIRS = [
-#     BASE_DIR / 'static'
-# ]
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
 
-STATIC_ROOT = "/home/coderkai/CoderKai/CoderKai/static"
+# STATIC_ROOT = "/home/coderkai/coderkai/CoderKai/static"
 
 
 # Default primary key field type
@@ -157,7 +156,7 @@ LOGIN_URL = reverse_lazy("login")
 LOGIN_REDIRECT_URL = "welcome_page"
 LOGOUT_REDIRECT_URL = "welcome_page"
 
-MEDIA_ROOT = "/home/coderkai/CoderKai/CoderKai/images"
+MEDIA_ROOT = BASE_DIR / 'images'
 MEDIA_URL = "/images/"
 
 HANDLER404 = 'myapp.views.custom_404'

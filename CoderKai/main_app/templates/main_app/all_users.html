@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page-title%}
+    Coder Kai - All Users
+{% endblock %}
+
+{% block css-stylesheet %}
+    <link rel="stylesheet" href={% static "main_app/kaigroup.css" %}>
+    <link rel="stylesheet" href={% static "main_app/profile.css" %}>
+
+{% endblock %}
+
+{% block mainbody %}
+<div class="row member-list">
+    {% for user in user_list.all %}
+      <div class="col-md-3">
+        <div class="member-card mb-4" style="padding-top: 1rem; text-align: center;">
+          <img class="card-img rounded-circle member-pic" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 140px; width: 50%; align-self: center;" src={{ user.profileinfo.avatar.url }} data-holder-rendered="true">
+          <div class="card-body">
+            <a class="member-username" href={% url "profile" user.username %}><p class="card-text member-username">{{ user.username }}</p></a>
+          </div>
+          <p><span id="rank" class="{{ user.profileinfo.rank }}">{{ user.profileinfo.rank }}</span></p>
+          <p class="member-kudos-score" style="font-weight: bold; color: whitesmoke;">Kudos: {{ user.profileinfo.kudos }}</p>
+        </div>
+      </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

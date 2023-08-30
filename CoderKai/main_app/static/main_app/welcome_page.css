@@ -33,6 +33,8 @@
     color: goldenrod !important;
 }
 
+
+
 /* new stuff ends */
 
 .card {
@@ -258,5 +260,33 @@ h2 {
         font-size: 2rem;
         font-weight: bold;
         color: goldenrod;
+    }
+
+    .feature-icon {
+        width: 95% !important;
+    }
+
+    .forum-screenshot {
+        display: none;
+    }
+
+    .features-row {
+        margin-top: -5rem;
+    }
+
+    h2 {
+        border: none !important;
+    }
+
+    .text-body-emphasis {
+        font-size: 1.3rem !important;
+    }
+
+    .mfo {
+        margin-top: 4rem;
+    }
+
+    .feature > p {
+        margin-bottom: 4rem;
     }
 }

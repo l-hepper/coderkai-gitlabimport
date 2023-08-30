@@ -22,7 +22,7 @@ from main_app.forms import KaiGroupForm, NewPostForm, NewReplyForm, NewResponseF
 from main_app.models import KaiGroup, Post, PostKudos, ProfileInfo, Reply, Response, ResponseKudos, TypeTag
 
 # these are the factors which are taken into account when calculating recommendation scores for content to serve a user
-INTEREST_MATCH_SCORE = 10
+INTEREST_MATCH_SCORE = 5000
 MOTIVATION_MATCH_SCORE = 5
 INTRODUCTION_POST_BONUS = 10
 RESPONSE_SCORE_FACTOR = 1
@@ -32,9 +32,9 @@ class HomepageView(View):
 
     def get(self, request):
         if request.user.is_authenticated:
-            recommended_posts = self.recommendation_score(request.user)[::-1]
+            recommended_posts = self.recommendation_score(request.user)
+            
             posts = {}
-
             for post in recommended_posts:
                 posts[post] = Response.objects.filter(post=post).count()
 
@@ -49,7 +49,6 @@ class HomepageView(View):
 
     # this function is the algorithm that constructs the recommendation score for each post.
     def recommendation_score(self, user):
-
         # Filtering posts from the last week only
         one_week_ago = timezone.now() - timedelta(days=7)
         posts = Post.objects.filter(timestamp__gte=one_week_ago)
@@ -84,11 +83,13 @@ class HomepageView(View):
 
             post_scores[post.id] = score
 
-        # Sorting the posts by their scores
-        recommended_posts = sorted(post_scores.keys(), key=lambda x: post_scores[x])
 
+        # Sorting the posts by their scores
+        recommended_posts_ids_sorted = sorted(post_scores, key=post_scores.get, reverse=True)
+        recommended_posts_sorted = [Post.objects.get(id=post_id) for post_id in recommended_posts_ids_sorted]
         # Return top 10 posts
-        return Post.objects.filter(id__in=recommended_posts[-10:])
+        recommended_posts_sorted = recommended_posts_sorted[:10]
+        return recommended_posts_sorted
 
     def recommend_groups(self, user):
         user_profile = ProfileInfo.objects.get(user=user)
@@ -100,7 +101,7 @@ class HomepageView(View):
         # Order by this score and retrieve the top 3
         groups = (KaiGroup.objects
                   .filter(Q(interests__in=user_interests) | Q(motivations__in=user_motivations))
-                  .annotate(match_score=Count('interests', distinct=True) + Count('motivations', distinct=True))
+                  .annotate(match_score=(Count('interests', distinct=True) * INTEREST_MATCH_SCORE) + Count('motivations', distinct=True))
                   .order_by('-match_score')[:3])
 
         return groups
@@ -429,9 +430,7 @@ def custom_404(request, exception):
     }
     print("CALLED custom 404") # for debugging
 
-    if 'user' in request.path:
-        context['error_message'] = 'User not found.'
-    elif 'posts' in request.path:
+    if 'posts' in request.path:
         context['error_message'] = 'This post does not exist on Coder Kai'
     elif 'group' in request.path:
         context['error_message'] = 'This group does not exist on Coder Kai'
@@ -535,4 +534,23 @@ class EditResponseView(UpdateView):
 
     def get_success_url(self):
         return reverse('post_content', kwargs={'slug': self.object.post.slug })
+    
+
+class AllUsersView(TemplateView):
+    template_name = "./main_app/all_users.html"
+
+    def get(self, request):
+        user_list = User.objects.exclude(username='neptune').order_by('-date_joined')
+
+        # paginator = Paginator(post_list, 10)
+        # page = request.GET.get('page')
+        # posts = paginator.get_page(page)
+
+        # post_info = {}
+        # for post in posts:
+        #     post_info[post] = Response.objects.filter(post=post).count()
+
+        return render(request, self.template_name, {
+            'user_list': user_list
+        })
 
